@@ -262,7 +262,7 @@
             // 
             // btnMensualidad
             // 
-            this.btnMensualidad.Location = new System.Drawing.Point(287, 248);
+            this.btnMensualidad.Location = new System.Drawing.Point(565, 253);
             this.btnMensualidad.Name = "btnMensualidad";
             this.btnMensualidad.Size = new System.Drawing.Size(133, 44);
             this.btnMensualidad.TabIndex = 10;
