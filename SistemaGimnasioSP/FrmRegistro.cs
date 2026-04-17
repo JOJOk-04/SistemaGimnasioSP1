@@ -22,14 +22,52 @@ namespace SistemaGimnasioSP
         // Este es tu botón de Guardar
         private void button1_Click(object sender, EventArgs e)
         {
-            // 1. Creamos el objeto de tu clase ConexionDB
-            ConexionDB baseDatos = new ConexionDB();
+            // ---------------------------------------------------------
+            // FASE 0: Validación de Campos Obligatorios
+            // ---------------------------------------------------------
 
-            // 2. Usamos tu método exacto para abrir la puerta a MySQL
+            // Creamos una lista para ir guardando qué campos faltan
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                MessageBox.Show("Por favor, ingrese el Nombre del cliente.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombre.Focus(); // Pone el cursor en el error
+                return; // Detiene la ejecución para que no guarde nada
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDireccion.Text))
+            {
+                MessageBox.Show("Por favor, ingrese la Dirección.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDireccion.Focus();
+                return;
+            }
+
+            if (cmbMunicipio.SelectedIndex == -1) // Verifica que se haya seleccionado algo del combo
+            {
+                MessageBox.Show("Por favor, seleccione un Municipio.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbMunicipio.DroppedDown = true; // Despliega el combo automáticamente
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un número de Teléfono.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtContactoEmergencia.Text))
+            {
+                MessageBox.Show("Por favor, ingrese el Contacto de Emergencia.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtContactoEmergencia.Focus();
+                return;
+            }
+
+            // ---------------------------------------------------------
+            // FASE 1: Proceso de Guardado (Solo si pasó las validaciones)
+            // ---------------------------------------------------------
+            ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
-            // Si la conexión devolvió "null" (ej. si olvidaste prender XAMPP/MySQL), 
-            // detenemos el guardado aquí mismo para que el programa no explote.
             if (conexion == null)
             {
                 return;
@@ -37,9 +75,7 @@ namespace SistemaGimnasioSP
 
             try
             {
-                // ---------------------------------------------------------
-                // FASE 1: Generar el ID Numérico Automático (Ej. 00001)
-                // ---------------------------------------------------------
+                // Generar el ID Numérico Automático
                 string nuevoId = "00001";
                 string queryId = "SELECT MAX(id_cliente) FROM Clientes";
                 MySqlCommand cmdId = new MySqlCommand(queryId, conexion);
@@ -48,26 +84,23 @@ namespace SistemaGimnasioSP
                 if (resultado != DBNull.Value && resultado != null)
                 {
                     int numero = int.Parse(resultado.ToString()) + 1;
-                    nuevoId = numero.ToString("D5"); // Formato de 5 dígitos
+                    nuevoId = numero.ToString("D5");
                 }
 
-                // ---------------------------------------------------------
-                // FASE 2: Insertar datos a MySQL
-                // ---------------------------------------------------------
+                // Insertar datos a MySQL
                 string queryInsert = @"INSERT INTO Clientes 
             (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia, estatus) 
             VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto, 'Inactivo')";
 
                 MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion);
 
-                // Asignamos las variables de tu diseño
                 cmdInsert.Parameters.AddWithValue("@id", nuevoId);
-                cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text);
+                cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim()); // Trim quita espacios vacíos al inicio/final
                 cmdInsert.Parameters.AddWithValue("@fecha", dtpFechaNacimiento.Value.ToString("yyyy-MM-dd"));
-                cmdInsert.Parameters.AddWithValue("@direccion", txtDireccion.Text);
+                cmdInsert.Parameters.AddWithValue("@direccion", txtDireccion.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@municipio", cmbMunicipio.Text);
-                cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text);
-                cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text);
+                cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
 
                 cmdInsert.ExecuteNonQuery();
 
@@ -87,7 +120,6 @@ namespace SistemaGimnasioSP
             }
             finally
             {
-                // 3. Usamos tu método exacto para cerrar la conexión limpiamente
                 baseDatos.CerrarConexion();
             }
         }
