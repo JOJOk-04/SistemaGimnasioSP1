@@ -13,6 +13,7 @@ namespace SistemaGimnasioSP
 {
     public partial class FrmConsultas : Form
     {
+
             public FrmConsultas()
             {
                 InitializeComponent();
@@ -42,8 +43,13 @@ namespace SistemaGimnasioSP
 
             try
             {
-                // 2. Usamos LIKE en lugar de "=" para que no sea tan estricto
-                string query = "SELECT nombre, fecha_nacimiento, municipio, estatus FROM Clientes WHERE id_cliente LIKE @busqueda OR nombre LIKE @busqueda LIMIT 1";
+                // 2. Usamos LEFT JOIN para traer los datos del cliente y su estatus en inscripciones
+                // Se asume que ambas tablas tienen una columna 'id_cliente' para relacionarse.
+                string query = @"SELECT c.nombre, c.fecha_nacimiento, c.municipio, i.estatus 
+                                 FROM Clientes c 
+                                 LEFT JOIN Inscripciones i ON c.id_cliente = i.id_cliente 
+                                 WHERE c.id_cliente LIKE @busqueda OR c.nombre LIKE @busqueda 
+                                 LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(query, conexion);
 
@@ -57,15 +63,15 @@ namespace SistemaGimnasioSP
                     lblNombreResultado.Text = "Nombre: " + lector["nombre"].ToString();
                     lblMunicipioResultado.Text = "Municipio: " + lector["municipio"].ToString();
 
-                    string estatus = lector["estatus"].ToString();
-                    lblEstatusResultado.Text = "Estatus: " + estatus;
+                    // Mostramos el estatus (manejando el caso por si viene nulo desde la base de datos)
+                    string estatusSocio = lector["estatus"] != DBNull.Value ? lector["estatus"].ToString() : "Sin registro";
+                    lblEstatusResultado.Text = "Estatus: " + estatusSocio;
 
                     DateTime fechaNac = Convert.ToDateTime(lector["fecha_nacimiento"]);
                     int edad = DateTime.Today.Year - fechaNac.Year;
                     if (fechaNac.Date > DateTime.Today.AddYears(-edad)) edad--;
 
                     lblEdadResultado.Text = "Edad: " + edad + " años";
-                    lblEstatusResultado.ForeColor = (estatus == "Activo") ? Color.Green : Color.Red;
                 }
                 else
                 {
@@ -81,6 +87,6 @@ namespace SistemaGimnasioSP
             {
                 baseDatos.CerrarConexion();
             }
-    }
+        }
     }
 }
