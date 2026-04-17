@@ -58,15 +58,11 @@ namespace SistemaGimnasioSP
                     lblNombreResultado.Text = "Nombre: " + lector["nombre"].ToString();
                     lblMunicipioResultado.Text = "Municipio: " + lector["municipio"].ToString();
 
-                    string estatus = lector["estatus"].ToString();
-                    lblEstatusResultado.Text = "Estatus: " + estatus;
-
                     DateTime fechaNac = Convert.ToDateTime(lector["fecha_nacimiento"]);
                     int edad = DateTime.Today.Year - fechaNac.Year;
                     if (fechaNac.Date > DateTime.Today.AddYears(-edad)) edad--;
 
                     lblEdadResultado.Text = "Edad: " + edad + " años";
-                    lblEstatusResultado.ForeColor = (estatus == "Activo") ? Color.Green : Color.Red;
                 }
                 else
                 {
