@@ -13,7 +13,6 @@ namespace SistemaGimnasioSP
 {
     public partial class FrmConsultas : Form
     {
-
             public FrmConsultas()
             {
                 InitializeComponent();
