@@ -19,8 +19,22 @@ namespace SistemaGimnasioSP
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
+            // 1. Creamos el objeto de tu clase ConexionDB
+            ConexionDB baseDatos = new ConexionDB();
+
+            // 2. Usamos tu método exacto para abrir la puerta a MySQL
+            MySqlConnection conexion = baseDatos.AbrirConexion();
+
+            // Si la conexión devolvió "null" (ej. si olvidaste prender XAMPP/MySQL), 
+            // detenemos el guardado aquí mismo para que el programa no explote.
+            if (conexion == null)
+            {
+                MessageBox.Show("Por favor, ingrese al menos el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
@@ -41,14 +55,14 @@ namespace SistemaGimnasioSP
                 }
 
                 // ---------------------------------------------------------
-                // FASE 2: Insertar datos en tabla Clientes (Sin estatus)
+                // FASE 2: Insertar datos a MySQL
                 // ---------------------------------------------------------
                 string queryInsert = @"INSERT INTO Clientes 
-            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia) 
-            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)";
+            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia, estatus) 
+            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto, 'Inactivo')";
 
-                // CORRECCIÓN: Creamos correctamente el comando cmdInsert
-                MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion, transaccion);
+                MySqlCommand cmdInscripcion = new MySqlCommand(queryInscripcion, conexion, transaccion);
+                cmdInscripcion.Parameters.AddWithValue("@id", nuevoId);
 
                 cmdInsert.Parameters.AddWithValue("@id", nuevoId);
                 cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim()); // Trim quita espacios vacíos al inicio/final
@@ -57,22 +71,6 @@ namespace SistemaGimnasioSP
                 cmdInsert.Parameters.AddWithValue("@municipio", cmbMunicipio.Text);
                 cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
-
-                // CORRECCIÓN: Ejecutamos el insert de Clientes
-                cmdInsert.ExecuteNonQuery();
-
-                // ---------------------------------------------------------
-                // FASE 3: Insertar estatus inicial en tabla Inscripciones
-                // ---------------------------------------------------------
-                // CORRECCIÓN: Creamos correctamente las variables para Inscripciones
-                string queryInscripcion = @"INSERT INTO Inscripciones (id_cliente, estatus, fecha_inicio) 
-                                            VALUES (@id, 'Inactivo', NOW())";
-
-                MySqlCommand cmdInscripcion = new MySqlCommand(queryInscripcion, conexion, transaccion);
-                cmdInscripcion.Parameters.AddWithValue("@id", nuevoId);
-
-                // CORRECCIÓN: Ejecutamos el insert de Inscripciones
-                cmdInscripcion.ExecuteNonQuery();
 
                 // Si llegamos aquí sin errores, guardamos los cambios permanentemente
                 transaccion.Commit();
@@ -89,7 +87,7 @@ namespace SistemaGimnasioSP
             }
             catch (Exception ex)
             {
-                // Si algo falla, deshacemos todo
+                // Si algo falla (ej. falta una columna), deshacemos todo
                 transaccion.Rollback();
                 MessageBox.Show("Error crítico al guardar: " + ex.Message, "Falla del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -100,12 +98,12 @@ namespace SistemaGimnasioSP
         }
 
         // Métodos requeridos por el diseñador (no borrar)
-        private void Label1_Click(object sender, EventArgs e) { }
-        private void Label2_Click(object sender, EventArgs e) { }
-        private void Label5_Click(object sender, EventArgs e) { }
-        private void Label6_Click(object sender, EventArgs e) { }
-        private void Label7_Click(object sender, EventArgs e) { }
-        private void TextBox2_TextChanged(object sender, EventArgs e) { }
-        private void FrmRegistro_Load(object sender, EventArgs e) { }
+        private void label1_Click(object sender, EventArgs e) { }
+        private void label2_Click(object sender, EventArgs e) { }
+        private void label5_Click(object sender, EventArgs e) { }
+        private void label6_Click(object sender, EventArgs e) { }
+        private void label7_Click(object sender, EventArgs e) { }
+        private void textBox2_TextChanged(object sender, EventArgs e) { }
+        private void FmrRegistro_Load(object sender, EventArgs e) { }
     }
 }
