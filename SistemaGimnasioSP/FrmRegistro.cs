@@ -19,59 +19,12 @@ namespace SistemaGimnasioSP
             InitializeComponent();
         }
 
-        // Este es tu botón de Guardar
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            // ---------------------------------------------------------
-            // FASE 0: Validación de Campos Obligatorios
-            // ---------------------------------------------------------
-
-            // Creamos una lista para ir guardando qué campos faltan
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
-            {
-                MessageBox.Show("Por favor, ingrese el Nombre del cliente.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombre.Focus(); // Pone el cursor en el error
-                return; // Detiene la ejecución para que no guarde nada
-            }
-
-            if (string.IsNullOrWhiteSpace(txtDireccion.Text))
-            {
-                MessageBox.Show("Por favor, ingrese la Dirección.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDireccion.Focus();
-                return;
-            }
-
-            if (cmbMunicipio.SelectedIndex == -1) // Verifica que se haya seleccionado algo del combo
-            {
-                MessageBox.Show("Por favor, seleccione un Municipio.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbMunicipio.DroppedDown = true; // Despliega el combo automáticamente
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
-            {
-                MessageBox.Show("Por favor, ingrese un número de Teléfono.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTelefono.Focus();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtContactoEmergencia.Text))
-            {
-                MessageBox.Show("Por favor, ingrese el Contacto de Emergencia.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtContactoEmergencia.Focus();
-                return;
-            }
-
-            // ---------------------------------------------------------
-            // FASE 1: Proceso de Guardado (Solo si pasó las validaciones)
-            // ---------------------------------------------------------
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
-            if (conexion == null)
-            {
-                return;
-            }
+            if (conexion == null) return;
 
             try
             {
@@ -87,12 +40,15 @@ namespace SistemaGimnasioSP
                     nuevoId = numero.ToString("D5");
                 }
 
-                // Insertar datos a MySQL
+                // ---------------------------------------------------------
+                // FASE 2: Insertar datos en tabla Clientes (Sin estatus)
+                // ---------------------------------------------------------
                 string queryInsert = @"INSERT INTO Clientes 
-            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia, estatus) 
-            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto, 'Inactivo')";
+            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia) 
+            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)";
 
-                MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion);
+                // CORRECCIÓN: Creamos correctamente el comando cmdInsert
+                MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion, transaccion);
 
                 cmdInsert.Parameters.AddWithValue("@id", nuevoId);
                 cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim()); // Trim quita espacios vacíos al inicio/final
@@ -102,7 +58,24 @@ namespace SistemaGimnasioSP
                 cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
 
+                // CORRECCIÓN: Ejecutamos el insert de Clientes
                 cmdInsert.ExecuteNonQuery();
+
+                // ---------------------------------------------------------
+                // FASE 3: Insertar estatus inicial en tabla Inscripciones
+                // ---------------------------------------------------------
+                // CORRECCIÓN: Creamos correctamente las variables para Inscripciones
+                string queryInscripcion = @"INSERT INTO Inscripciones (id_cliente, estatus, fecha_inicio) 
+                                            VALUES (@id, 'Inactivo', NOW())";
+
+                MySqlCommand cmdInscripcion = new MySqlCommand(queryInscripcion, conexion, transaccion);
+                cmdInscripcion.Parameters.AddWithValue("@id", nuevoId);
+
+                // CORRECCIÓN: Ejecutamos el insert de Inscripciones
+                cmdInscripcion.ExecuteNonQuery();
+
+                // Si llegamos aquí sin errores, guardamos los cambios permanentemente
+                transaccion.Commit();
 
                 MessageBox.Show($"¡Registro exitoso!\n\nNúmero de Cliente / Gafete: {nuevoId}",
                                 "Sistema de Gimnasio", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -116,12 +89,23 @@ namespace SistemaGimnasioSP
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar: " + ex.Message, "Falla del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Si algo falla, deshacemos todo
+                transaccion.Rollback();
+                MessageBox.Show("Error crítico al guardar: " + ex.Message, "Falla del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 baseDatos.CerrarConexion();
             }
         }
+
+        // Métodos requeridos por el diseñador (no borrar)
+        private void Label1_Click(object sender, EventArgs e) { }
+        private void Label2_Click(object sender, EventArgs e) { }
+        private void Label5_Click(object sender, EventArgs e) { }
+        private void Label6_Click(object sender, EventArgs e) { }
+        private void Label7_Click(object sender, EventArgs e) { }
+        private void TextBox2_TextChanged(object sender, EventArgs e) { }
+        private void FrmRegistro_Load(object sender, EventArgs e) { }
     }
 }

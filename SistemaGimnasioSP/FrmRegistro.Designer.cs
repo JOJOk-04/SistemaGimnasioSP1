@@ -57,7 +57,11 @@
             this.label1.Size = new System.Drawing.Size(268, 39);
             this.label1.TabIndex = 0;
             this.label1.Text = "Registro de Clientes";
+<<<<<<< HEAD
 
+=======
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
+>>>>>>> TG
             // 
             // label2
             // 
@@ -69,6 +73,10 @@
             this.label2.Size = new System.Drawing.Size(185, 29);
             this.label2.TabIndex = 1;
             this.label2.Text = "Nombre Completo:";
+<<<<<<< HEAD
+=======
+            this.label2.Click += new System.EventHandler(this.Label2_Click);
+>>>>>>> TG
             // 
             // label3
             // 
@@ -102,7 +110,11 @@
             this.label5.Size = new System.Drawing.Size(106, 29);
             this.label5.TabIndex = 4;
             this.label5.Text = "Municipio:";
+<<<<<<< HEAD
   
+=======
+            this.label5.Click += new System.EventHandler(this.Label5_Click);
+>>>>>>> TG
             // 
             // label6
             // 
@@ -114,6 +126,10 @@
             this.label6.Size = new System.Drawing.Size(96, 29);
             this.label6.TabIndex = 5;
             this.label6.Text = "Telefono:";
+<<<<<<< HEAD
+=======
+            this.label6.Click += new System.EventHandler(this.Label6_Click);
+>>>>>>> TG
             // 
             // txtNombre
             // 
@@ -155,6 +171,10 @@
             this.txtContactoEmergencia.Name = "txtContactoEmergencia";
             this.txtContactoEmergencia.Size = new System.Drawing.Size(458, 36);
             this.txtContactoEmergencia.TabIndex = 13;
+<<<<<<< HEAD
+=======
+            this.txtContactoEmergencia.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
+>>>>>>> TG
             // 
             // label7
             // 
@@ -166,6 +186,10 @@
             this.label7.Size = new System.Drawing.Size(244, 29);
             this.label7.TabIndex = 12;
             this.label7.Text = "Contacto de emergencia:";
+<<<<<<< HEAD
+=======
+            this.label7.Click += new System.EventHandler(this.Label7_Click);
+>>>>>>> TG
             // 
             // btnGuardar
             // 
@@ -182,7 +206,7 @@
             this.btnGuardar.TabIndex = 14;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.button1_Click);
+            this.btnGuardar.Click += new System.EventHandler(this.Button1_Click);
             // 
             // cmbMunicipio
             // 
@@ -292,7 +316,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmRegistro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+<<<<<<< HEAD
             this.Text = "FmrRegistro";
+=======
+            this.Text = "FrmRegistro";
+            this.Load += new System.EventHandler(this.FrmRegistro_Load);
+>>>>>>> TG
             this.ResumeLayout(false);
             this.PerformLayout();
 
