@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization; // Para manejo de fechas y culturas
-using MySql.Data.MySqlClient; // Asegúrate de tener el paquete MySql.Data instalado para esto
+using System.Globalization;
+using MySql.Data.MySqlClient;
 
 namespace SistemaGimnasioSP
 {
@@ -21,31 +21,40 @@ namespace SistemaGimnasioSP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // 1. Creamos el objeto de tu clase ConexionDB
-            ConexionDB baseDatos = new ConexionDB();
-
-            // 2. Usamos tu método exacto para abrir la puerta a MySQL
-            MySqlConnection conexion = baseDatos.AbrirConexion();
-
-            // Si la conexión devolvió "null" (ej. si olvidaste prender XAMPP/MySQL), 
-            // detenemos el guardado aquí mismo para que el programa no explote.
-            if (conexion == null)
+            // 1. Validar que al menos el nombre esté lleno antes de hacer nada
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 MessageBox.Show("Por favor, ingrese al menos el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // 2. Crear objeto y abrir la conexión
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
-            if (conexion == null) return;
+            // Si la conexión falla (ej. si olvidaste encender el servicio de MySQL en tu laptop)
+            if (conexion == null)
+            {
+                MessageBox.Show("Error al conectar con la base de datos. Verifica que el servicio MySQL esté encendido.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Declaramos la transacción fuera del try para poder acceder a ella en el catch
+            MySqlTransaction transaccion = null;
 
             try
             {
-                // Generar el ID Numérico Automático
+                // Iniciar la transacción de manera oficial
+                transaccion = conexion.BeginTransaction();
+
+                // ---------------------------------------------------------
+                // FASE 1: Generar el ID Numérico Automático
+                // ---------------------------------------------------------
                 string nuevoId = "00001";
                 string queryId = "SELECT MAX(id_cliente) FROM Clientes";
-                MySqlCommand cmdId = new MySqlCommand(queryId, conexion);
+
+                // Le pasamos la conexión y la transacción al comando
+                MySqlCommand cmdId = new MySqlCommand(queryId, conexion, transaccion);
                 object resultado = cmdId.ExecuteScalar();
 
                 if (resultado != DBNull.Value && resultado != null)
@@ -58,19 +67,21 @@ namespace SistemaGimnasioSP
                 // FASE 2: Insertar datos a MySQL
                 // ---------------------------------------------------------
                 string queryInsert = @"INSERT INTO Clientes 
-            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia, estatus) 
-            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto, 'Inactivo')";
+                    (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia) 
+                    VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)";
 
-                MySqlCommand cmdInscripcion = new MySqlCommand(queryInscripcion, conexion, transaccion);
-                cmdInscripcion.Parameters.AddWithValue("@id", nuevoId);
+                MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion, transaccion);
 
                 cmdInsert.Parameters.AddWithValue("@id", nuevoId);
-                cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim()); // Trim quita espacios vacíos al inicio/final
+                cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@fecha", dtpFechaNacimiento.Value.ToString("yyyy-MM-dd"));
                 cmdInsert.Parameters.AddWithValue("@direccion", txtDireccion.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@municipio", cmbMunicipio.Text);
                 cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
+
+                // EJECUTAR EL COMANDO (Esta línea faltaba en tu código original)
+                cmdInsert.ExecuteNonQuery();
 
                 // Si llegamos aquí sin errores, guardamos los cambios permanentemente
                 transaccion.Commit();
@@ -87,12 +98,16 @@ namespace SistemaGimnasioSP
             }
             catch (Exception ex)
             {
-                // Si algo falla (ej. falta una columna), deshacemos todo
-                transaccion.Rollback();
+                // Si algo falla, deshacemos todo para no dejar datos a medias
+                if (transaccion != null)
+                {
+                    transaccion.Rollback();
+                }
                 MessageBox.Show("Error crítico al guardar: " + ex.Message, "Falla del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
+                // Siempre asegurarnos de cerrar la conexión
                 baseDatos.CerrarConexion();
             }
         }
