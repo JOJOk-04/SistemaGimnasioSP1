@@ -20,31 +20,60 @@ namespace SistemaGimnasioSP
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            // 1. Validar que al menos el nombre esté lleno antes de hacer nada
+        {   //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //
+            // --- BLOQUE DE VALIDACIÓN PERSONALIZADA ---
+            // Solo el ID puede ignorarse (ya que se genera solo), los demás son obligatorios
+
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Por favor, ingrese al menos el nombre del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, ingrese el nombre del cliente.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombre.Focus();
                 return;
             }
 
-            // 2. Crear objeto y abrir la conexión
+            if (string.IsNullOrWhiteSpace(txtDireccion.Text))
+            {
+                MessageBox.Show("Por favor, ingrese la dirección.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDireccion.Focus();
+                return;
+            }
+
+            if (cmbMunicipio.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor, seleccione un municipio.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbMunicipio.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
+            {
+                MessageBox.Show("Por favor, ingrese el número de teléfono.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtContactoEmergencia.Text))
+            {
+                MessageBox.Show("Por favor, ingrese el contacto de emergencia.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtContactoEmergencia.Focus();
+                return;
+            }
+            // --- FIN DE VALIDACIÓN ---
+            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
-            // Si la conexión falla (ej. si olvidaste encender el servicio de MySQL en tu laptop)
             if (conexion == null)
             {
                 MessageBox.Show("Error al conectar con la base de datos. Verifica que el servicio MySQL esté encendido.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Declaramos la transacción fuera del try para poder acceder a ella en el catch
             MySqlTransaction transaccion = null;
 
             try
             {
-                // Iniciar la transacción de manera oficial
                 transaccion = conexion.BeginTransaction();
 
                 // ---------------------------------------------------------
@@ -53,7 +82,6 @@ namespace SistemaGimnasioSP
                 string nuevoId = "00001";
                 string queryId = "SELECT MAX(id_cliente) FROM Clientes";
 
-                // Le pasamos la conexión y la transacción al comando
                 MySqlCommand cmdId = new MySqlCommand(queryId, conexion, transaccion);
                 object resultado = cmdId.ExecuteScalar();
 
@@ -73,8 +101,8 @@ namespace SistemaGimnasioSP
                 //  cliente a el/la base de datos/registro
                 // ---------------------------------------------------------------------------------------------------------------
                 string queryInsert = @"INSERT INTO Clientes 
-                    (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia)
-                    VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)"; //'Inactivo' se eliminó de esta línea
+            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia)
+            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)";
 
                 MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion, transaccion);
 
@@ -86,36 +114,38 @@ namespace SistemaGimnasioSP
                 cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
 
-                // EJECUTAR EL COMANDO (Esta línea faltaba en tu código original)
+                // EJECUTAR EL COMANDO
                 cmdInsert.ExecuteNonQuery();
 
-                // Si llegamos aquí sin errores, guardamos los cambios permanentemente
+                // Guardar cambios permanentemente
                 transaccion.Commit();
 
                 MessageBox.Show($"¡Registro exitoso!\n\nNúmero de Cliente / Gafete: {nuevoId}",
                                 "Sistema de Gimnasio", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Limpiar la pantalla
-                txtNombre.Clear();
-                txtDireccion.Clear();
-                txtTelefono.Clear();
-                txtContactoEmergencia.Clear();
-                cmbMunicipio.SelectedIndex = -1;
+                LimpiarTodo();
             }
             catch (Exception ex)
             {
-                // Si algo falla, deshacemos todo para no dejar datos a medias
-                if (transaccion != null)
-                {
-                    transaccion.Rollback();
-                }
+                if (transaccion != null) transaccion.Rollback();
                 MessageBox.Show("Error crítico al guardar: " + ex.Message, "Falla del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                // Siempre asegurarnos de cerrar la conexión
                 baseDatos.CerrarConexion();
             }
+        }
+
+        // Método para dejar el formulario listo para el siguiente registro
+        private void LimpiarTodo()
+        {
+            txtNombre.Clear();
+            txtDireccion.Clear();
+            txtTelefono.Clear();
+            txtContactoEmergencia.Clear();
+            cmbMunicipio.SelectedIndex = -1;
+            dtpFechaNacimiento.Value = DateTime.Now;
         }
 
         // Métodos requeridos por el diseñador (no borrar)
