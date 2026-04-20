@@ -66,9 +66,15 @@ namespace SistemaGimnasioSP
                 // ---------------------------------------------------------
                 // FASE 2: Insertar datos a MySQL
                 // ---------------------------------------------------------
+                // -AVISO Omar editó esta parte para eliminar el error al guardar un nuevo usuario en el apartado de registro
+                //  hablando en especifico de el error "Error critico al guardar: Uknow column 'estatus' in field list
+                //  que se corrijio eliminando la parte del código que hacia referencia a ese campo (estatus, 'Inactivo') que no
+                //  existe en la tabla de clientes y tambien a algo que nisiquiera se necesitaba a el momento de insertar un nuevo
+                //  cliente a el/la base de datos/registro
+                // ---------------------------------------------------------------------------------------------------------------
                 string queryInsert = @"INSERT INTO Clientes 
-                    (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia) 
-                    VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)";
+                    (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia)
+                    VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)"; //'Inactivo' se eliminó de esta línea
 
                 MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion, transaccion);
 
