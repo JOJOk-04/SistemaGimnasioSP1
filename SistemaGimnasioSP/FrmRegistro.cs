@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using MySql.Data.MySqlClient;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Kernel.Geom;
+using System.Diagnostics;
 
 namespace SistemaGimnasioSP
 {
