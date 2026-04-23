@@ -281,5 +281,113 @@ namespace SistemaGimnasioSP
                 // ActualizarGranTotal(); 
             }
         }
+        private void btnCobrar_Click(object sender, EventArgs e)
+        {
+            // 1. EL SEMÁFORO: Validar que haya algo para cobrar
+            if (deportesSeleccionados.Count == 0 && carritoFamiliarPendiente.Count == 0)
+            {
+                MessageBox.Show("No hay actividades seleccionadas para cobrar.", "Aviso de Caja", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string idClientePrincipal = txtBusquedaId.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(idClientePrincipal))
+            {
+                MessageBox.Show("Falta seleccionar el ID del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
+
+            if (conexion != null)
+            {
+                MySqlTransaction transaccion = null;
+                try
+                {
+                    // 🛡️ ¡Iniciamos la burbuja de seguridad!
+                    transaccion = conexion.BeginTransaction();
+
+                    // =================================================================
+                    // ESCENARIO A: COBRO DE PAQUETE FAMILIAR (La Manada)
+                    // =================================================================
+                    if (carritoFamiliarPendiente.Count > 0)
+                    {
+                        foreach (var item in carritoFamiliarPendiente)
+                        {
+                            // A.1 Inscribir al deporte
+                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago) VALUES (@idC, @idD, CURDATE())";
+                            MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
+                            cmdInsc.Parameters.AddWithValue("@idC", item.IdCliente);
+                            cmdInsc.Parameters.AddWithValue("@idD", item.IdDeporte);
+                            cmdInsc.ExecuteNonQuery();
+
+                            // A.2 Crear o Actualizar el Lazo Familiar (Omitiendo al propio papá)
+                            string queryFamilia = "UPDATE clientes SET id_titular_familia = @idTitular WHERE id_cliente = @idHijo AND id_cliente != @idTitular";
+                            MySqlCommand cmdUpdate = new MySqlCommand(queryFamilia, conexion, transaccion);
+                            cmdUpdate.Parameters.AddWithValue("@idTitular", idClientePrincipal);
+                            cmdUpdate.Parameters.AddWithValue("@idHijo", item.IdCliente);
+                            cmdUpdate.ExecuteNonQuery();
+                        }
+                    }
+                    // =================================================================
+                    // ESCENARIO B: COBRO INDIVIDUAL CON SUS EXTRAS (Lobo Solitario)
+                    // =================================================================
+                    else if (deportesSeleccionados.Count > 0)
+                    {
+                        foreach (int idDeporte in deportesSeleccionados)
+                        {
+                            // B.1 Inscribir a sus deportes individuales
+                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago) VALUES (@idC, @idD, CURDATE())";
+                            MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
+                            cmdInsc.Parameters.AddWithValue("@idC", idClientePrincipal);
+                            cmdInsc.Parameters.AddWithValue("@idD", idDeporte);
+                            cmdInsc.ExecuteNonQuery();
+                        }
+                    }
+
+                    // 3. 🛡️ ¡CONFIRMAMOS LOS CAMBIOS EN MYSQL!
+                    transaccion.Commit();
+
+                    MessageBox.Show("¡Cobro realizado con éxito! Todos los datos fueron guardados correctamente.", "Venta Completada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // 4. Dejar la caja limpia para el siguiente cliente
+                    LimpiarPantallaCobros();
+                }
+                catch (Exception ex)
+                {
+                    // 🛡️ Si algo falla, cancelamos la transacción (Rollback)
+                    if (transaccion != null) transaccion.Rollback();
+                    MessageBox.Show("Error crítico al procesar el cobro. Ningún dato fue guardado. Detalles: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    bd.CerrarConexion();
+                }
+            }
+        }
+
+        // 🧹 Función para resetear tu pantalla
+        private void LimpiarPantallaCobros()
+        {
+            txtBusquedaId.Clear();
+            lblNombre.Text = "Nombre: ---";
+            lblEdad.Text = "Edad: ---";
+            lblMunicipio.Text = "Municipio: ---";
+            lblTotalPagar.Text = "Total a Pagar: $0.00";
+
+            // Vaciamos la memoria RAM
+            deportesSeleccionados.Clear();
+            carritoFamiliarPendiente.Clear();
+            subtotalDeportes = 0;
+
+            // Regresamos los colores de los botones a la normalidad (Ajusta los nombres si se llaman distinto)
+            btnAcondicionamiento.BackColor = Color.White;
+            btnFutbol.BackColor = Color.White;
+            btnTaekwondo.BackColor = Color.White;
+            // btnHeterofilia.BackColor = Color.White; // Descomenta esta si tu botón se llama así
+            btnRitmos.BackColor = Color.White;
+        }
     }
 }

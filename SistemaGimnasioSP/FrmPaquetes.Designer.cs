@@ -39,8 +39,10 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbMiembros = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.txtAgregar = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.gbDeportes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,7 +121,7 @@
             // lblMunicipio
             // 
             this.lblMunicipio.AutoSize = true;
-            this.lblMunicipio.Location = new System.Drawing.Point(747, 184);
+            this.lblMunicipio.Location = new System.Drawing.Point(776, 189);
             this.lblMunicipio.Name = "lblMunicipio";
             this.lblMunicipio.Size = new System.Drawing.Size(79, 20);
             this.lblMunicipio.TabIndex = 15;
@@ -128,7 +130,7 @@
             // lblEdad
             // 
             this.lblEdad.AutoSize = true;
-            this.lblEdad.Location = new System.Drawing.Point(747, 113);
+            this.lblEdad.Location = new System.Drawing.Point(776, 118);
             this.lblEdad.Name = "lblEdad";
             this.lblEdad.Size = new System.Drawing.Size(51, 20);
             this.lblEdad.TabIndex = 14;
@@ -137,7 +139,7 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(747, 46);
+            this.lblNombre.Location = new System.Drawing.Point(776, 51);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(69, 20);
             this.lblNombre.TabIndex = 13;
@@ -148,9 +150,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(32, 136);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 20);
+            this.label1.Size = new System.Drawing.Size(174, 20);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Seleccionar Integrante";
+            this.label1.Text = "Seleccionar Integrante:";
             // 
             // cmbMiembros
             // 
@@ -163,32 +165,52 @@
             this.cmbMiembros.TabIndex = 20;
             this.cmbMiembros.SelectedIndexChanged += new System.EventHandler(this.cmbMiembros_SelectedIndexChanged);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(123, 698);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 74);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // btnGuardar
             // 
             this.btnGuardar.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.btnGuardar.Location = new System.Drawing.Point(842, 679);
+            this.btnGuardar.Location = new System.Drawing.Point(502, 699);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(314, 112);
             this.btnGuardar.TabIndex = 22;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // txtAgregar
+            // 
+            this.txtAgregar.Location = new System.Drawing.Point(222, 203);
+            this.txtAgregar.Name = "txtAgregar";
+            this.txtAgregar.Size = new System.Drawing.Size(340, 26);
+            this.txtAgregar.TabIndex = 23;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(46, 206);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(148, 20);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Agregar Integrante:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(596, 195);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 42);
+            this.btnAgregar.TabIndex = 25;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
             // 
             // FrmPaquetes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1363, 842);
+            this.Controls.Add(this.btnAgregar);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtAgregar);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.cmbMiembros);
             this.Controls.Add(this.gbDeportes);
             this.Controls.Add(this.lblMunicipio);
@@ -215,7 +237,9 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbMiembros;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.TextBox txtAgregar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

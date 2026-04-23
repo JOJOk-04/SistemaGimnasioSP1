@@ -36,7 +36,7 @@
             this.lblMunicipio = new System.Windows.Forms.Label();
             this.lblTotalPagar = new System.Windows.Forms.Label();
             this.txtBusquedaId = new System.Windows.Forms.TextBox();
-            this.BtnRegistrarPago = new System.Windows.Forms.Button();
+            this.btnCobrar = new System.Windows.Forms.Button();
             this.gbDeportes = new System.Windows.Forms.GroupBox();
             this.btnRitmos = new System.Windows.Forms.Button();
             this.Heterofilia = new System.Windows.Forms.Button();
@@ -128,15 +128,16 @@
             this.txtBusquedaId.TabIndex = 6;
             this.txtBusquedaId.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusquedaId_KeyDown);
             // 
-            // BtnRegistrarPago
+            // btnCobrar
             // 
-            this.BtnRegistrarPago.Location = new System.Drawing.Point(759, 931);
-            this.BtnRegistrarPago.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.BtnRegistrarPago.Name = "BtnRegistrarPago";
-            this.BtnRegistrarPago.Size = new System.Drawing.Size(485, 96);
-            this.BtnRegistrarPago.TabIndex = 7;
-            this.BtnRegistrarPago.Text = "Registrar Pago";
-            this.BtnRegistrarPago.UseVisualStyleBackColor = true;
+            this.btnCobrar.Location = new System.Drawing.Point(690, 981);
+            this.btnCobrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCobrar.Name = "btnCobrar";
+            this.btnCobrar.Size = new System.Drawing.Size(485, 96);
+            this.btnCobrar.TabIndex = 7;
+            this.btnCobrar.Text = "Registrar Pago";
+            this.btnCobrar.UseVisualStyleBackColor = true;
+            this.btnCobrar.Click += new System.EventHandler(this.btnCobrar_Click);
             // 
             // gbDeportes
             // 
@@ -373,7 +374,7 @@
             this.Controls.Add(this.gbLigasDeportivas);
             this.Controls.Add(this.gbPaquetes);
             this.Controls.Add(this.gbDeportes);
-            this.Controls.Add(this.BtnRegistrarPago);
+            this.Controls.Add(this.btnCobrar);
             this.Controls.Add(this.txtBusquedaId);
             this.Controls.Add(this.lblTotalPagar);
             this.Controls.Add(this.lblMunicipio);
@@ -404,7 +405,7 @@
         private System.Windows.Forms.Label lblMunicipio;
         private System.Windows.Forms.Label lblTotalPagar;
         private System.Windows.Forms.TextBox txtBusquedaId;
-        private System.Windows.Forms.Button BtnRegistrarPago;
+        private System.Windows.Forms.Button btnCobrar;
         private System.Windows.Forms.GroupBox gbDeportes;
         private System.Windows.Forms.GroupBox gbPaquetes;
         private System.Windows.Forms.Button btnRitmos;

@@ -49,12 +49,14 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // Buscamos al titular y a quienes tengan a ese titular asignado
-                    string query = @"SELECT id_cliente, nombre, 
-                             CONCAT(id_cliente, ' - ', nombre) AS info_completa 
-                             FROM clientes 
-                             WHERE id_cliente = @id 
-                             OR id_titular_familia = @id";
+                    // EL SQL MAESTRO: Rastrea al titular original y trae a todos los que compartan su ID
+                    string query = @"
+                SELECT id_cliente, nombre, CONCAT(id_cliente, ' - ', nombre) AS info_completa 
+                FROM clientes 
+                WHERE id_titular_familia = (SELECT id_titular_familia FROM clientes WHERE id_cliente = @id)
+                   OR id_cliente = (SELECT id_titular_familia FROM clientes WHERE id_cliente = @id)
+                   OR id_titular_familia = @id
+                   OR id_cliente = @id";
 
                     MySqlCommand cmd = new MySqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@id", idTitularRecibido);
@@ -63,13 +65,12 @@ namespace SistemaGimnasioSP
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // VALIDACIÓN DE LÍMITE:
-                    // Si la base de datos tiene más personas de las que el paquete permite
+                    // VALIDACIÓN DE LÍMITE
                     if (dt.Rows.Count > limiteMaximo)
                     {
                         MessageBox.Show($"Este paquete solo permite {limiteMaximo} personas, " +
-                                        $"pero se encontraron {dt.Rows.Count} ligadas a este ID. " +
-                                        $"Solo podrás asignar a las primeras {limiteMaximo}.", "Aviso de Capacidad");
+                                        $"pero se encontraron {dt.Rows.Count} ligadas a este grupo. " +
+                                        $"Solo podrás asignar a las primeras {limiteMaximo}.", "Aviso de Capacidad", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                     cmbMiembros.DataSource = dt;
@@ -83,8 +84,67 @@ namespace SistemaGimnasioSP
                         memoriaSeleccion.Add(fila["id_cliente"].ToString(), new List<int>());
                     }
                 }
-                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+                catch (Exception ex) { MessageBox.Show("Error al cargar familia: " + ex.Message); }
                 finally { baseDatos.CerrarConexion(); }
+            }
+        }
+        private void btnAgregarFamiliar_Click(object sender, EventArgs e)
+        {
+            string idNuevo = txtAgregar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(idNuevo)) return;
+
+            // 1. Verificamos que no pasemos el límite del paquete
+            DataTable dtActual = (DataTable)cmbMiembros.DataSource;
+            if (dtActual.Rows.Count >= limiteMaximo)
+            {
+                MessageBox.Show($"¡El paquete ya está lleno! Límite: {limiteMaximo} personas.", "Límite Alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Buscamos al cliente en MySQL
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
+
+            if (conexion != null)
+            {
+                try
+                {
+                    string query = "SELECT id_cliente, nombre, CONCAT(id_cliente, ' - ', nombre) AS info_completa FROM clientes WHERE id_cliente = @id";
+                    MySqlCommand cmd = new MySqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@id", idNuevo);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        // Verificamos si ya está en la lista para no duplicarlo
+                        if (memoriaSeleccion.ContainsKey(idNuevo))
+                        {
+                            MessageBox.Show("Esta persona ya está en el paquete.", "Aviso");
+                        }
+                        else
+                        {
+                            // ¡Lo encontramos! Lo agregamos a la tabla visual (ComboBox)
+                            DataRow nuevaFila = dtActual.NewRow();
+                            nuevaFila["id_cliente"] = reader["id_cliente"].ToString();
+                            nuevaFila["nombre"] = reader["nombre"].ToString();
+                            nuevaFila["info_completa"] = reader["info_completa"].ToString();
+                            dtActual.Rows.Add(nuevaFila);
+
+                            // Lo agregamos a la Memoria RAM de deportes
+                            memoriaSeleccion.Add(idNuevo, new List<int>());
+
+                            MessageBox.Show($"{reader["nombre"]} agregado al paquete.", "Éxito");
+                            txtAgregar.Clear();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró ningún cliente con ese ID.", "Error de Búsqueda");
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+                finally { bd.CerrarConexion(); }
             }
         }
         private void ActualizarColoresBotones()
@@ -183,6 +243,11 @@ namespace SistemaGimnasioSP
             public string IdCliente { get; set; }
             public int IdDeporte { get; set; }
             public decimal Monto { get; set; }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

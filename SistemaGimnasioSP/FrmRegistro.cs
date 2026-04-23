@@ -113,7 +113,6 @@ namespace SistemaGimnasioSP
                 cmdInsert.Parameters.AddWithValue("@municipio", cmbMunicipio.Text);
                 cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
                 cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
-
                 // EJECUTAR EL COMANDO
                 cmdInsert.ExecuteNonQuery();
 
@@ -147,14 +146,5 @@ namespace SistemaGimnasioSP
             cmbMunicipio.SelectedIndex = -1;
             dtpFechaNacimiento.Value = DateTime.Now;
         }
-
-        // Métodos requeridos por el diseñador (no borrar)
-        private void label1_Click(object sender, EventArgs e) { }
-        private void label2_Click(object sender, EventArgs e) { }
-        private void label5_Click(object sender, EventArgs e) { }
-        private void label6_Click(object sender, EventArgs e) { }
-        private void label7_Click(object sender, EventArgs e) { }
-        private void textBox2_TextChanged(object sender, EventArgs e) { }
-        private void FmrRegistro_Load(object sender, EventArgs e) { }
     }
 }
