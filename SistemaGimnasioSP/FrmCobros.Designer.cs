@@ -65,10 +65,10 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(479, 138);
+            this.btnBuscar.Location = new System.Drawing.Point(539, 172);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(84, 34);
+            this.btnBuscar.Size = new System.Drawing.Size(94, 42);
             this.btnBuscar.TabIndex = 0;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -77,63 +77,63 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(74, 138);
+            this.label1.Location = new System.Drawing.Point(83, 172);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 16);
+            this.label1.Size = new System.Drawing.Size(104, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "ID del Cliente";
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(638, 57);
+            this.lblNombre.Location = new System.Drawing.Point(718, 71);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(59, 16);
+            this.lblNombre.Size = new System.Drawing.Size(69, 20);
             this.lblNombre.TabIndex = 2;
             this.lblNombre.Text = "Nombre:";
             // 
             // lblEdad
             // 
             this.lblEdad.AutoSize = true;
-            this.lblEdad.Location = new System.Drawing.Point(638, 99);
+            this.lblEdad.Location = new System.Drawing.Point(718, 124);
             this.lblEdad.Name = "lblEdad";
-            this.lblEdad.Size = new System.Drawing.Size(43, 16);
+            this.lblEdad.Size = new System.Drawing.Size(51, 20);
             this.lblEdad.TabIndex = 3;
             this.lblEdad.Text = "Edad:";
             // 
             // lblMunicipio
             // 
             this.lblMunicipio.AutoSize = true;
-            this.lblMunicipio.Location = new System.Drawing.Point(638, 156);
+            this.lblMunicipio.Location = new System.Drawing.Point(718, 195);
             this.lblMunicipio.Name = "lblMunicipio";
-            this.lblMunicipio.Size = new System.Drawing.Size(67, 16);
+            this.lblMunicipio.Size = new System.Drawing.Size(79, 20);
             this.lblMunicipio.TabIndex = 4;
             this.lblMunicipio.Text = "Municipio:";
             // 
             // lblTotalPagar
             // 
             this.lblTotalPagar.AutoSize = true;
-            this.lblTotalPagar.Location = new System.Drawing.Point(187, 806);
+            this.lblTotalPagar.Location = new System.Drawing.Point(210, 1008);
             this.lblTotalPagar.Name = "lblTotalPagar";
-            this.lblTotalPagar.Size = new System.Drawing.Size(89, 16);
+            this.lblTotalPagar.Size = new System.Drawing.Size(103, 20);
             this.lblTotalPagar.TabIndex = 5;
             this.lblTotalPagar.Text = "Total a Pagar";
             // 
             // txtBusquedaId
             // 
-            this.txtBusquedaId.Location = new System.Drawing.Point(190, 138);
+            this.txtBusquedaId.Location = new System.Drawing.Point(214, 172);
             this.txtBusquedaId.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBusquedaId.Name = "txtBusquedaId";
-            this.txtBusquedaId.Size = new System.Drawing.Size(236, 22);
+            this.txtBusquedaId.Size = new System.Drawing.Size(265, 26);
             this.txtBusquedaId.TabIndex = 6;
             this.txtBusquedaId.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusquedaId_KeyDown);
             // 
             // BtnRegistrarPago
             // 
-            this.BtnRegistrarPago.Location = new System.Drawing.Point(675, 745);
+            this.BtnRegistrarPago.Location = new System.Drawing.Point(759, 931);
             this.BtnRegistrarPago.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnRegistrarPago.Name = "BtnRegistrarPago";
-            this.BtnRegistrarPago.Size = new System.Drawing.Size(431, 77);
+            this.BtnRegistrarPago.Size = new System.Drawing.Size(485, 96);
             this.BtnRegistrarPago.TabIndex = 7;
             this.BtnRegistrarPago.Text = "Registrar Pago";
             this.BtnRegistrarPago.UseVisualStyleBackColor = true;
@@ -146,21 +146,21 @@
             this.gbDeportes.Controls.Add(this.btnTaekwondo);
             this.gbDeportes.Controls.Add(this.btnFutbol);
             this.gbDeportes.Controls.Add(this.btnAcondicionamiento);
-            this.gbDeportes.Location = new System.Drawing.Point(77, 279);
+            this.gbDeportes.Location = new System.Drawing.Point(87, 349);
             this.gbDeportes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbDeportes.Name = "gbDeportes";
             this.gbDeportes.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbDeportes.Size = new System.Drawing.Size(501, 262);
+            this.gbDeportes.Size = new System.Drawing.Size(564, 328);
             this.gbDeportes.TabIndex = 8;
             this.gbDeportes.TabStop = false;
             this.gbDeportes.Text = "Deportes";
             // 
             // btnRitmos
             // 
-            this.btnRitmos.Location = new System.Drawing.Point(254, 173);
+            this.btnRitmos.Location = new System.Drawing.Point(286, 216);
             this.btnRitmos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRitmos.Name = "btnRitmos";
-            this.btnRitmos.Size = new System.Drawing.Size(153, 62);
+            this.btnRitmos.Size = new System.Drawing.Size(172, 78);
             this.btnRitmos.TabIndex = 4;
             this.btnRitmos.Text = "Ritmos Latinos\r\nCardio Dance";
             this.btnRitmos.UseVisualStyleBackColor = true;
@@ -168,10 +168,10 @@
             // 
             // Heterofilia
             // 
-            this.Heterofilia.Location = new System.Drawing.Point(92, 173);
+            this.Heterofilia.Location = new System.Drawing.Point(104, 216);
             this.Heterofilia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Heterofilia.Name = "Heterofilia";
-            this.Heterofilia.Size = new System.Drawing.Size(142, 62);
+            this.Heterofilia.Size = new System.Drawing.Size(160, 78);
             this.Heterofilia.TabIndex = 3;
             this.Heterofilia.Text = "Heterofilia";
             this.Heterofilia.UseVisualStyleBackColor = true;
@@ -179,10 +179,10 @@
             // 
             // btnTaekwondo
             // 
-            this.btnTaekwondo.Location = new System.Drawing.Point(340, 47);
+            this.btnTaekwondo.Location = new System.Drawing.Point(382, 59);
             this.btnTaekwondo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTaekwondo.Name = "btnTaekwondo";
-            this.btnTaekwondo.Size = new System.Drawing.Size(138, 75);
+            this.btnTaekwondo.Size = new System.Drawing.Size(155, 94);
             this.btnTaekwondo.TabIndex = 2;
             this.btnTaekwondo.Text = "Taekwondo";
             this.btnTaekwondo.UseVisualStyleBackColor = true;
@@ -190,10 +190,10 @@
             // 
             // btnFutbol
             // 
-            this.btnFutbol.Location = new System.Drawing.Point(178, 47);
+            this.btnFutbol.Location = new System.Drawing.Point(200, 59);
             this.btnFutbol.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnFutbol.Name = "btnFutbol";
-            this.btnFutbol.Size = new System.Drawing.Size(140, 75);
+            this.btnFutbol.Size = new System.Drawing.Size(158, 94);
             this.btnFutbol.TabIndex = 1;
             this.btnFutbol.Text = "Futbol";
             this.btnFutbol.UseVisualStyleBackColor = true;
@@ -201,10 +201,10 @@
             // 
             // btnAcondicionamiento
             // 
-            this.btnAcondicionamiento.Location = new System.Drawing.Point(16, 47);
+            this.btnAcondicionamiento.Location = new System.Drawing.Point(18, 59);
             this.btnAcondicionamiento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAcondicionamiento.Name = "btnAcondicionamiento";
-            this.btnAcondicionamiento.Size = new System.Drawing.Size(144, 75);
+            this.btnAcondicionamiento.Size = new System.Drawing.Size(162, 94);
             this.btnAcondicionamiento.TabIndex = 0;
             this.btnAcondicionamiento.Text = "Acondicionamiento Fisico";
             this.btnAcondicionamiento.UseVisualStyleBackColor = true;
@@ -215,75 +215,77 @@
             this.gbPaquetes.BackColor = System.Drawing.Color.Transparent;
             this.gbPaquetes.Controls.Add(this.btnPaquetef2);
             this.gbPaquetes.Controls.Add(this.btnPaquetef1);
-            this.gbPaquetes.Location = new System.Drawing.Point(638, 279);
+            this.gbPaquetes.Location = new System.Drawing.Point(718, 349);
             this.gbPaquetes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbPaquetes.Name = "gbPaquetes";
             this.gbPaquetes.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbPaquetes.Size = new System.Drawing.Size(501, 262);
+            this.gbPaquetes.Size = new System.Drawing.Size(564, 328);
             this.gbPaquetes.TabIndex = 9;
             this.gbPaquetes.TabStop = false;
             this.gbPaquetes.Text = "Paquetes";
             // 
             // btnPaquetef2
             // 
-            this.btnPaquetef2.Location = new System.Drawing.Point(296, 29);
+            this.btnPaquetef2.Location = new System.Drawing.Point(333, 36);
             this.btnPaquetef2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPaquetef2.Name = "btnPaquetef2";
-            this.btnPaquetef2.Size = new System.Drawing.Size(160, 94);
+            this.btnPaquetef2.Size = new System.Drawing.Size(180, 118);
             this.btnPaquetef2.TabIndex = 2;
             this.btnPaquetef2.Text = "Paquete Familiar\r\n(3 a 5 personas) ";
             this.btnPaquetef2.UseVisualStyleBackColor = true;
+            this.btnPaquetef2.Click += new System.EventHandler(this.btnPaquetef2_Click);
             // 
             // btnPaquetef1
             // 
-            this.btnPaquetef1.Location = new System.Drawing.Point(37, 29);
+            this.btnPaquetef1.Location = new System.Drawing.Point(42, 36);
             this.btnPaquetef1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPaquetef1.Name = "btnPaquetef1";
-            this.btnPaquetef1.Size = new System.Drawing.Size(168, 94);
+            this.btnPaquetef1.Size = new System.Drawing.Size(189, 118);
             this.btnPaquetef1.TabIndex = 1;
             this.btnPaquetef1.Text = "Paquete Familiar\r\n(2 personas)";
             this.btnPaquetef1.UseVisualStyleBackColor = true;
+            this.btnPaquetef1.Click += new System.EventHandler(this.btnPaquetef1_Click);
             // 
             // gbLigasDeportivas
             // 
             this.gbLigasDeportivas.BackColor = System.Drawing.Color.Transparent;
             this.gbLigasDeportivas.Controls.Add(this.btnEquipoSoftball);
             this.gbLigasDeportivas.Controls.Add(this.btnLigasdeFutbol);
-            this.gbLigasDeportivas.Location = new System.Drawing.Point(77, 608);
+            this.gbLigasDeportivas.Location = new System.Drawing.Point(87, 760);
             this.gbLigasDeportivas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbLigasDeportivas.Name = "gbLigasDeportivas";
             this.gbLigasDeportivas.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbLigasDeportivas.Size = new System.Drawing.Size(327, 130);
+            this.gbLigasDeportivas.Size = new System.Drawing.Size(368, 162);
             this.gbLigasDeportivas.TabIndex = 9;
             this.gbLigasDeportivas.TabStop = false;
             this.gbLigasDeportivas.Text = "Ligas Deportivas";
             // 
             // btnEquipoSoftball
             // 
-            this.btnEquipoSoftball.Location = new System.Drawing.Point(159, 32);
+            this.btnEquipoSoftball.Location = new System.Drawing.Point(179, 40);
             this.btnEquipoSoftball.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEquipoSoftball.Name = "btnEquipoSoftball";
-            this.btnEquipoSoftball.Size = new System.Drawing.Size(145, 74);
+            this.btnEquipoSoftball.Size = new System.Drawing.Size(163, 92);
             this.btnEquipoSoftball.TabIndex = 1;
             this.btnEquipoSoftball.Text = "Inscripcion de equipo\r\nSoftball\r\n";
             this.btnEquipoSoftball.UseVisualStyleBackColor = true;
             // 
             // btnLigasdeFutbol
             // 
-            this.btnLigasdeFutbol.Location = new System.Drawing.Point(20, 32);
+            this.btnLigasdeFutbol.Location = new System.Drawing.Point(22, 40);
             this.btnLigasdeFutbol.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLigasdeFutbol.Name = "btnLigasdeFutbol";
-            this.btnLigasdeFutbol.Size = new System.Drawing.Size(133, 74);
+            this.btnLigasdeFutbol.Size = new System.Drawing.Size(150, 92);
             this.btnLigasdeFutbol.TabIndex = 0;
             this.btnLigasdeFutbol.Text = "Inscripcion de equipo\r\nLIga de Futbol\r\n";
             this.btnLigasdeFutbol.UseVisualStyleBackColor = true;
             // 
             // btnMensualidad
             // 
-            this.btnMensualidad.Location = new System.Drawing.Point(502, 202);
+            this.btnMensualidad.Location = new System.Drawing.Point(565, 252);
             this.btnMensualidad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMensualidad.Name = "btnMensualidad";
-            this.btnMensualidad.Size = new System.Drawing.Size(118, 35);
+            this.btnMensualidad.Size = new System.Drawing.Size(133, 44);
             this.btnMensualidad.TabIndex = 10;
             this.btnMensualidad.Text = "Mensualidad";
             this.btnMensualidad.UseVisualStyleBackColor = true;
@@ -293,11 +295,11 @@
             this.gbCampamento.BackColor = System.Drawing.Color.Transparent;
             this.gbCampamento.Controls.Add(this.btnAgregarHno);
             this.gbCampamento.Controls.Add(this.btnCampamento);
-            this.gbCampamento.Location = new System.Drawing.Point(438, 608);
+            this.gbCampamento.Location = new System.Drawing.Point(493, 760);
             this.gbCampamento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbCampamento.Name = "gbCampamento";
             this.gbCampamento.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbCampamento.Size = new System.Drawing.Size(379, 130);
+            this.gbCampamento.Size = new System.Drawing.Size(426, 162);
             this.gbCampamento.TabIndex = 10;
             this.gbCampamento.TabStop = false;
             this.gbCampamento.Text = "Campamento de Verano";
@@ -305,20 +307,20 @@
             // btnAgregarHno
             // 
             this.btnAgregarHno.BackColor = System.Drawing.Color.Transparent;
-            this.btnAgregarHno.Location = new System.Drawing.Point(186, 38);
+            this.btnAgregarHno.Location = new System.Drawing.Point(209, 48);
             this.btnAgregarHno.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAgregarHno.Name = "btnAgregarHno";
-            this.btnAgregarHno.Size = new System.Drawing.Size(174, 63);
+            this.btnAgregarHno.Size = new System.Drawing.Size(196, 79);
             this.btnAgregarHno.TabIndex = 6;
             this.btnAgregarHno.Text = "Agregar Hermano \r\na \r\nCampamento de Verano ";
             this.btnAgregarHno.UseVisualStyleBackColor = false;
             // 
             // btnCampamento
             // 
-            this.btnCampamento.Location = new System.Drawing.Point(28, 38);
+            this.btnCampamento.Location = new System.Drawing.Point(32, 48);
             this.btnCampamento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCampamento.Name = "btnCampamento";
-            this.btnCampamento.Size = new System.Drawing.Size(121, 63);
+            this.btnCampamento.Size = new System.Drawing.Size(136, 79);
             this.btnCampamento.TabIndex = 2;
             this.btnCampamento.Text = "Campamento de Verano";
             this.btnCampamento.UseVisualStyleBackColor = true;
@@ -328,11 +330,11 @@
             this.gbAlbercaPublica.BackColor = System.Drawing.Color.Transparent;
             this.gbAlbercaPublica.Controls.Add(this.btnAdulto);
             this.gbAlbercaPublica.Controls.Add(this.btnNiño);
-            this.gbAlbercaPublica.Location = new System.Drawing.Point(848, 608);
+            this.gbAlbercaPublica.Location = new System.Drawing.Point(954, 760);
             this.gbAlbercaPublica.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbAlbercaPublica.Name = "gbAlbercaPublica";
             this.gbAlbercaPublica.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbAlbercaPublica.Size = new System.Drawing.Size(328, 130);
+            this.gbAlbercaPublica.Size = new System.Drawing.Size(369, 162);
             this.gbAlbercaPublica.TabIndex = 11;
             this.gbAlbercaPublica.TabStop = false;
             this.gbAlbercaPublica.Text = "Alberca Publica (Marzo - Agosto)";
@@ -340,31 +342,31 @@
             // btnAdulto
             // 
             this.btnAdulto.BackColor = System.Drawing.Color.Transparent;
-            this.btnAdulto.Location = new System.Drawing.Point(159, 36);
+            this.btnAdulto.Location = new System.Drawing.Point(179, 45);
             this.btnAdulto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAdulto.Name = "btnAdulto";
-            this.btnAdulto.Size = new System.Drawing.Size(126, 46);
+            this.btnAdulto.Size = new System.Drawing.Size(142, 58);
             this.btnAdulto.TabIndex = 6;
             this.btnAdulto.Text = "Adulto";
             this.btnAdulto.UseVisualStyleBackColor = false;
             // 
             // btnNiño
             // 
-            this.btnNiño.Location = new System.Drawing.Point(16, 36);
+            this.btnNiño.Location = new System.Drawing.Point(18, 45);
             this.btnNiño.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNiño.Name = "btnNiño";
-            this.btnNiño.Size = new System.Drawing.Size(123, 46);
+            this.btnNiño.Size = new System.Drawing.Size(138, 58);
             this.btnNiño.TabIndex = 2;
             this.btnNiño.Text = "Niño";
             this.btnNiño.UseVisualStyleBackColor = true;
             // 
             // FrmCobros
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1227, 882);
+            this.ClientSize = new System.Drawing.Size(1380, 1102);
             this.Controls.Add(this.gbAlbercaPublica);
             this.Controls.Add(this.gbCampamento);
             this.Controls.Add(this.btnMensualidad);

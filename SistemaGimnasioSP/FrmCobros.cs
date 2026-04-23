@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static SistemaGimnasioSP.FrmPaquetes;
 
 namespace SistemaGimnasioSP
 {
@@ -10,6 +11,7 @@ namespace SistemaGimnasioSP
     {
         // Aquí guardaremos los IDs de los deportes que el cajero vaya seleccionando
         List<int> deportesSeleccionados = new List<int>();
+        List<InscripcionTemporal> carritoFamiliarPendiente = new List<InscripcionTemporal>();
 
         // Esta variable guardará el dinero de esta sección para sumarlo después con las demás
         decimal subtotalDeportes = 0;
@@ -219,6 +221,65 @@ namespace SistemaGimnasioSP
         private void btnRitmos_Click(object sender, EventArgs e)
         {
             ToggleDeporte((Button)sender, 5);
+        }
+
+        private void btnPaquetef1_Click(object sender, EventArgs e)
+        {
+            // Sacamos el ID del titular que buscaste
+            string idDelTitular = txtBusquedaId.Text;
+
+            // Abrimos tu nueva ventana
+            FrmPaquetes ventanaPaquetes = new FrmPaquetes(idDelTitular , 2); // Mandamos un 2
+
+            // ShowDialog pausa esta pantalla hasta que le den al botón "Guardar" en la otra
+            if (ventanaPaquetes.ShowDialog() == DialogResult.OK)
+            {
+                // ¡BINGO! La ventanita se cerró y nos trajo la caja con los datos.
+                // Los guardamos en nuestro carrito de la pantalla principal:
+                carritoFamiliarPendiente = ventanaPaquetes.ResultadoFinal;
+
+                // Sumamos el dinero extra de la familia (los $100 pesos por deporte extra)
+                decimal dineroExtra = 0;
+                foreach (var item in carritoFamiliarPendiente)
+                {
+                    dineroExtra += item.Monto;
+                }
+
+                MessageBox.Show($"Familia configurada. Extras a cobrar: ${dineroExtra}", "Éxito");
+
+                // Aquí sumas el precio base del paquete + el dinero extra a tu Gran Total
+                // ActualizarGranTotal(); 
+            }
+        }
+
+        private void btnPaquetef2_Click(object sender, EventArgs e)
+        {
+
+            // Sacamos el ID del titular que buscaste
+            string idDelTitular = txtBusquedaId.Text;
+
+            // Abrimos tu nueva ventana
+            FrmPaquetes ventanaPaquetes = new FrmPaquetes(idDelTitular,5);
+
+            // ShowDialog pausa esta pantalla hasta que le den al botón "Guardar" en la otra
+            if (ventanaPaquetes.ShowDialog() == DialogResult.OK)
+            {
+                // ¡BINGO! La ventanita se cerró y nos trajo la caja con los datos.
+                // Los guardamos en nuestro carrito de la pantalla principal:
+                carritoFamiliarPendiente = ventanaPaquetes.ResultadoFinal;
+
+                // Sumamos el dinero extra de la familia (los $100 pesos por deporte extra)
+                decimal dineroExtra = 0;
+                foreach (var item in carritoFamiliarPendiente)
+                {
+                    dineroExtra += item.Monto;
+                }
+
+                MessageBox.Show($"Familia configurada. Extras a cobrar: ${dineroExtra}", "Éxito");
+
+                // Aquí sumas el precio base del paquete + el dinero extra a tu Gran Total
+                // ActualizarGranTotal(); 
+            }
         }
     }
 }
