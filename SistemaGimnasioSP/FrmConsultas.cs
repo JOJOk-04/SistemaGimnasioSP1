@@ -5,6 +5,7 @@ using iText.Layout.Properties;
 using iText.Kernel.Geom;
 using iText.Kernel.Font;
 using iText.IO.Font.Constants;
+using iText.IO.Image;
 using MySql.Data.MySqlClient;
 using System;
 using System.Diagnostics;
@@ -58,8 +59,6 @@ namespace SistemaGimnasioSP
                     {
                         lblNombreResultado.Text = $"Nombre: {lector["nombre"]}";
                         lblMunicipioResultado.Text = $"Municipio: {lector["municipio"]}";
-
-                        // RESTAURADO: Verificación de registro
                         string estatusSocio = lector["estatus"] != DBNull.Value ? lector["estatus"].ToString() : "Sin registro";
                         lblEstatusResultado.Text = $"Estatus: {estatusSocio}";
 
@@ -86,39 +85,79 @@ namespace SistemaGimnasioSP
             string id = txtBuscar.Text.Trim();
             string ruta = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Gafete_{id}.pdf");
 
+            // CONFIGURACIÓN DE IMAGEN
+            string nombreImagen = "OsosSanPedro.png";
+            string rutaImagen = System.IO.Path.Combine(Application.StartupPath, nombreImagen);
+
             try
             {
                 using (PdfWriter writer = new PdfWriter(ruta))
                 using (PdfDocument pdf = new PdfDocument(writer))
                 {
-                    Document doc = new Document(pdf, new PageSize(241, 156));
-                    doc.SetMargins(0, 0, 0, 0);
+                    Document doc = new Document(pdf, new PageSize(260, 380));
+                    doc.SetMargins(20, 20, 20, 20);
 
                     PdfFont fBold = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
                     PdfFont fNormal = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
 
-                    // Header
-                    doc.Add(new Table(1).SetWidth(UnitValue.CreatePercentValue(100))
-                        .AddCell(new Cell().Add(new Paragraph("MEMBRESÍA GYM").SetFont(fBold).SetFontSize(14).SetFontColor(iText.Kernel.Colors.ColorConstants.WHITE))
-                        .SetBackgroundColor(iText.Kernel.Colors.ColorConstants.DARK_GRAY).SetTextAlignment(TextAlignment.CENTER).SetPadding(8).SetBorder(iText.Layout.Borders.Border.NO_BORDER)));
+                    iText.Kernel.Colors.Color grisOscuro = new iText.Kernel.Colors.DeviceRgb(45, 52, 54);
+                    iText.Kernel.Colors.Color grisClaro = new iText.Kernel.Colors.DeviceRgb(236, 240, 241);
+                    iText.Kernel.Colors.Color grisTexto = new iText.Kernel.Colors.DeviceRgb(127, 140, 141);
 
-                    doc.Add(new Paragraph("\n"));
+                    // --- 1. AGREGAR LOGO DE FONDO (MARCA DE AGUA) ---
+                    // IMPORTANTE: Se usa la ruta completa iText.Layout.Element.Image para evitar conflictos
+                    if (File.Exists(rutaImagen))
+                    {
+                        ImageData data = ImageDataFactory.Create(rutaImagen);
+                        iText.Layout.Element.Image imgFondo = new iText.Layout.Element.Image(data);
 
-                    // Nombre y Datos
-                    doc.Add(new Paragraph(lblNombreResultado.Text.Replace("Nombre: ", "")).SetFont(fBold).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER).SetFontColor(iText.Kernel.Colors.ColorConstants.BLUE));
+                        imgFondo.SetOpacity(0.40f);
+                        imgFondo.SetWidth(200);
+                        imgFondo.SetFixedPosition(30, 30);
 
-                    Table info = new Table(1).SetWidth(UnitValue.CreatePercentValue(85)).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
-                    info.AddCell(new Cell().Add(new Paragraph(lblMunicipioResultado.Text).SetFont(fNormal).SetFontSize(9)).SetBorder(iText.Layout.Borders.Border.NO_BORDER));
-                    info.AddCell(new Cell().Add(new Paragraph(lblEdadResultado.Text).SetFont(fNormal).SetFontSize(9)).SetBorder(iText.Layout.Borders.Border.NO_BORDER));
+                        doc.Add(imgFondo);
+                    }
 
-                    // Estado con color dinámico
-                    string textoEstatus = lblEstatusResultado.Text.Replace("Estatus: ", "");
-                    iText.Kernel.Colors.Color colorPdf = textoEstatus.ToLower().Contains("activo") ? iText.Kernel.Colors.ColorConstants.GREEN : iText.Kernel.Colors.ColorConstants.RED;
+                    // 2. HEADER
+                    Table header = new Table(1).UseAllAvailableWidth();
+                    header.AddCell(new Cell().Add(new Paragraph("GAFETE DE ACCESO")
+                        .SetFont(fBold).SetFontSize(14).SetFontColor(iText.Kernel.Colors.ColorConstants.WHITE))
+                        .SetBackgroundColor(grisOscuro)
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetPadding(8).SetBorder(iText.Layout.Borders.Border.NO_BORDER));
+                    doc.Add(header);
 
-                    info.AddCell(new Cell().Add(new Paragraph("ESTADO: " + textoEstatus.ToUpper()).SetFont(fBold).SetFontSize(10).SetFontColor(colorPdf)).SetBorder(iText.Layout.Borders.Border.NO_BORDER));
+                    // 3. MARCO PARA FOTO
+                    Table photoFrame = new Table(1).SetWidth(90).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+                    photoFrame.SetMarginTop(15);
+                    photoFrame.AddCell(new Cell().Add(new Paragraph("FOTO\nPERFIL")
+                        .SetFont(fNormal).SetFontColor(grisTexto).SetFontSize(10))
+                        .SetHeight(100)
+                        .SetBackgroundColor(grisClaro)
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .SetBorder(new iText.Layout.Borders.SolidBorder(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY, 1)));
+                    doc.Add(photoFrame);
 
+                    // 4. NOMBRE DEL SOCIO
+                    string nombreLimpio = lblNombreResultado.Text.Replace("Nombre: ", "");
+                    doc.Add(new Paragraph(nombreLimpio)
+                        .SetFont(fBold).SetFontSize(16).SetFontColor(grisOscuro)
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetMarginTop(15).SetMarginBottom(5));
+
+                    // 5. DATOS SECUNDARIOS
+                    Table info = new Table(1).UseAllAvailableWidth();
+                    info.AddCell(new Cell().Add(new Paragraph(lblMunicipioResultado.Text).SetFont(fNormal).SetFontSize(10).SetFontColor(grisTexto)).SetTextAlignment(TextAlignment.CENTER).SetBorder(iText.Layout.Borders.Border.NO_BORDER).SetPadding(2));
+                    info.AddCell(new Cell().Add(new Paragraph(lblEdadResultado.Text).SetFont(fNormal).SetFontSize(10).SetFontColor(grisTexto)).SetTextAlignment(TextAlignment.CENTER).SetBorder(iText.Layout.Borders.Border.NO_BORDER).SetPadding(2));
                     doc.Add(info);
-                    doc.Add(new Paragraph($"ID: {id}").SetFont(fNormal).SetFontSize(7).SetFontColor(iText.Kernel.Colors.ColorConstants.GRAY).SetFixedPosition(10, 10, 221).SetTextAlignment(TextAlignment.RIGHT));
+
+                    // 6. FOOTER (ID Centrado y más grande)
+                    doc.Add(new Paragraph($"ID: {id}")
+                        .SetFont(fBold).SetFontSize(12).SetFontColor(grisTexto)
+                        .SetFixedPosition(0, 20, 260)
+                        .SetTextAlignment(TextAlignment.CENTER));
+
                     doc.Close();
                 }
 
@@ -130,7 +169,10 @@ namespace SistemaGimnasioSP
                     Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(ruta, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Error PDF: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnGenerarGafete_Click(object sender, EventArgs e)

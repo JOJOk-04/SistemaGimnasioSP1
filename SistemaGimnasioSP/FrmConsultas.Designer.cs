@@ -143,12 +143,18 @@
             // 
             // btnGenerarGafete
             // 
-            this.btnGenerarGafete.Location = new System.Drawing.Point(931, 286);
+            this.btnGenerarGafete.BackColor = System.Drawing.Color.Transparent;
+            this.btnGenerarGafete.BackgroundImage = global::SistemaGimnasioSP.Properties.Resources.ImagenBotonOScuro;
+            this.btnGenerarGafete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGenerarGafete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarGafete.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerarGafete.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnGenerarGafete.Location = new System.Drawing.Point(882, 348);
             this.btnGenerarGafete.Name = "btnGenerarGafete";
-            this.btnGenerarGafete.Size = new System.Drawing.Size(171, 61);
+            this.btnGenerarGafete.Size = new System.Drawing.Size(205, 60);
             this.btnGenerarGafete.TabIndex = 4;
             this.btnGenerarGafete.Text = "Genera Gafete";
-            this.btnGenerarGafete.UseVisualStyleBackColor = true;
+            this.btnGenerarGafete.UseVisualStyleBackColor = false;
             this.btnGenerarGafete.Click += new System.EventHandler(this.btnGenerarGafete_Click);
             // 
             // FrmConsultas
