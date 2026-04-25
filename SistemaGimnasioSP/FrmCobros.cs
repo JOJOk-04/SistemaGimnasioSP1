@@ -85,6 +85,82 @@ namespace SistemaGimnasioSP
 
             ActualizarGranTotal();
         }
+        // 🚨 Ahora el botón SOLO le manda el ID del paquete, nada más.
+        private void ProcesarPaqueteFamiliar(int idPaquete)
+        {
+            string idDelTitular = txtBusquedaId.Text.Trim();
+            if (string.IsNullOrWhiteSpace(idDelTitular) || lblMunicipio.Text == "Municipio: ---")
+            {
+                MessageBox.Show("Primero busca a un cliente válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string municipioPuro = lblMunicipio.Text.Replace("Municipio:", "").Trim();
+            bool esLocal = (municipioPuro == "San Pedro Garza García");
+
+            string columnaPrecio = esLocal ? "precio_local" : "precio_foraneo";
+            decimal costoExtraPorDeporte = esLocal ? 100 : 200;
+
+            decimal precioBasePaquete = 0;
+            string nombrePaqueteReal = "";
+            int limitePersonasDB = 0; // ✨ Nueva variable para guardar el límite de la base de datos
+
+            ConexionDB baseDatos = new ConexionDB();
+            MySqlConnection conexion = baseDatos.AbrirConexion();
+
+            if (conexion != null)
+            {
+                try
+                {
+                    // ✨ Ahora le pedimos a MySQL que también nos traiga el limite_personas
+                    string query = $"SELECT {columnaPrecio}, nombre_paquete, limite_personas FROM paquetes WHERE id_paquete = @id";
+                    MySqlCommand cmd = new MySqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@id", idPaquete);
+
+                    using (MySqlDataReader lector = cmd.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            precioBasePaquete = Convert.ToDecimal(lector[columnaPrecio]);
+                            nombrePaqueteReal = lector["nombre_paquete"].ToString();
+
+                            // ✨ Extraemos el límite directamente de MySQL
+                            limitePersonasDB = Convert.ToInt32(lector["limite_personas"]);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontró el paquete en la base de datos.", "Error");
+                            return;
+                        }
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show("Error consultando paquete: " + ex.Message); return; }
+                finally { baseDatos.CerrarConexion(); }
+            }
+
+            // ✨ Le pasamos el límite de la Base de Datos a la ventanita
+            FrmPaquetes ventanaPaquetes = new FrmPaquetes(idDelTitular, limitePersonasDB, municipioPuro);
+
+            if (ventanaPaquetes.ShowDialog() == DialogResult.OK)
+            {
+                carritoFamiliarPendiente = ventanaPaquetes.ResultadoFinal;
+
+                decimal totalExtras = 0;
+                foreach (var item in carritoFamiliarPendiente)
+                {
+                    if (item.Monto > 0)
+                    {
+                        item.Monto = costoExtraPorDeporte;
+                        totalExtras += costoExtraPorDeporte;
+                    }
+                }
+
+                subtotalDeportes = precioBasePaquete + totalExtras;
+                ActualizarGranTotal();
+
+                MessageBox.Show($"{nombrePaqueteReal} configurado.\nLímite oficial: {limitePersonasDB} personas.\n- Paquete Base: {precioBasePaquete:C}\n- Costo Extras: {totalExtras:C}\n\nTotal del Paquete: {subtotalDeportes:C}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         private void ActualizarGranTotal()
         {
             // En el futuro será: subtotalDeportes + subtotalLigas + subtotalPaquetes...
@@ -225,61 +301,15 @@ namespace SistemaGimnasioSP
 
         private void btnPaquetef1_Click(object sender, EventArgs e)
         {
-            // Sacamos el ID del titular que buscaste
-            string idDelTitular = txtBusquedaId.Text;
-
-            // Abrimos tu nueva ventana
-            FrmPaquetes ventanaPaquetes = new FrmPaquetes(idDelTitular , 2); // Mandamos un 2
-
-            // ShowDialog pausa esta pantalla hasta que le den al botón "Guardar" en la otra
-            if (ventanaPaquetes.ShowDialog() == DialogResult.OK)
-            {
-                // ¡BINGO! La ventanita se cerró y nos trajo la caja con los datos.
-                // Los guardamos en nuestro carrito de la pantalla principal:
-                carritoFamiliarPendiente = ventanaPaquetes.ResultadoFinal;
-
-                // Sumamos el dinero extra de la familia (los $100 pesos por deporte extra)
-                decimal dineroExtra = 0;
-                foreach (var item in carritoFamiliarPendiente)
-                {
-                    dineroExtra += item.Monto;
-                }
-
-                MessageBox.Show($"Familia configurada. Extras a cobrar: ${dineroExtra}", "Éxito");
-
-                // Aquí sumas el precio base del paquete + el dinero extra a tu Gran Total
-                // ActualizarGranTotal(); 
-            }
+            ProcesarPaqueteFamiliar(1);
         }
 
         private void btnPaquetef2_Click(object sender, EventArgs e)
         {
 
-            // Sacamos el ID del titular que buscaste
-            string idDelTitular = txtBusquedaId.Text;
-
-            // Abrimos tu nueva ventana
-            FrmPaquetes ventanaPaquetes = new FrmPaquetes(idDelTitular,5);
-
-            // ShowDialog pausa esta pantalla hasta que le den al botón "Guardar" en la otra
-            if (ventanaPaquetes.ShowDialog() == DialogResult.OK)
-            {
-                // ¡BINGO! La ventanita se cerró y nos trajo la caja con los datos.
-                // Los guardamos en nuestro carrito de la pantalla principal:
-                carritoFamiliarPendiente = ventanaPaquetes.ResultadoFinal;
-
-                // Sumamos el dinero extra de la familia (los $100 pesos por deporte extra)
-                decimal dineroExtra = 0;
-                foreach (var item in carritoFamiliarPendiente)
-                {
-                    dineroExtra += item.Monto;
-                }
-
-                MessageBox.Show($"Familia configurada. Extras a cobrar: ${dineroExtra}", "Éxito");
-
-                // Aquí sumas el precio base del paquete + el dinero extra a tu Gran Total
-                // ActualizarGranTotal(); 
-            }
+            // Solo mandamos el ID 2 (El paquete de 3 a 5 personas). 
+            // ¡La función maestra y MySQL se encargan de todo lo demás!
+            ProcesarPaqueteFamiliar(2);
         }
         private void btnCobrar_Click(object sender, EventArgs e)
         {
@@ -316,14 +346,14 @@ namespace SistemaGimnasioSP
                     {
                         foreach (var item in carritoFamiliarPendiente)
                         {
-                            // A.1 Inscribir al deporte
-                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago) VALUES (@idC, @idD, CURDATE())";
+                            // A.1 Inscribir al deporte (PARCHADO CON FECHA DE VENCIMIENTO)
+                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago, fecha_vencimiento) VALUES (@idC, @idD, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
                             MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
                             cmdInsc.Parameters.AddWithValue("@idC", item.IdCliente);
                             cmdInsc.Parameters.AddWithValue("@idD", item.IdDeporte);
                             cmdInsc.ExecuteNonQuery();
 
-                            // A.2 Crear o Actualizar el Lazo Familiar (Omitiendo al propio papá)
+                            // A.2 Crear o Actualizar el Lazo Familiar
                             string queryFamilia = "UPDATE clientes SET id_titular_familia = @idTitular WHERE id_cliente = @idHijo AND id_cliente != @idTitular";
                             MySqlCommand cmdUpdate = new MySqlCommand(queryFamilia, conexion, transaccion);
                             cmdUpdate.Parameters.AddWithValue("@idTitular", idClientePrincipal);
@@ -338,8 +368,8 @@ namespace SistemaGimnasioSP
                     {
                         foreach (int idDeporte in deportesSeleccionados)
                         {
-                            // B.1 Inscribir a sus deportes individuales
-                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago) VALUES (@idC, @idD, CURDATE())";
+                            // B.1 Inscribir a sus deportes individuales (PARCHADO CON FECHA DE VENCIMIENTO)
+                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago, fecha_vencimiento) VALUES (@idC, @idD, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
                             MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
                             cmdInsc.Parameters.AddWithValue("@idC", idClientePrincipal);
                             cmdInsc.Parameters.AddWithValue("@idD", idDeporte);
@@ -357,9 +387,15 @@ namespace SistemaGimnasioSP
                 }
                 catch (Exception ex)
                 {
-                    // 🛡️ Si algo falla, cancelamos la transacción (Rollback)
-                    if (transaccion != null) transaccion.Rollback();
-                    MessageBox.Show("Error crítico al procesar el cobro. Ningún dato fue guardado. Detalles: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // 🛡️ Intentamos hacer el Rollback de forma segura
+                    if (transaccion != null && transaccion.Connection != null)
+                    {
+                        try { transaccion.Rollback(); } catch { /* Ignoramos si ya estaba cancelada */ }
+                    }
+
+                    // 🚨 AHORA SÍ: Nos mostrará el VERDADERO error que está causando el problema
+                    MessageBox.Show("Ocurrió un error al guardar en la base de datos.\n\nEl sistema reporta: " + ex.Message,
+                                    "Error de MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {

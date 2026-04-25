@@ -34,6 +34,12 @@ namespace AccesosGimnasioSP1
 
         private void VerificarAcceso(string idCliente)
         {
+            // ✨ EL TRUCO DE LOS CEROS: Por si lo escriben a mano en vez de escanear
+            if (idCliente.Length < 5 && int.TryParse(idCliente, out int idNumerico))
+            {
+                idCliente = idNumerico.ToString("D5");
+            }
+
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
@@ -46,45 +52,54 @@ namespace AccesosGimnasioSP1
 
             try
             {
-                // CORRECCIÓN: Consulta con INNER JOIN para traer el estatus desde la tabla Inscripciones
+                // ✨ EL SQL MAESTRO: Calcula el estatus leyendo la fecha de vencimiento
                 string queryBuscar = @"
-                    SELECT c.nombre, i.estatus 
+                    SELECT c.nombre, 
+                           IF(i.fecha_vencimiento >= CURDATE(), 'Activo', 'Inactivo') AS estatus_calculado 
                     FROM Clientes c 
                     INNER JOIN Inscripciones i ON c.id_cliente = i.id_cliente 
                     WHERE c.id_cliente = @id 
-                    ORDER BY i.id_inscripcion DESC LIMIT 1";
+                    ORDER BY i.fecha_vencimiento DESC LIMIT 1";
 
                 MySqlCommand cmdBuscar = new MySqlCommand(queryBuscar, conexion);
                 cmdBuscar.Parameters.AddWithValue("@id", idCliente);
 
                 MySqlDataReader lector = cmdBuscar.ExecuteReader();
 
-                if (lector.Read())
+                if (lector.Read()) // Si el cliente existe y tiene inscripciones
                 {
-                    string estatus = lector["estatus"].ToString().Trim();
+                    string estatus = lector["estatus_calculado"].ToString();
                     string nombre = lector["nombre"].ToString().Trim();
 
+                    // ¡Súper importante cerrar el lector antes de hacer el INSERT!
                     lector.Close();
 
-                    if (estatus.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                    if (estatus == "Activo")
                     {
                         lblMensaje.Text = "¡ACCESO CONCEDIDO!";
                         lblMensaje.ForeColor = Color.LimeGreen;
                         lblNombre.Text = "Bienvenido, " + nombre;
 
-                        // Registro del ingreso
+                        // Registro del ingreso en la bitácora
                         string queryIngreso = "INSERT INTO accesos_diarios (id_cliente, fecha_hora) VALUES (@id, NOW())";
                         MySqlCommand cmdIngreso = new MySqlCommand(queryIngreso, conexion);
                         cmdIngreso.Parameters.AddWithValue("@id", idCliente);
                         cmdIngreso.ExecuteNonQuery();
                     }
-                    
+                    else
+                    {
+                        // Cuando SÍ lo encuentra pero su fecha ya pasó
+                        lblMensaje.Text = "MENSUALIDAD VENCIDA";
+                        lblMensaje.ForeColor = Color.Red;
+                        lblNombre.Text = nombre;
+                    }
                 }
                 else
                 {
-                    lblMensaje.Text = "MENSUALIDAD INACTIVA";
+                    // Cuando NO existe el cliente o nunca ha pagado nada
+                    lblMensaje.Text = "GAFETE NO VÁLIDO";
                     lblMensaje.ForeColor = Color.Orange;
-                    lblNombre.Text = "Bienvenido";
+                    lblNombre.Text = "---";
                 }
             }
             catch (Exception ex)
@@ -95,10 +110,9 @@ namespace AccesosGimnasioSP1
             {
                 baseDatos.CerrarConexion();
                 txtEscaner.Clear();
-                txtEscaner.Focus();
+                txtEscaner.Focus(); // Regresamos el cursor para el siguiente escaneo
             }
         }
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string gafete = txtEscaner.Text.Trim();

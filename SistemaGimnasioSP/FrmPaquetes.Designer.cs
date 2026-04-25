@@ -191,7 +191,7 @@
             this.label2.Size = new System.Drawing.Size(148, 20);
             this.label2.TabIndex = 24;
             this.label2.Text = "Agregar Integrante:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+
             // 
             // btnAgregar
             // 
@@ -201,6 +201,7 @@
             this.btnAgregar.TabIndex = 25;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click_1);
             // 
             // FrmPaquetes
             // 

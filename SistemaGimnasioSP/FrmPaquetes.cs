@@ -18,6 +18,7 @@ namespace SistemaGimnasioSP
         // 1. Aquí guardamos el ID del papá que nos mandó la pantalla de cobros
         private string idTitularRecibido;
         private int limiteMaximo;
+        private string municipioTitular;
 
         // 2. Esta es la "Memoria Temporal" que sabe qué deporte eligió cada hijo
         // (Ejemplo: Al ID "005" le tocan los deportes 1 y 3)
@@ -25,16 +26,16 @@ namespace SistemaGimnasioSP
 
         // 3. Esta es la cajita final que se llevará la pantalla de cobros cuando le demos a Guardar
         public List<InscripcionTemporal> ResultadoFinal = new List<InscripcionTemporal>();
-       
+
 
 
         // --- TU CONSTRUCTOR INICIA AQUÍ ABAJO ---
-        public FrmPaquetes(string idTitular, int limite)
+        public FrmPaquetes(string idTitular, int limite, string municipio)
         {
             InitializeComponent();
             this.idTitularRecibido = idTitular;
             this.limiteMaximo = limite; // Guardamos el límite que nos mandaron
-
+            this.municipioTitular = municipio;
             // Llamamos a la función de carga
             CargarIntegrantes();
 
@@ -86,65 +87,6 @@ namespace SistemaGimnasioSP
                 }
                 catch (Exception ex) { MessageBox.Show("Error al cargar familia: " + ex.Message); }
                 finally { baseDatos.CerrarConexion(); }
-            }
-        }
-        private void btnAgregarFamiliar_Click(object sender, EventArgs e)
-        {
-            string idNuevo = txtAgregar.Text.Trim();
-            if (string.IsNullOrWhiteSpace(idNuevo)) return;
-
-            // 1. Verificamos que no pasemos el límite del paquete
-            DataTable dtActual = (DataTable)cmbMiembros.DataSource;
-            if (dtActual.Rows.Count >= limiteMaximo)
-            {
-                MessageBox.Show($"¡El paquete ya está lleno! Límite: {limiteMaximo} personas.", "Límite Alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // 2. Buscamos al cliente en MySQL
-            ConexionDB bd = new ConexionDB();
-            MySqlConnection conexion = bd.AbrirConexion();
-
-            if (conexion != null)
-            {
-                try
-                {
-                    string query = "SELECT id_cliente, nombre, CONCAT(id_cliente, ' - ', nombre) AS info_completa FROM clientes WHERE id_cliente = @id";
-                    MySqlCommand cmd = new MySqlCommand(query, conexion);
-                    cmd.Parameters.AddWithValue("@id", idNuevo);
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        // Verificamos si ya está en la lista para no duplicarlo
-                        if (memoriaSeleccion.ContainsKey(idNuevo))
-                        {
-                            MessageBox.Show("Esta persona ya está en el paquete.", "Aviso");
-                        }
-                        else
-                        {
-                            // ¡Lo encontramos! Lo agregamos a la tabla visual (ComboBox)
-                            DataRow nuevaFila = dtActual.NewRow();
-                            nuevaFila["id_cliente"] = reader["id_cliente"].ToString();
-                            nuevaFila["nombre"] = reader["nombre"].ToString();
-                            nuevaFila["info_completa"] = reader["info_completa"].ToString();
-                            dtActual.Rows.Add(nuevaFila);
-
-                            // Lo agregamos a la Memoria RAM de deportes
-                            memoriaSeleccion.Add(idNuevo, new List<int>());
-
-                            MessageBox.Show($"{reader["nombre"]} agregado al paquete.", "Éxito");
-                            txtAgregar.Clear();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontró ningún cliente con ese ID.", "Error de Búsqueda");
-                    }
-                }
-                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
-                finally { bd.CerrarConexion(); }
             }
         }
         private void ActualizarColoresBotones()
@@ -224,20 +166,22 @@ namespace SistemaGimnasioSP
                 string idCliente = registro.Key;
                 foreach (int idDeporte in registro.Value)
                 {
-                    // Calculas si es extra o no basándote en la cuenta de la lista
-                    decimal monto = (registro.Value.IndexOf(idDeporte) == 0) ? 0 : 100;
+                    // Si es el primer deporte (índice 0), cuesta 0 (ya lo incluye el paquete).
+                    // Si es el segundo o más, le ponemos un "1" (como bandera de "Deporte Extra")
+                    decimal cobroExtra = (registro.Value.IndexOf(idDeporte) == 0) ? 0 : 1;
 
                     ResultadoFinal.Add(new InscripcionTemporal
                     {
                         IdCliente = idCliente,
                         IdDeporte = idDeporte,
-                        Monto = monto
+                        Monto = cobroExtra // FrmCobros se encargará de convertir este 1 en dinero real
                     });
                 }
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
         public class InscripcionTemporal
         {
             public string IdCliente { get; set; }
@@ -245,9 +189,92 @@ namespace SistemaGimnasioSP
             public decimal Monto { get; set; }
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void btnAgregar_Click_1(object sender, EventArgs e)
         {
+            string idNuevo = txtAgregar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(idNuevo)) return;
 
+            // ✨ EL TRUCO DE LOS CEROS: Convierte "2" en "00002" automáticamente
+            if (idNuevo.Length < 5 && int.TryParse(idNuevo, out int idNumerico))
+            {
+                idNuevo = idNumerico.ToString("D5");
+            }
+
+            // 1. Verificamos que no pasemos el límite del paquete
+            DataTable dtActual = (DataTable)cmbMiembros.DataSource;
+
+            if (dtActual.Rows.Count >= limiteMaximo)
+            {
+                MessageBox.Show($"¡El paquete ya está lleno! Límite: {limiteMaximo} personas.", "Límite Alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Buscamos al cliente en MySQL
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
+
+            if (conexion != null)
+            {
+                try
+                {
+                    string query = "SELECT id_cliente, nombre, municipio, CONCAT(id_cliente, ' - ', nombre) AS info_completa FROM clientes WHERE id_cliente = @id";
+                    MySqlCommand cmd = new MySqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@id", idNuevo); // Ahora busca "00002"
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        string municipioNuevo = reader["municipio"].ToString();
+
+                        // REGLA DE VALIDACIÓN:
+                        if (municipioNuevo != municipioTitular)
+                        {
+                            MessageBox.Show($"No puedes agregar a esta persona. El titular es de '{municipioTitular}' y esta persona es de '{municipioNuevo}'. Todos deben ser del mismo municipio.", "Conflicto de Ubicación", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            reader.Close();
+                            return;
+                        }
+
+                        // Verificamos si ya está en la lista para no duplicarlo
+                        if (memoriaSeleccion.ContainsKey(idNuevo))
+                        {
+                            MessageBox.Show("Esta persona ya está agregada en el paquete actual.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            // ¡Lo encontramos! Lo agregamos a la tabla visual (ComboBox)
+                            DataRow nuevaFila = dtActual.NewRow();
+                            nuevaFila["id_cliente"] = reader["id_cliente"].ToString();
+                            nuevaFila["nombre"] = reader["nombre"].ToString();
+                            nuevaFila["info_completa"] = reader["info_completa"].ToString();
+                            dtActual.Rows.Add(nuevaFila);
+
+                            // Lo agregamos a la Memoria RAM de deportes
+                            memoriaSeleccion.Add(idNuevo, new List<int>());
+
+                            MessageBox.Show($"{reader["nombre"]} agregado al paquete.", "Éxito");
+                            txtAgregar.Clear();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"No se encontró ningún cliente con el ID: {idNuevo}", "Error de Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+                finally { bd.CerrarConexion(); }
+            }
         }
     }
 }
+
+
+
+
+
+
+
+
+

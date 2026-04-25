@@ -46,9 +46,15 @@ namespace SistemaGimnasioSP
 
             try
             {
-                string query = "SELECT c.nombre, c.fecha_nacimiento, c.municipio, i.estatus FROM Clientes c " +
-                               "LEFT JOIN Inscripciones i ON c.id_cliente = i.id_cliente " +
-                               "WHERE c.id_cliente LIKE @b OR c.nombre LIKE @b LIMIT 1";
+                // ✨ EL SQL MAESTRO: Calcula el estatus en vivo y SIEMPRE revisa el pago más reciente
+                string query = @"SELECT c.nombre, c.fecha_nacimiento, c.municipio, 
+                                        IF(i.fecha_vencimiento IS NULL, 'Sin registro', 
+                                           IF(i.fecha_vencimiento >= CURDATE(), 'Activo', 'Inactivo')) AS estatus_calculado 
+                                 FROM Clientes c 
+                                 LEFT JOIN Inscripciones i ON c.id_cliente = i.id_cliente 
+                                 WHERE c.id_cliente LIKE @b OR c.nombre LIKE @b 
+                                 ORDER BY i.fecha_vencimiento DESC 
+                                 LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(query, conexion);
                 cmd.Parameters.AddWithValue("@b", "%" + texto + "%");
@@ -59,8 +65,18 @@ namespace SistemaGimnasioSP
                     {
                         lblNombreResultado.Text = $"Nombre: {lector["nombre"]}";
                         lblMunicipioResultado.Text = $"Municipio: {lector["municipio"]}";
-                        string estatusSocio = lector["estatus"] != DBNull.Value ? lector["estatus"].ToString() : "Sin registro";
+
+                        // Extraemos el resultado de nuestro cálculo mágico
+                        string estatusSocio = lector["estatus_calculado"].ToString();
                         lblEstatusResultado.Text = $"Estatus: {estatusSocio}";
+
+                        // 🎨 TOQUE VISUAL: Colorear según el estatus
+                        if (estatusSocio == "Activo")
+                            lblEstatusResultado.ForeColor = System.Drawing.Color.Green;
+                        else if (estatusSocio == "Inactivo")
+                            lblEstatusResultado.ForeColor = System.Drawing.Color.Red;
+                        else
+                            lblEstatusResultado.ForeColor = System.Drawing.Color.DarkOrange; // Sin registro
 
                         DateTime fechaNac = Convert.ToDateTime(lector["fecha_nacimiento"]);
                         int edad = DateTime.Today.Year - fechaNac.Year;
@@ -71,12 +87,12 @@ namespace SistemaGimnasioSP
                     }
                     else
                     {
-                        MessageBox.Show("Socio no encontrado.");
+                        MessageBox.Show("Socio no encontrado.", "Búsqueda de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LimpiarFicha();
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             finally { baseDatos.CerrarConexion(); }
         }
 
