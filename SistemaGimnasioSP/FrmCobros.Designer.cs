@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCobros));
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +57,7 @@
             this.gbAlbercaPublica = new System.Windows.Forms.GroupBox();
             this.btnAdulto = new System.Windows.Forms.Button();
             this.btnNiño = new System.Windows.Forms.Button();
+            this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
             this.gbDeportes.SuspendLayout();
             this.gbPaquetes.SuspendLayout();
             this.gbLigasDeportivas.SuspendLayout();
@@ -431,5 +433,6 @@
         private System.Windows.Forms.GroupBox gbAlbercaPublica;
         private System.Windows.Forms.Button btnAdulto;
         private System.Windows.Forms.Button btnNiño;
+        private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
     }
 }
