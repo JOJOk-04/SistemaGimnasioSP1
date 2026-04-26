@@ -9,19 +9,28 @@ namespace SistemaGimnasioSP
 {
     public partial class FrmCobros : Form
     {
-        // Aquí guardaremos los IDs de los deportes que el cajero vaya seleccionando
+        // === BOLSAS DE MEMORIA ===
+
+        // Bolsa 1: Para los deportes individuales (Acondicionamiento, Box, etc)
         List<int> deportesSeleccionados = new List<int>();
+        decimal subtotalDeportes = 0;
+
+        // Bolsa 2: Para los servicios y equipos (Ligas, Alberca, Campamentos)
+        List<int> serviciosSeleccionados = new List<int>();
+        decimal subtotalServicios = 0;
+
         List<InscripcionTemporal> carritoFamiliarPendiente = new List<InscripcionTemporal>();
 
-        // Esta variable guardará el dinero de esta sección para sumarlo después con las demás
-        decimal subtotalDeportes = 0;
         public FrmCobros()
         {
             InitializeComponent();
         }
+
+        // =====================================================================
+        // CEREBRO 1: DEPORTES (Este es el que ya tenías, lo dejé limpiecito)
+        // =====================================================================
         private void CalcularSubtotalDeportes()
         {
-
             subtotalDeportes = 0;
 
             if (deportesSeleccionados.Count == 0)
@@ -30,25 +39,17 @@ namespace SistemaGimnasioSP
                 return;
             }
 
-            // 1. EXTRAER DATOS CON PRECISIÓN QUIRÚRGICA
-            // Eliminamos el prefijo "Municipio: " para quedarnos solo con el nombre
             string municipioPuro = lblMunicipio.Text.Replace("Municipio:", "").Trim();
-
-            // REGLA DE ORO: Solo si es exactamente igual a la opción del ComboBox
             bool esLocal = (municipioPuro == "San Pedro Garza García");
-
             string columnaPrecio = esLocal ? "precio_local" : "precio_foraneo";
 
-            // Definimos el costo extra según el origen
             decimal costoExtra = esLocal ? 100 : 200;
 
-            // Extraer edad
             int edad = 0;
             string edadTexto = lblEdad.Text.Replace("Edad:", "").Replace("años", "").Trim();
             int.TryParse(edadTexto, out edad);
             bool esSenior = (edad >= 60);
 
-            // 2. CONSULTA A BASE DE DATOS
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
@@ -56,36 +57,123 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // Deporte Principal (Posición 0 de la lista)
                     int idDeportePrincipal = deportesSeleccionados[0];
+                    // Busca en la tabla DEPORTES
                     string query = $"SELECT {columnaPrecio} FROM deportes WHERE id_deporte = @id";
                     MySqlCommand cmd = new MySqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@id", idDeportePrincipal);
 
                     decimal precioBase = Convert.ToDecimal(cmd.ExecuteScalar());
 
-                    // Si es Senior, el primero es gratis
                     if (esSenior) { precioBase = 0; }
 
                     subtotalDeportes += precioBase;
 
-                    // 3. COBRO DE ACTIVIDADES EXTRAS
                     if (deportesSeleccionados.Count > 1)
                     {
                         int cantidadExtras = deportesSeleccionados.Count - 1;
                         subtotalDeportes += (cantidadExtras * costoExtra);
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error en cálculo: " + ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show("Error en cálculo de deportes: " + ex.Message); }
                 finally { baseDatos.CerrarConexion(); }
             }
 
             ActualizarGranTotal();
         }
-        // 🚨 Ahora el botón SOLO le manda el ID del paquete, nada más.
+
+        // =====================================================================
+        // CEREBRO 2: SERVICIOS (El NUEVO, para los equipos, campamentos, etc.)
+        // =====================================================================
+        private void CalcularSubtotalServicios()
+        {
+            subtotalServicios = 0;
+
+            if (serviciosSeleccionados.Count == 0)
+            {
+                ActualizarGranTotal();
+                return;
+            }
+
+            string municipioPuro = lblMunicipio.Text.Replace("Municipio:", "").Trim();
+            bool esLocal = (municipioPuro == "San Pedro Garza García");
+            string columnaPrecio = esLocal ? "precio_local" : "precio_foraneo";
+
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
+
+            if (conexion != null)
+            {
+                try
+                {
+                    foreach (int idServicio in serviciosSeleccionados)
+                    {
+                        // Busca en tu nueva tabla SERVICIOS
+                        string query = $"SELECT {columnaPrecio} FROM servicios WHERE id_servicio = @id";
+                        MySqlCommand cmd = new MySqlCommand(query, conexion);
+                        cmd.Parameters.AddWithValue("@id", idServicio);
+
+                        object resultado = cmd.ExecuteScalar();
+                        if (resultado != null)
+                        {
+                            subtotalServicios += Convert.ToDecimal(resultado);
+                        }
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show("Error calculando servicios: " + ex.Message); }
+                finally { bd.CerrarConexion(); }
+            }
+
+            ActualizarGranTotal();
+        }
+
+        // =====================================================================
+        // GRAN TOTAL (Suma ambos cerebros)
+        // =====================================================================
+        private void ActualizarGranTotal()
+        {
+            decimal granTotal = subtotalDeportes + subtotalServicios;
+            lblTotalPagar.Text = $"Total a Pagar: {granTotal:C}";
+        }
+        // =====================================================================
+        // INTERRUPTORES (TOGGLES) PARA LOS BOTONES
+        // =====================================================================
+
+        // 🔘 Este es el interruptor para los DEPORTES NORMALES (Box, Ritmos, etc)
+        private void ToggleDeporte(Button btn, int idDeporte)
+        {
+            if (deportesSeleccionados.Contains(idDeporte))
+            {
+                deportesSeleccionados.Remove(idDeporte);
+                btn.BackColor = Color.White;
+            }
+            else
+            {
+                deportesSeleccionados.Add(idDeporte);
+                btn.BackColor = Color.LightGreen; // Se pinta verde
+            }
+
+            // Despierta al Cerebro 1
+            CalcularSubtotalDeportes();
+        }
+
+        // 🔘 Este es el interruptor para los SERVICIOS Y EQUIPOS (Softball, Alberca, etc)
+        private void ToggleServicioExtra(Button btn, int idServicio)
+        {
+            if (serviciosSeleccionados.Contains(idServicio))
+            {
+                serviciosSeleccionados.Remove(idServicio);
+                btn.BackColor = Color.White;
+            }
+            else
+            {
+                serviciosSeleccionados.Add(idServicio);
+                btn.BackColor = Color.LightSkyBlue; // Se pinta azulito para diferenciarlos
+            }
+
+            // Despierta al Cerebro 2
+            CalcularSubtotalServicios();
+        }
         private void ProcesarPaqueteFamiliar(int idPaquete)
         {
             string idDelTitular = txtBusquedaId.Text.Trim();
@@ -160,32 +248,6 @@ namespace SistemaGimnasioSP
 
                 MessageBox.Show($"{nombrePaqueteReal} configurado.\nLímite oficial: {limitePersonasDB} personas.\n- Paquete Base: {precioBasePaquete:C}\n- Costo Extras: {totalExtras:C}\n\nTotal del Paquete: {subtotalDeportes:C}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-        private void ActualizarGranTotal()
-        {
-            // En el futuro será: subtotalDeportes + subtotalLigas + subtotalPaquetes...
-            decimal granTotal = subtotalDeportes;
-
-            // Mostramos el total con formato de moneda ($)
-            lblTotalPagar.Text = $"Total a Pagar: {granTotal:C}";
-        }
-        private void ToggleDeporte(Button btn, int idDeporte)
-        {
-            if (deportesSeleccionados.Contains(idDeporte))
-            {
-                // Si ya estaba seleccionado, lo quitamos y regresamos el color a blanco/gris
-                deportesSeleccionados.Remove(idDeporte);
-                btn.BackColor = Color.White;
-            }
-            else
-            {
-                // Si no estaba, lo agregamos y lo pintamos de un color que resalte (ej. Verde Claro)
-                deportesSeleccionados.Add(idDeporte);
-                btn.BackColor = Color.LightGreen;
-            }
-
-            // Cada vez que tocamos un botón, recalculamos el dinero
-            CalcularSubtotalDeportes();
         }
         private void txtBusquedaId_KeyDown(object sender, KeyEventArgs e)
         {
@@ -303,6 +365,41 @@ namespace SistemaGimnasioSP
         {
             ProcesarPaqueteFamiliar(1);
         }
+        // 1. Liga de futbol por equipo (ID: 13)
+        private void btnLigasdeFutbol_Click(object sender, EventArgs e)
+        {
+            ToggleServicioExtra((Button)sender, 13);
+        }
+
+        // 2. Inscripción Equipo Softball (ID: 14)
+        private void btnEquipoSoftball_Click(object sender, EventArgs e)
+        {
+            ToggleServicioExtra((Button)sender, 14);
+        }
+
+        // 3. Campamento de verano (ID: 16)
+        private void btnCampamento_Click(object sender, EventArgs e)
+        {
+            ToggleServicioExtra((Button)sender, 16);
+        }
+
+        // 4. Campamento de verano hermano (ID: 17)
+        private void btnAgregarhno_Click(object sender, EventArgs e)
+        {
+            ToggleServicioExtra((Button)sender, 17);
+        }
+
+        // 5. Alberca pública niño (ID: 18)
+        private void btnNiño_Click(object sender, EventArgs e)
+        {
+            ToggleServicioExtra((Button)sender, 18);
+        }
+
+        // 6. Alberca pública adulto (ID: 19)
+        private void btnAdulto_Click(object sender, EventArgs e)
+        {
+            ToggleServicioExtra((Button)sender, 19);
+        }
 
         private void btnPaquetef2_Click(object sender, EventArgs e)
         {
@@ -374,6 +471,24 @@ namespace SistemaGimnasioSP
                             cmdInsc.Parameters.AddWithValue("@idC", idClientePrincipal);
                             cmdInsc.Parameters.AddWithValue("@idD", idDeporte);
                             cmdInsc.ExecuteNonQuery();
+                        }
+                    }
+                    // =================================================================
+                    // ESCENARIO C: REGISTRO DE SERVICIOS ESPECIALES (Nueva Tabla)
+                    // =================================================================
+                    if (serviciosSeleccionados.Count > 0)
+                    {
+                        foreach (int idServicio in serviciosSeleccionados)
+                        {
+                            // ¡A la nueva tabla! (Sin monto y sin fecha de vencimiento)
+                            string queryInscServicio = @"INSERT INTO inscripciones_servicios 
+                                               (id_cliente, id_servicio, fecha_pago) 
+                                               VALUES (@idC, @idS, CURDATE())";
+
+                            MySqlCommand cmdInscS = new MySqlCommand(queryInscServicio, conexion, transaccion);
+                            cmdInscS.Parameters.AddWithValue("@idC", idClientePrincipal);
+                            cmdInscS.Parameters.AddWithValue("@idS", idServicio);
+                            cmdInscS.ExecuteNonQuery();
                         }
                     }
 

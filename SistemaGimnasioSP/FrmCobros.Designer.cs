@@ -270,6 +270,7 @@
             this.btnEquipoSoftball.TabIndex = 1;
             this.btnEquipoSoftball.Text = "Inscripcion de equipo\r\nSoftball\r\n";
             this.btnEquipoSoftball.UseVisualStyleBackColor = true;
+            this.btnEquipoSoftball.Click += new System.EventHandler(this.btnEquipoSoftball_Click);
             // 
             // btnLigasdeFutbol
             // 
@@ -280,6 +281,7 @@
             this.btnLigasdeFutbol.TabIndex = 0;
             this.btnLigasdeFutbol.Text = "Inscripcion de equipo\r\nLIga de Futbol\r\n";
             this.btnLigasdeFutbol.UseVisualStyleBackColor = true;
+            this.btnLigasdeFutbol.Click += new System.EventHandler(this.btnLigasdeFutbol_Click);
             // 
             // btnMensualidad
             // 
@@ -315,6 +317,7 @@
             this.btnAgregarHno.TabIndex = 6;
             this.btnAgregarHno.Text = "Agregar Hermano \r\na \r\nCampamento de Verano ";
             this.btnAgregarHno.UseVisualStyleBackColor = false;
+            this.btnAgregarHno.Click += new System.EventHandler(this.btnAgregarhno_Click);
             // 
             // btnCampamento
             // 
@@ -325,6 +328,7 @@
             this.btnCampamento.TabIndex = 2;
             this.btnCampamento.Text = "Campamento de Verano";
             this.btnCampamento.UseVisualStyleBackColor = true;
+            this.btnCampamento.Click += new System.EventHandler(this.btnCampamento_Click);
             // 
             // gbAlbercaPublica
             // 
@@ -350,6 +354,7 @@
             this.btnAdulto.TabIndex = 6;
             this.btnAdulto.Text = "Adulto";
             this.btnAdulto.UseVisualStyleBackColor = false;
+            this.btnAdulto.Click += new System.EventHandler(this.btnAdulto_Click);
             // 
             // btnNiño
             // 
@@ -360,6 +365,7 @@
             this.btnNiño.TabIndex = 2;
             this.btnNiño.Text = "Niño";
             this.btnNiño.UseVisualStyleBackColor = true;
+            this.btnNiño.Click += new System.EventHandler(this.btnNiño_Click);
             // 
             // FrmCobros
             // 
