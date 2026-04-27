@@ -235,6 +235,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConexionDB.cs" />
+    <Compile Include="FrmAfluencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAfluencia.Designer.cs">
+      <DependentUpon>FrmAfluencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCortes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCortes.Designer.cs">
+      <DependentUpon>FrmCortes.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPaquetes.cs">
       <SubType>Form</SubType>
     </Compile>
