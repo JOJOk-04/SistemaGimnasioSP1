@@ -93,6 +93,26 @@ namespace SistemaGimnasioSP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap calendar {
+            get {
+                object obj = ResourceManager.GetObject("calendar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChatGPT_Image_27_abr_2026__01_40_07_p_m_ {
+            get {
+                object obj = ResourceManager.GetObject("ChatGPT Image 27 abr 2026, 01_40_07 p.m.", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clipboard {
             get {
                 object obj = ResourceManager.GetObject("clipboard", resourceCulture);

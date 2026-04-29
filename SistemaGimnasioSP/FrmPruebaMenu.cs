@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SistemaGimnasioSP
 {
-    public partial class Prueba : Form
+    public partial class FrmPruebaMenu : Form
     {
-        public Prueba()
+        public FrmPruebaMenu()
         {
             InitializeComponent();
             // Iniciamos maximizado para aprovechar el espacio
@@ -62,7 +62,7 @@ namespace SistemaGimnasioSP
             AbrirFormularioHijo(new FrmConsultas());
         }
 
-        private void guna2Button3_Click(object sender, EventArgs e)
+        private void guna2Button3_Click_1(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new FrmCobros());
         }
@@ -95,6 +95,11 @@ namespace SistemaGimnasioSP
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        private void guna2Panel3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

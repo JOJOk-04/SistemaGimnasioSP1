@@ -253,6 +253,12 @@
     <Compile Include="FrmPaquetes.Designer.cs">
       <DependentUpon>FrmPaquetes.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPruebaTesoreria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPruebaTesoreria.Designer.cs">
+      <DependentUpon>FrmPruebaTesoreria.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRegistro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,11 +291,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Prueba.cs">
+    <Compile Include="FrmPruebaMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Prueba.Designer.cs">
-      <DependentUpon>Prueba.cs</DependentUpon>
+    <Compile Include="FrmPruebaMenu.Designer.cs">
+      <DependentUpon>FrmPruebaMenu.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FrmCobros.resx">
       <DependentUpon>FrmCobros.cs</DependentUpon>
@@ -299,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPaquetes.resx">
       <DependentUpon>FrmPaquetes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPruebaTesoreria.resx">
+      <DependentUpon>FrmPruebaTesoreria.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegistro.resx">
       <DependentUpon>FrmRegistro.cs</DependentUpon>
@@ -319,8 +328,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Prueba.resx">
-      <DependentUpon>Prueba.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPruebaMenu.resx">
+      <DependentUpon>FrmPruebaMenu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include=".gitignore" />
     <None Include="packages.config" />
@@ -347,6 +356,8 @@
     <Content Include="OsosSanPedro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\calendar.png" />
+    <None Include="Resources\ChatGPT Image 27 abr 2026, 01_40_07 p.m..png" />
     <None Include="Resources\dollar.png" />
     <None Include="Resources\clipboard.png" />
     <None Include="Resources\switch.png" />

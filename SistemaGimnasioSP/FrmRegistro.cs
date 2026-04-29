@@ -151,5 +151,75 @@ namespace SistemaGimnasioSP
             cmbMunicipio.SelectedIndex = -1;
             dtpFechaNacimiento.Value = DateTime.Now;
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtContactoEmergencia_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFechaNacimiento_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTelefono_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDireccion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbMunicipio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
