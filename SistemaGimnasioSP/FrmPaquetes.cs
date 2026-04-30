@@ -15,16 +15,11 @@ namespace SistemaGimnasioSP
     public partial class FrmPaquetes : Form
     {
 
-        // 1. Aquí guardamos el ID del papá que nos mandó la pantalla de cobros
+        
         private string idTitularRecibido;
         private int limiteMaximo;
         private string municipioTitular;
-
-        // 2. Esta es la "Memoria Temporal" que sabe qué deporte eligió cada hijo
-        // (Ejemplo: Al ID "005" le tocan los deportes 1 y 3)
         private Dictionary<string, List<int>> memoriaSeleccion = new Dictionary<string, List<int>>();
-
-        // 3. Esta es la cajita final que se llevará la pantalla de cobros cuando le demos a Guardar
         public List<InscripcionTemporal> ResultadoFinal = new List<InscripcionTemporal>();
 
 
@@ -50,7 +45,7 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // EL SQL MAESTRO: Rastrea al titular original y trae a todos los que compartan su ID
+                    // Rastrea al titular original y trae a todos los que compartan su ID
                     string query = @"
                 SELECT id_cliente, nombre, CONCAT(id_cliente, ' - ', nombre) AS info_completa 
                 FROM clientes 
@@ -242,14 +237,12 @@ namespace SistemaGimnasioSP
                         }
                         else
                         {
-                            // ¡Lo encontramos! Lo agregamos a la tabla visual (ComboBox)
                             DataRow nuevaFila = dtActual.NewRow();
                             nuevaFila["id_cliente"] = reader["id_cliente"].ToString();
                             nuevaFila["nombre"] = reader["nombre"].ToString();
                             nuevaFila["info_completa"] = reader["info_completa"].ToString();
                             dtActual.Rows.Add(nuevaFila);
 
-                            // Lo agregamos a la Memoria RAM de deportes
                             memoriaSeleccion.Add(idNuevo, new List<int>());
 
                             MessageBox.Show($"{reader["nombre"]} agregado al paquete.", "Éxito");
@@ -269,12 +262,3 @@ namespace SistemaGimnasioSP
         }
     }
 }
-
-
-
-
-
-
-
-
-

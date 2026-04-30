@@ -108,7 +108,7 @@ namespace SistemaGimnasioSP
                 {
                     foreach (int idServicio in serviciosSeleccionados)
                     {
-                        // Busca en tu nueva tabla SERVICIOS
+                       
                         string query = $"SELECT {columnaPrecio} FROM servicios WHERE id_servicio = @id";
                         MySqlCommand cmd = new MySqlCommand(query, conexion);
                         cmd.Parameters.AddWithValue("@id", idServicio);
@@ -410,7 +410,7 @@ namespace SistemaGimnasioSP
         }
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            // 1. EL SEMÁFORO: Validar que haya algo para cobrar
+            
             if (deportesSeleccionados.Count == 0 && carritoFamiliarPendiente.Count == 0)
             {
                 MessageBox.Show("No hay actividades seleccionadas para cobrar.", "Aviso de Caja", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -433,24 +433,22 @@ namespace SistemaGimnasioSP
                 MySqlTransaction transaccion = null;
                 try
                 {
-                    // 🛡️ ¡Iniciamos la burbuja de seguridad!
+                    
                     transaccion = conexion.BeginTransaction();
 
-                    // =================================================================
-                    // ESCENARIO A: COBRO DE PAQUETE FAMILIAR (La Manada)
-                    // =================================================================
+                 
                     if (carritoFamiliarPendiente.Count > 0)
                     {
                         foreach (var item in carritoFamiliarPendiente)
                         {
-                            // A.1 Inscribir al deporte (PARCHADO CON FECHA DE VENCIMIENTO)
+                         
                             string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago, fecha_vencimiento) VALUES (@idC, @idD, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
                             MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
                             cmdInsc.Parameters.AddWithValue("@idC", item.IdCliente);
                             cmdInsc.Parameters.AddWithValue("@idD", item.IdDeporte);
                             cmdInsc.ExecuteNonQuery();
 
-                            // A.2 Crear o Actualizar el Lazo Familiar
+                          
                             string queryFamilia = "UPDATE clientes SET id_titular_familia = @idTitular WHERE id_cliente = @idHijo AND id_cliente != @idTitular";
                             MySqlCommand cmdUpdate = new MySqlCommand(queryFamilia, conexion, transaccion);
                             cmdUpdate.Parameters.AddWithValue("@idTitular", idClientePrincipal);
@@ -480,7 +478,6 @@ namespace SistemaGimnasioSP
                     {
                         foreach (int idServicio in serviciosSeleccionados)
                         {
-                            // ¡A la nueva tabla! (Sin monto y sin fecha de vencimiento)
                             string queryInscServicio = @"INSERT INTO inscripciones_servicios 
                                                (id_cliente, id_servicio, fecha_pago) 
                                                VALUES (@idC, @idS, CURDATE())";
@@ -541,4 +538,5 @@ namespace SistemaGimnasioSP
             btnRitmos.BackColor = Color.White;
         }
     }
+
 }
