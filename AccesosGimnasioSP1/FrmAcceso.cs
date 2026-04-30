@@ -35,7 +35,7 @@ namespace AccesosGimnasioSP1
         private void VerificarAcceso(string idCliente)
         {
             // ✨ EL TRUCO DE LOS CEROS: Por si lo escriben a mano en vez de escanear
-            if (idCliente.Length < 5 && int.TryParse(idCliente, out int idNumerico))
+            if (idCliente.Length > 5 && int.TryParse(idCliente, out int idNumerico))
             {
                 idCliente = idNumerico.ToString("D5");
             }

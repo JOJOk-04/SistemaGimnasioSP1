@@ -11,9 +11,9 @@ using Guna.UI2.WinForms;
 
 namespace SistemaGimnasioSP
 {
-    public partial class FrmPruebaTesoreria : Form
+    public partial class FrmConsultasPrueba : Form
     {
-        public FrmPruebaTesoreria()
+        public FrmConsultasPrueba()
         {
             InitializeComponent();
         }
