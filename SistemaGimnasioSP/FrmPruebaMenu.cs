@@ -64,7 +64,7 @@ namespace SistemaGimnasioSP
 
         private void guna2Button3_Click_1(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new FrmCobros());
+            AbrirFormularioHijo(new FrmPruebaTesoreria());
         }
 
         private void guna2Button4_Click(object sender, EventArgs e)
