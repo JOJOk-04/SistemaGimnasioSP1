@@ -140,6 +140,7 @@
             // guna2Button3
             // 
             this.guna2Button3.Animated = true;
+            this.guna2Button3.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 13.8F);
             this.guna2Button3.ForeColor = System.Drawing.Color.Black;
@@ -157,6 +158,7 @@
             // guna2Button2
             // 
             this.guna2Button2.Animated = true;
+            this.guna2Button2.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.guna2Button2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 13.8F);
             this.guna2Button2.ForeColor = System.Drawing.Color.Black;
@@ -174,14 +176,20 @@
             // guna2Button1
             // 
             this.guna2Button1.Animated = true;
+            this.guna2Button1.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.guna2Button1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 13.8F);
             this.guna2Button1.ForeColor = System.Drawing.Color.Black;
             this.guna2Button1.Image = global::SistemaGimnasioSP.Properties.Resources.clipboard;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button1.ImageSize = new System.Drawing.Size(40, 40);
+<<<<<<< HEAD
             this.guna2Button1.Location = new System.Drawing.Point(3, 271);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+=======
+            this.guna2Button1.IndicateFocus = true;
+            this.guna2Button1.Location = new System.Drawing.Point(3, 217);
+>>>>>>> Accesos Y Consultas cambiados
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(438, 110);
             this.guna2Button1.TabIndex = 1;
@@ -246,9 +254,13 @@
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+<<<<<<< HEAD
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmPruebaMenu";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+=======
+            this.Name = "FrmPruebaMenu";
+>>>>>>> Accesos Y Consultas cambiados
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Prueba";
             this.Load += new System.EventHandler(this.Prueba_Load);

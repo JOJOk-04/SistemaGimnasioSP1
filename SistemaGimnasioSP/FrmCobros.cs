@@ -331,7 +331,7 @@ namespace SistemaGimnasioSP
             }
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             BuscarCliente();
         }
@@ -539,6 +539,11 @@ namespace SistemaGimnasioSP
             btnTaekwondo.BackColor = Color.White;
             // btnHeterofilia.BackColor = Color.White; // Descomenta esta si tu botón se llama así
             btnRitmos.BackColor = Color.White;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -253,12 +253,6 @@
     <Compile Include="FrmPaquetes.Designer.cs">
       <DependentUpon>FrmPaquetes.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPruebaTesoreria.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPruebaTesoreria.Designer.cs">
-      <DependentUpon>FrmPruebaTesoreria.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmRegistro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -305,9 +299,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPaquetes.resx">
       <DependentUpon>FrmPaquetes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPruebaTesoreria.resx">
-      <DependentUpon>FrmPruebaTesoreria.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegistro.resx">
       <DependentUpon>FrmRegistro.cs</DependentUpon>
