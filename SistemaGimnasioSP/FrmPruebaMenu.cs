@@ -67,6 +67,11 @@ namespace SistemaGimnasioSP
             AbrirFormularioHijo(new FrmCobros());
         }
 
+        private void BtnAfluencias_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new FrmAfluencia());
+        }
+
         private void guna2Button4_Click(object sender, EventArgs e)
         {
             DialogResult respuesta = MessageBox.Show("¿Estás seguro que deseas salir del sistema?",
@@ -101,5 +106,6 @@ namespace SistemaGimnasioSP
         {
 
         }
+
     }
 }
