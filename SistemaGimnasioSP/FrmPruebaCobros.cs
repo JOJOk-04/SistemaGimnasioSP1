@@ -99,5 +99,25 @@ namespace SistemaGimnasioSP
         {
 
         }
+
+        private void guna2ImageButton8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2ImageButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2ImageButton6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
