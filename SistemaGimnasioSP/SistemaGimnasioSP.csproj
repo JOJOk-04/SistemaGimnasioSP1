@@ -365,6 +365,16 @@
     <Content Include="OsosSanPedro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\sports_baseball_1000dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
+    <None Include="Resources\family_group_100dp_000000_FILL0_wght400_GRAD0_opsz481.png" />
+    <None Include="Resources\family_group_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
+    <None Include="Resources\partner_exchange_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
+    <None Include="Resources\performance1.png" />
+    <None Include="Resources\fitness1.png" />
+    <None Include="Resources\karate1.png" />
+    <None Include="Resources\football1.png" />
+    <None Include="Resources\dumb-bell1.png" />
+    <None Include="Resources\stats1.png" />
     <None Include="Resources\calendar.png" />
     <None Include="Resources\ChatGPT Image 27 abr 2026, 01_40_07 p.m..png" />
     <None Include="Resources\dollar.png" />

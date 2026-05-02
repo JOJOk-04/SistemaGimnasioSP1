@@ -24,7 +24,7 @@ namespace SistemaGimnasioSP
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnGuardar1_Click(object sender, EventArgs e)
         {   //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //
             // --- BLOQUE DE VALIDACIÓN PERSONALIZADA ---

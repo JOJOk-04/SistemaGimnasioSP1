@@ -41,11 +41,9 @@
             this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.txtContactoEmergencia = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.cmbMunicipio = new System.Windows.Forms.ComboBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
-            this.guna2Elipse2 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
+            this.BtnGuardar1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Elipse3 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.guna2Panel1.SuspendLayout();
@@ -195,23 +193,6 @@
             this.label7.Text = "Contacto de emergencia:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
-            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Bahnschrift Condensed", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnGuardar.Location = new System.Drawing.Point(380, 367);
-            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(108, 43);
-            this.btnGuardar.TabIndex = 14;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.button1_Click);
-            // 
             // cmbMunicipio
             // 
             this.cmbMunicipio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -279,23 +260,34 @@
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
             this.guna2Panel1.BorderColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.BorderThickness = 2;
-            this.guna2Panel1.Controls.Add(this.btnGuardar);
+            this.guna2Panel1.Controls.Add(this.BtnGuardar1);
+            this.guna2Panel1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.guna2Panel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.guna2Panel1.Location = new System.Drawing.Point(287, 198);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(866, 431);
             this.guna2Panel1.TabIndex = 16;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
-            // guna2Elipse1
+            // BtnGuardar1
             // 
-            this.guna2Elipse1.BorderRadius = 100;
-            this.guna2Elipse1.TargetControl = this.guna2Panel1;
-            // 
-            // guna2Elipse2
-            // 
-            this.guna2Elipse2.BorderRadius = 20;
-            this.guna2Elipse2.TargetControl = this.btnGuardar;
+            this.BtnGuardar1.Animated = true;
+            this.BtnGuardar1.BackColor = System.Drawing.Color.Transparent;
+            this.BtnGuardar1.BorderRadius = 15;
+            this.BtnGuardar1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnGuardar1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnGuardar1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnGuardar1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnGuardar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
+            this.BtnGuardar1.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
+            this.BtnGuardar1.ForeColor = System.Drawing.Color.White;
+            this.BtnGuardar1.Location = new System.Drawing.Point(320, 371);
+            this.BtnGuardar1.Name = "BtnGuardar1";
+            this.BtnGuardar1.Size = new System.Drawing.Size(180, 43);
+            this.BtnGuardar1.TabIndex = 15;
+            this.BtnGuardar1.Text = "Guardar";
+            this.BtnGuardar1.UseTransparentBackground = true;
+            this.BtnGuardar1.Click += new System.EventHandler(this.BtnGuardar1_Click);
             // 
             // guna2PictureBox1
             // 
@@ -318,7 +310,6 @@
             // 
             // FrmRegistro
             // 
-            this.AcceptButton = this.btnGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
@@ -366,12 +357,10 @@
         private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.TextBox txtContactoEmergencia;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cmbMunicipio;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
-        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse3;
+        private Guna.UI2.WinForms.Guna2Button BtnGuardar1;
     }
 }
