@@ -16,7 +16,7 @@ namespace SistemaGimnasioSP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmPruebaMenu());
+            Application.Run(new FrmCortes());
         }
     }
 }
