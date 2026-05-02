@@ -125,5 +125,20 @@ namespace SistemaGimnasioSP
                     finally { bd.CerrarConexion(); }
                 }
             }
+
+        private void lblFolioSiguiente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotalServicios_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblGranTotal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
