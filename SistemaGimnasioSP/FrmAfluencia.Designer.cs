@@ -38,7 +38,12 @@
             this.BtnConsultas = new Guna.UI2.WinForms.Guna2Button();
             this.BtnGenPDF = new Guna.UI2.WinForms.Guna2Button();
             this.VntnDatosCorte = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.VntnDatosCorte)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Elipse1
@@ -49,16 +54,17 @@
             // VntnFechaInicio
             // 
             this.VntnFechaInicio.Animated = true;
-            this.VntnFechaInicio.AutoRoundedCorners = true;
             this.VntnFechaInicio.BackColor = System.Drawing.Color.Transparent;
+            this.VntnFechaInicio.BorderRadius = 10;
             this.VntnFechaInicio.Checked = true;
-            this.VntnFechaInicio.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.VntnFechaInicio.FillColor = System.Drawing.Color.DeepSkyBlue;
+            this.VntnFechaInicio.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.VntnFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.VntnFechaInicio.Location = new System.Drawing.Point(37, 26);
+            this.VntnFechaInicio.Location = new System.Drawing.Point(316, 70);
             this.VntnFechaInicio.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.VntnFechaInicio.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.VntnFechaInicio.Name = "VntnFechaInicio";
-            this.VntnFechaInicio.Size = new System.Drawing.Size(241, 36);
+            this.VntnFechaInicio.Size = new System.Drawing.Size(341, 32);
             this.VntnFechaInicio.TabIndex = 0;
             this.VntnFechaInicio.UseTransparentBackground = true;
             this.VntnFechaInicio.Value = new System.DateTime(2026, 4, 30, 23, 29, 33, 937);
@@ -66,54 +72,64 @@
             // VntnFechaFinal
             // 
             this.VntnFechaFinal.Animated = true;
-            this.VntnFechaFinal.AutoRoundedCorners = true;
             this.VntnFechaFinal.BackColor = System.Drawing.Color.Transparent;
+            this.VntnFechaFinal.BorderRadius = 10;
             this.VntnFechaFinal.Checked = true;
-            this.VntnFechaFinal.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.VntnFechaFinal.FillColor = System.Drawing.Color.DeepSkyBlue;
+            this.VntnFechaFinal.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.VntnFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.VntnFechaFinal.Location = new System.Drawing.Point(329, 26);
+            this.VntnFechaFinal.Location = new System.Drawing.Point(719, 70);
             this.VntnFechaFinal.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.VntnFechaFinal.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.VntnFechaFinal.Name = "VntnFechaFinal";
-            this.VntnFechaFinal.Size = new System.Drawing.Size(248, 36);
+            this.VntnFechaFinal.Size = new System.Drawing.Size(340, 32);
             this.VntnFechaFinal.TabIndex = 1;
             this.VntnFechaFinal.UseTransparentBackground = true;
             this.VntnFechaFinal.Value = new System.DateTime(2026, 4, 30, 23, 29, 39, 155);
             // 
             // BtnConsultas
             // 
+            this.BtnConsultas.Animated = true;
+            this.BtnConsultas.BackColor = System.Drawing.Color.Transparent;
+            this.BtnConsultas.BorderRadius = 20;
             this.BtnConsultas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.BtnConsultas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnConsultas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.BtnConsultas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnConsultas.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BtnConsultas.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnConsultas.ForeColor = System.Drawing.Color.White;
-            this.BtnConsultas.Location = new System.Drawing.Point(662, 126);
+            this.BtnConsultas.Location = new System.Drawing.Point(1096, 70);
             this.BtnConsultas.Name = "BtnConsultas";
-            this.BtnConsultas.Size = new System.Drawing.Size(180, 45);
+            this.BtnConsultas.Size = new System.Drawing.Size(227, 56);
             this.BtnConsultas.TabIndex = 2;
-            this.BtnConsultas.Text = "guna2Button1";
+            this.BtnConsultas.Text = "Consulta";
+            this.BtnConsultas.UseTransparentBackground = true;
             this.BtnConsultas.Click += new System.EventHandler(this.BtnConsultas_Click);
             // 
             // BtnGenPDF
             // 
+            this.BtnGenPDF.Animated = true;
+            this.BtnGenPDF.BackColor = System.Drawing.Color.Transparent;
+            this.BtnGenPDF.BorderRadius = 20;
             this.BtnGenPDF.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.BtnGenPDF.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnGenPDF.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.BtnGenPDF.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnGenPDF.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BtnGenPDF.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnGenPDF.ForeColor = System.Drawing.Color.White;
-            this.BtnGenPDF.Location = new System.Drawing.Point(662, 200);
+            this.BtnGenPDF.Location = new System.Drawing.Point(1221, 657);
             this.BtnGenPDF.Name = "BtnGenPDF";
-            this.BtnGenPDF.Size = new System.Drawing.Size(180, 45);
+            this.BtnGenPDF.Size = new System.Drawing.Size(227, 52);
             this.BtnGenPDF.TabIndex = 3;
-            this.BtnGenPDF.Text = "guna2Button2";
+            this.BtnGenPDF.Text = "Generar PDF";
+            this.BtnGenPDF.UseTransparentBackground = true;
             this.BtnGenPDF.Click += new System.EventHandler(this.BtnGenPDF_Click);
             // 
             // VntnDatosCorte
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.VntnDatosCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.VntnDatosCorte.BackgroundColor = System.Drawing.Color.LightGray;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -133,19 +149,19 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.VntnDatosCorte.DefaultCellStyle = dataGridViewCellStyle3;
             this.VntnDatosCorte.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.VntnDatosCorte.Location = new System.Drawing.Point(48, 95);
+            this.VntnDatosCorte.Location = new System.Drawing.Point(37, 153);
             this.VntnDatosCorte.Name = "VntnDatosCorte";
             this.VntnDatosCorte.RowHeadersVisible = false;
             this.VntnDatosCorte.RowHeadersWidth = 51;
             this.VntnDatosCorte.RowTemplate.Height = 24;
-            this.VntnDatosCorte.Size = new System.Drawing.Size(529, 349);
+            this.VntnDatosCorte.Size = new System.Drawing.Size(1164, 556);
             this.VntnDatosCorte.TabIndex = 4;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.Font = null;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.VntnDatosCorte.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.VntnDatosCorte.ThemeStyle.BackColor = System.Drawing.Color.LightGray;
             this.VntnDatosCorte.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.VntnDatosCorte.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.VntnDatosCorte.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -162,11 +178,65 @@
             this.VntnDatosCorte.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.VntnDatosCorte.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(50, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(226, 48);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Asistencias";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(312, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 23);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Desde :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.Location = new System.Drawing.Point(715, 47);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 23);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Hasta :";
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::SistemaGimnasioSP.Properties.Resources.OsosSanPedro;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1454, 670);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(209, 230);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 12;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
+            // 
             // FrmAfluencia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1465, 784);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
+            this.ClientSize = new System.Drawing.Size(1699, 945);
+            this.Controls.Add(this.guna2PictureBox1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.VntnDatosCorte);
             this.Controls.Add(this.BtnGenPDF);
             this.Controls.Add(this.BtnConsultas);
@@ -177,7 +247,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmAfluencia";
             ((System.ComponentModel.ISupportInitialize)(this.VntnDatosCorte)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -189,5 +261,9 @@
         private Guna.UI2.WinForms.Guna2DataGridView VntnDatosCorte;
         private Guna.UI2.WinForms.Guna2Button BtnGenPDF;
         private Guna.UI2.WinForms.Guna2Button BtnConsultas;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
     }
 }
