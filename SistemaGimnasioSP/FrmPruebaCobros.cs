@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 using static SistemaGimnasioSP.FrmPaquetes;
 
 namespace SistemaGimnasioSP
@@ -16,7 +17,10 @@ namespace SistemaGimnasioSP
     public partial class FrmPruebaCobros : Form
     {
         // === BOLSAS DE MEMORIA ===
-
+        // Hasta arriba de tu FrmCobros.cs
+        string idClientePrincipal = "";
+  
+        // ... etc
         // Bolsa 1: Para los deportes individuales (Acondicionamiento, Box, etc)
         List<int> deportesSeleccionados = new List<int>();
         decimal subtotalDeportes = 0;
@@ -455,7 +459,7 @@ namespace SistemaGimnasioSP
                     return;
                 }
 
-                string idClientePrincipal = txtBusquedaId.Text.Trim();
+                idClientePrincipal = txtBusquedaId.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(idClientePrincipal))
                 {
@@ -532,8 +536,10 @@ namespace SistemaGimnasioSP
 
                         MessageBox.Show("¡Cobro realizado con éxito! Todos los datos fueron guardados correctamente.", "Venta Completada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // 4. Dejar la caja limpia para el siguiente cliente
-                        LimpiarPantallaCobros();
+                    ImprimirTicket();
+
+                    // 4. Dejar la caja limpia para el siguiente cliente
+                    LimpiarPantallaCobros();
                     }
                     catch (Exception ex)
                     {
@@ -553,11 +559,114 @@ namespace SistemaGimnasioSP
                     }
                 }
             }
+        // =====================================================================
+        // MÓDULO DE IMPRESIÓN DE TICKETS
+        // =====================================================================
+        private void ImprimirTicket()
+        {
+            PrintDocument ticket = new PrintDocument();
 
-            // 🧹 Función para resetear tu pantalla
-            private void LimpiarPantallaCobros()
+            // Si quieres mandar la impresión a una impresora térmica en específico, descomenta esta línea y pon su nombre:
+            // ticket.PrinterSettings.PrinterName = "NombreDeTuImpresoraTermica"; 
+
+            // Le decimos a la impresora qué es lo que va a "dibujar"
+            ticket.PrintPage += new PrintPageEventHandler(DibujarTicket);
+
+            try
+            {
+                ticket.Print(); // ¡Fuego! 🔥 Manda la orden a la impresora
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("El cobro se guardó, pero hubo un error al imprimir el ticket: " + ex.Message, "Aviso de Impresora", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void DibujarTicket(object sender, PrintPageEventArgs e)
+        {
+            Graphics graficos = e.Graphics;
+
+            // Fuentes (Letras)
+            Font fuenteTitulo = new Font("Courier New", 12, FontStyle.Bold);
+            Font fuenteNormal = new Font("Courier New", 10, FontStyle.Regular);
+            Font fuentePequeña = new Font("Courier New", 8, FontStyle.Regular);
+
+            int y = 20; // Coordenada vertical inicial
+            int margen = 10; // Margen izquierdo
+
+            // 1. Encabezado del Gimnasio
+            graficos.DrawString("GIMNASIO MUNICIPAL SP", fuenteTitulo, Brushes.Black, margen, y);
+            y += 20;
+            graficos.DrawString("San Pedro Garza García", fuenteNormal, Brushes.Black, margen, y);
+            y += 30;
+
+            // 2. Datos Generales del Ticket
+            graficos.DrawString("Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"), fuenteNormal, Brushes.Black, margen, y);
+            y += 20;
+
+            // 🆔 AQUÍ AGREGAMOS EL ID DEL CLIENTE
+            // Nota: idClientePrincipal debe ser la variable donde guardaste el ID al buscarlo
+            graficos.DrawString("ID Cliente: " + idClientePrincipal, fuenteNormal, Brushes.Black, margen, y);
+            y += 20;
+
+            string nombreLimpio = lblNombre.Text.Replace("Nombre: ", "");
+            graficos.DrawString("Cliente: " + nombreLimpio, fuenteNormal, Brushes.Black, margen, y);
+            y += 20;
+            graficos.DrawString("--------------------------------", fuenteNormal, Brushes.Black, margen, y);
+            y += 20;
+
+            // 3. CONCEPTOS PAGADOS (Desglose)
+            graficos.DrawString("CONCEPTOS PAGADOS:", fuenteTitulo, Brushes.Black, margen, y);
+            y += 20;
+
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
+
+            if (conexion != null)
+            {
+                try
+                {
+                    // Nombres de Deportes
+                    foreach (int idD in deportesSeleccionados)
+                    {
+                        MySqlCommand cmdD = new MySqlCommand("SELECT nombre_deporte FROM deportes WHERE id_deporte = @id", conexion);
+                        cmdD.Parameters.AddWithValue("@id", idD);
+                        string nombreDep = cmdD.ExecuteScalar()?.ToString();
+                        graficos.DrawString("- " + nombreDep, fuenteNormal, Brushes.Black, margen, y);
+                        y += 20;
+                    }
+
+                    // Nombres de Servicios/Equipos
+                    foreach (int idS in serviciosSeleccionados)
+                    {
+                        MySqlCommand cmdS = new MySqlCommand("SELECT nombre_servicio FROM servicios WHERE id_servicio = @id", conexion);
+                        cmdS.Parameters.AddWithValue("@id", idS);
+                        string nombreServ = cmdS.ExecuteScalar()?.ToString();
+                        graficos.DrawString("- " + nombreServ, fuenteNormal, Brushes.Black, margen, y);
+                        y += 20;
+                    }
+                }
+                finally { bd.CerrarConexion(); }
+            }
+
+            graficos.DrawString("--------------------------------", fuenteNormal, Brushes.Black, margen, y);
+            y += 20;
+
+            // 4. El Gran Total (Desde el Label calculado)
+            graficos.DrawString(lblTotalPagar.Text, fuenteTitulo, Brushes.Black, margen, y);
+            y += 40;
+
+            // 5. Pie de página
+            graficos.DrawString("¡Gracias por fomentar el deporte!", fuentePequeña, Brushes.Black, margen, y);
+            y += 15;
+            graficos.DrawString("Conserve este ticket.", fuentePequeña, Brushes.Black, margen, y);
+        }
+
+        // 🧹 Función para resetear tu pantalla
+        private void LimpiarPantallaCobros()
             {
                 txtBusquedaId.Clear();
+                idClientePrincipal = ""; // Reseteamos el ID
                 lblNombre.Text = "Nombre: ---";
                 lblEdad.Text = "Edad: ---";
                 lblMunicipio.Text = "Municipio: ---";
