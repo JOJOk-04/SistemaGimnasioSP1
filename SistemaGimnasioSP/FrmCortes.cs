@@ -7,7 +7,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System.Windows.Forms;
+using iTextFont = iTextSharp.text.Font;
 
 namespace SistemaGimnasioSP
 {
@@ -125,6 +129,92 @@ namespace SistemaGimnasioSP
                     finally { bd.CerrarConexion(); }
                 }
             }
+        // =====================================================================
+        // MÓDULO DE EXPORTACIÓN A PDF (Para Auditoría)
+        // =====================================================================
+        private void ExportarCortePDF()
+        {
+            if (dgvCortes.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar. Haz una consulta primero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SaveFileDialog guardarDialogo = new SaveFileDialog();
+            guardarDialogo.Filter = "Archivo PDF|*.pdf";
+            guardarDialogo.FileName = "Corte_Gimnasio_" + DateTime.Now.ToString("ddMMyyyy") + ".pdf";
+
+            if (guardarDialogo.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // 1. Usamos iTextSharp.text.Document explícitamente para evitar choques
+                    iTextSharp.text.Document documento = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 25, 25, 30, 30);
+                    PdfWriter.GetInstance(documento, new FileStream(guardarDialogo.FileName, FileMode.Create));
+
+                    documento.Open();
+
+                    // 2. Definimos fuentes usando nuestro alias 'iTextFont'
+                    iTextFont fuenteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+                    iTextFont fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                    iTextFont fuenteFirma = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+
+                    // 3. Títulos
+                    Paragraph titulo = new Paragraph("GIMNASIO MUNICIPAL SAN PEDRO\nReporte Oficial de Ingresos\n\n", fuenteTitulo);
+                    titulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    documento.Add(titulo);
+
+                    Paragraph info = new Paragraph($"Rango: {dtpDesde.Value.ToShortDateString()} al {dtpHasta.Value.ToShortDateString()}\nGenerado: {DateTime.Now.ToString()}\n\n", fuenteNormal);
+                    documento.Add(info);
+
+                    // 4. Tabla de Datos
+                    PdfPTable tablaPdf = new PdfPTable(dgvCortes.Columns.Count);
+                    tablaPdf.WidthPercentage = 100;
+
+                    // Encabezados
+                    foreach (DataGridViewColumn columna in dgvCortes.Columns)
+                    {
+                        PdfPCell celdaEncabezado = new PdfPCell(new Phrase(columna.HeaderText, fuenteFirma));
+                        celdaEncabezado.BackgroundColor = new iTextSharp.text.BaseColor(220, 220, 220);
+                        celdaEncabezado.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+                        tablaPdf.AddCell(celdaEncabezado);
+                    }
+
+                    // Filas de la tabla
+                    foreach (DataGridViewRow fila in dgvCortes.Rows)
+                    {
+                        if (!fila.IsNewRow)
+                        {
+                            foreach (DataGridViewCell celda in fila.Cells)
+                            {
+                                string valor = celda.Value?.ToString() ?? "";
+                                PdfPCell celdaDato = new PdfPCell(new Phrase(valor, fuenteNormal));
+                                celdaDato.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+                                tablaPdf.AddCell(celdaDato);
+                            }
+                        }
+                    }
+                    documento.Add(tablaPdf);
+
+                    // 5. Gran Total
+                    Paragraph total = new Paragraph($"\n\n{lblGranTotal.Text}", fuenteTitulo);
+                    total.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
+                    documento.Add(total);
+
+                    // 6. Espacio para firmas
+                    Paragraph firmas = new Paragraph("\n\n\n\n__________________________          __________________________\n          Firma del Cajero                     Firma de Tesorería", fuenteFirma);
+                    firmas.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    documento.Add(firmas);
+
+                    documento.Close();
+                    MessageBox.Show("¡Corte exportado a PDF!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error de PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
         private void lblFolioSiguiente_Click(object sender, EventArgs e)
         {
@@ -139,6 +229,11 @@ namespace SistemaGimnasioSP
         private void lblGranTotal_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnGenerarCorte_Click(object sender, EventArgs e)
+        {
+            ExportarCortePDF();
         }
     }
 }
