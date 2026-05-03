@@ -365,6 +365,10 @@
     <Content Include="OsosSanPedro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\attach_money_100dp_1F1F1F_FILL0_wght400_GRAD0_opsz48.png" />
+    <None Include="Resources\group_add_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
+    <None Include="Resources\camping_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
+    <None Include="Resources\pool_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
     <None Include="Resources\sports_baseball_1000dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
     <None Include="Resources\family_group_100dp_000000_FILL0_wght400_GRAD0_opsz481.png" />
     <None Include="Resources\family_group_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />

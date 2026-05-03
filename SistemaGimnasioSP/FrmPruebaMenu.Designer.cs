@@ -37,8 +37,8 @@
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2TextBox4 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.PanelCentral = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.BtnAfluencias = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
@@ -157,25 +157,6 @@
             this.guna2TextBox4.TabIndex = 7;
             this.guna2TextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // guna2Button5
-            // 
-            this.guna2Button5.Animated = true;
-            this.guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.FillColor = System.Drawing.Color.White;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 13.8F);
-            this.guna2Button5.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button5.Location = new System.Drawing.Point(0, 568);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.Size = new System.Drawing.Size(395, 89);
-            this.guna2Button5.TabIndex = 8;
-            this.guna2Button5.Text = "Cortes";
-            this.guna2Button5.UseTransparentBackground = true;
-            this.guna2Button5.Click += new System.EventHandler(this.guna2Button5_Click);
-            // 
             // PanelCentral
             // 
             this.PanelCentral.BackColor = System.Drawing.Color.Black;
@@ -188,6 +169,28 @@
             this.PanelCentral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PanelCentral.TabIndex = 2;
             this.PanelCentral.TabStop = false;
+            // 
+            // guna2Button5
+            // 
+            this.guna2Button5.Animated = true;
+            this.guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button5.FillColor = System.Drawing.Color.White;
+            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 13.8F);
+            this.guna2Button5.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button5.Image = global::SistemaGimnasioSP.Properties.Resources.attach_money_100dp_1F1F1F_FILL0_wght400_GRAD0_opsz48;
+            this.guna2Button5.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2Button5.ImageSize = new System.Drawing.Size(50, 50);
+            this.guna2Button5.Location = new System.Drawing.Point(0, 548);
+            this.guna2Button5.Name = "guna2Button5";
+            this.guna2Button5.Size = new System.Drawing.Size(395, 89);
+            this.guna2Button5.TabIndex = 8;
+            this.guna2Button5.Text = "Cortes";
+            this.guna2Button5.UseTransparentBackground = true;
+            this.guna2Button5.Click += new System.EventHandler(this.guna2Button5_Click);
             // 
             // BtnAfluencias
             // 
@@ -203,7 +206,7 @@
             this.BtnAfluencias.Image = global::SistemaGimnasioSP.Properties.Resources.stats;
             this.BtnAfluencias.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.BtnAfluencias.ImageSize = new System.Drawing.Size(40, 40);
-            this.BtnAfluencias.Location = new System.Drawing.Point(-1, 484);
+            this.BtnAfluencias.Location = new System.Drawing.Point(-1, 464);
             this.BtnAfluencias.Name = "BtnAfluencias";
             this.BtnAfluencias.Size = new System.Drawing.Size(392, 89);
             this.BtnAfluencias.TabIndex = 7;
@@ -237,7 +240,7 @@
             this.guna2Button3.Image = global::SistemaGimnasioSP.Properties.Resources.dollar;
             this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button3.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button3.Location = new System.Drawing.Point(0, 398);
+            this.guna2Button3.Location = new System.Drawing.Point(0, 378);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(393, 89);
             this.guna2Button3.TabIndex = 3;
@@ -254,7 +257,7 @@
             this.guna2Button2.Image = global::SistemaGimnasioSP.Properties.Resources.open_book;
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button2.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button2.Location = new System.Drawing.Point(0, 310);
+            this.guna2Button2.Location = new System.Drawing.Point(0, 290);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(393, 88);
             this.guna2Button2.TabIndex = 2;
@@ -272,7 +275,7 @@
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button1.ImageSize = new System.Drawing.Size(40, 40);
             this.guna2Button1.IndicateFocus = true;
-            this.guna2Button1.Location = new System.Drawing.Point(0, 221);
+            this.guna2Button1.Location = new System.Drawing.Point(0, 202);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(393, 88);
             this.guna2Button1.TabIndex = 1;
