@@ -365,6 +365,9 @@
     <Content Include="OsosSanPedro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Code_Generated_Image.png" />
+    <None Include="Resources\Gemini_Generated_Image_cveajqcveajqcvea.png" />
+    <None Include="Resources\logo_149.png" />
     <None Include="Resources\attach_money_100dp_1F1F1F_FILL0_wght400_GRAD0_opsz48.png" />
     <None Include="Resources\group_add_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />
     <None Include="Resources\camping_100dp_000000_FILL0_wght400_GRAD0_opsz48.png" />

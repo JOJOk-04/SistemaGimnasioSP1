@@ -143,6 +143,16 @@ namespace SistemaGimnasioSP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Code_Generated_Image {
+            get {
+                object obj = ResourceManager.GetObject("Code_Generated_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dollar {
             get {
                 object obj = ResourceManager.GetObject("dollar", resourceCulture);
@@ -203,6 +213,16 @@ namespace SistemaGimnasioSP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gemini_Generated_Image_cveajqcveajqcvea {
+            get {
+                object obj = ResourceManager.GetObject("Gemini_Generated_Image_cveajqcveajqcvea", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap group_add_100dp_000000_FILL0_wght400_GRAD0_opsz48 {
             get {
                 object obj = ResourceManager.GetObject("group_add_100dp_000000_FILL0_wght400_GRAD0_opsz48", resourceCulture);
@@ -226,6 +246,16 @@ namespace SistemaGimnasioSP.Properties {
         internal static System.Drawing.Bitmap karate {
             get {
                 object obj = ResourceManager.GetObject("karate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_149 {
+            get {
+                object obj = ResourceManager.GetObject("logo_149", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

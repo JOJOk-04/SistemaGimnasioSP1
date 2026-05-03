@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.VntnFechaInicio = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.VntnFechaFinal = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -98,9 +98,9 @@
             this.BtnConsultas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.BtnConsultas.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnConsultas.ForeColor = System.Drawing.Color.White;
-            this.BtnConsultas.Location = new System.Drawing.Point(1096, 70);
+            this.BtnConsultas.Location = new System.Drawing.Point(1256, 153);
             this.BtnConsultas.Name = "BtnConsultas";
-            this.BtnConsultas.Size = new System.Drawing.Size(227, 56);
+            this.BtnConsultas.Size = new System.Drawing.Size(247, 69);
             this.BtnConsultas.TabIndex = 2;
             this.BtnConsultas.Text = "Consulta";
             this.BtnConsultas.UseTransparentBackground = true;
@@ -117,9 +117,9 @@
             this.BtnGenPDF.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.BtnGenPDF.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnGenPDF.ForeColor = System.Drawing.Color.White;
-            this.BtnGenPDF.Location = new System.Drawing.Point(1221, 657);
+            this.BtnGenPDF.Location = new System.Drawing.Point(1256, 600);
             this.BtnGenPDF.Name = "BtnGenPDF";
-            this.BtnGenPDF.Size = new System.Drawing.Size(227, 52);
+            this.BtnGenPDF.Size = new System.Drawing.Size(247, 69);
             this.BtnGenPDF.TabIndex = 3;
             this.BtnGenPDF.Text = "Generar PDF";
             this.BtnGenPDF.UseTransparentBackground = true;
@@ -127,34 +127,34 @@
             // 
             // VntnDatosCorte
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.VntnDatosCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.VntnDatosCorte.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.VntnDatosCorte.BackgroundColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VntnDatosCorte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VntnDatosCorte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.VntnDatosCorte.ColumnHeadersHeight = 4;
             this.VntnDatosCorte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.VntnDatosCorte.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.VntnDatosCorte.DefaultCellStyle = dataGridViewCellStyle6;
             this.VntnDatosCorte.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.VntnDatosCorte.Location = new System.Drawing.Point(37, 153);
             this.VntnDatosCorte.Name = "VntnDatosCorte";
             this.VntnDatosCorte.RowHeadersVisible = false;
             this.VntnDatosCorte.RowHeadersWidth = 51;
             this.VntnDatosCorte.RowTemplate.Height = 24;
-            this.VntnDatosCorte.Size = new System.Drawing.Size(1164, 556);
+            this.VntnDatosCorte.Size = new System.Drawing.Size(1164, 516);
             this.VntnDatosCorte.TabIndex = 4;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.VntnDatosCorte.ThemeStyle.AlternatingRowsStyle.Font = null;

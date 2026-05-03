@@ -38,6 +38,7 @@
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2TextBox4 = new Guna.UI2.WinForms.Guna2TextBox();
             this.PanelCentral = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.BtnAfluencias = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
@@ -47,6 +48,7 @@
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PanelCentral)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Elipse1
@@ -125,12 +127,13 @@
             // 
             // guna2Panel2
             // 
+            this.guna2Panel2.Controls.Add(this.guna2PictureBox1);
             this.guna2Panel2.Controls.Add(this.guna2TextBox4);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(149)))), ((int)(((byte)(237)))));
             this.guna2Panel2.Location = new System.Drawing.Point(392, 0);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1240, 201);
+            this.guna2Panel2.Size = new System.Drawing.Size(1550, 201);
             this.guna2Panel2.TabIndex = 1;
             // 
             // guna2TextBox4
@@ -146,7 +149,7 @@
             this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.Transparent;
             this.guna2TextBox4.Font = new System.Drawing.Font("Bahnschrift Condensed", 30F);
             this.guna2TextBox4.ForeColor = System.Drawing.Color.Black;
-            this.guna2TextBox4.Location = new System.Drawing.Point(523, -6);
+            this.guna2TextBox4.Location = new System.Drawing.Point(961, -4);
             this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(2, 6, 2, 6);
             this.guna2TextBox4.Multiline = true;
             this.guna2TextBox4.Name = "guna2TextBox4";
@@ -165,10 +168,24 @@
             this.PanelCentral.ImageRotate = 0F;
             this.PanelCentral.Location = new System.Drawing.Point(392, 201);
             this.PanelCentral.Name = "PanelCentral";
-            this.PanelCentral.Size = new System.Drawing.Size(1240, 681);
+            this.PanelCentral.Size = new System.Drawing.Size(1550, 681);
             this.PanelCentral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PanelCentral.TabIndex = 2;
             this.PanelCentral.TabStop = false;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::SistemaGimnasioSP.Properties.Resources.Code_Generated_Image;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1401, 3);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(176, 192);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 8;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // guna2Button5
             // 
@@ -286,7 +303,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1632, 882);
+            this.ClientSize = new System.Drawing.Size(1942, 882);
             this.Controls.Add(this.PanelCentral);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
@@ -299,6 +316,7 @@
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PanelCentral)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,5 +337,6 @@
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox4;
         private Guna.UI2.WinForms.Guna2Button BtnAfluencias;
         private Guna.UI2.WinForms.Guna2Button guna2Button5;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
     }
 }
