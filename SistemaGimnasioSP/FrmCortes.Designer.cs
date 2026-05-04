@@ -113,7 +113,6 @@
             this.lblFolioSiguiente.Size = new System.Drawing.Size(146, 24);
             this.lblFolioSiguiente.TabIndex = 3;
             this.lblFolioSiguiente.Text = "Folio SIguiente :";
-            this.lblFolioSiguiente.Click += new System.EventHandler(this.lblFolioSiguiente_Click);
             // 
             // guna2Panel3
             // 
@@ -138,7 +137,6 @@
             this.lblGranTotal.Size = new System.Drawing.Size(96, 19);
             this.lblGranTotal.TabIndex = 0;
             this.lblGranTotal.Text = "Gran Total:";
-            this.lblGranTotal.Click += new System.EventHandler(this.lblGranTotal_Click);
             // 
             // dgvCortes
             // 

@@ -16,7 +16,7 @@ namespace AccesosGimnasioSP1
             this.TextBoxId.KeyDown += new KeyEventHandler(TextBoxId_KeyDown);
 
             // 2. Configuramos el Timer
-            timerLimpieza.Interval = 5000; // 5000 milisegundos = 5 segundos
+            timerLimpieza.Interval = 5000; // 5 segundos
             timerLimpieza.Tick += TimerLimpieza_Tick;
         }
 
@@ -24,8 +24,7 @@ namespace AccesosGimnasioSP1
         private void TimerLimpieza_Tick(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
-            lblMensaje.Text = "";
-            timerLimpieza.Stop(); // Detenemos el timer hasta la próxima vez
+            timerLimpieza.Stop();
         }
 
         // Método auxiliar para mostrar mensajes y resetear el tiempo
@@ -33,9 +32,9 @@ namespace AccesosGimnasioSP1
         {
             lblMensaje.Text = mensaje;
             lblMensaje.ForeColor = color;
-            lblMensaje.Text = nombre;
+            // Si tienes un label específico para el nombre, úsalo, si no, puedes concatenar
+            // Asumo que lblMensaje es el que usas para el estatus y el nombre
 
-            // Reiniciamos el timer cada vez que sale un nuevo mensaje
             timerLimpieza.Stop();
             timerLimpieza.Start();
         }
@@ -84,6 +83,7 @@ namespace AccesosGimnasioSP1
 
             try
             {
+                // 1. Buscamos al cliente y su estatus
                 string queryBuscar = @"
                     SELECT c.nombre, 
                            IF(i.fecha_vencimiento >= CURDATE(), 'Activo', 'Inactivo') AS estatus_calculado 
@@ -101,18 +101,34 @@ namespace AccesosGimnasioSP1
                         {
                             string estatus = lector["estatus_calculado"].ToString();
                             string nombre = lector["nombre"].ToString().Trim();
-                            lector.Close();
+                            lector.Close(); // Necesario cerrar antes de otra consulta
 
                             if (estatus == "Activo")
                             {
-                                MostrarMensajeTemporal("¡ACCESO CONCEDIDO!", Color.LimeGreen, "Bienvenido, " + nombre);
+                                // 2. VALIDACIÓN: Verificar si ya tiene asistencia hoy
+                                string queryVerificar = "SELECT COUNT(*) FROM accesos_diarios WHERE id_cliente = @id AND DATE(fecha_hora) = CURDATE()";
 
-                                // Registro de entrada
-                                string queryIngreso = "INSERT INTO accesos_diarios (id_cliente, fecha_hora, id_deporte) VALUES (@id, NOW(), 1)";
-                                using (MySqlCommand cmdIngreso = new MySqlCommand(queryIngreso, conexion))
+                                using (MySqlCommand cmdVerificar = new MySqlCommand(queryVerificar, conexion))
                                 {
-                                    cmdIngreso.Parameters.AddWithValue("@id", idCliente);
-                                    cmdIngreso.ExecuteNonQuery();
+                                    cmdVerificar.Parameters.AddWithValue("@id", idCliente);
+                                    int cantidadHoy = Convert.ToInt32(cmdVerificar.ExecuteScalar());
+
+                                    if (cantidadHoy == 0)
+                                    {
+                                        // No ha entrado hoy, registramos
+                                        string queryIngreso = "INSERT INTO accesos_diarios (id_cliente, fecha_hora, id_deporte) VALUES (@id, NOW(), 1)";
+                                        using (MySqlCommand cmdIngreso = new MySqlCommand(queryIngreso, conexion))
+                                        {
+                                            cmdIngreso.Parameters.AddWithValue("@id", idCliente);
+                                            cmdIngreso.ExecuteNonQuery();
+                                        }
+                                        MostrarMensajeTemporal("¡ACCESO CONCEDIDO!", Color.LimeGreen, "Bienvenido, " + nombre);
+                                    }
+                                    else
+                                    {
+                                        // Ya tiene asistencia
+                                        MostrarMensajeTemporal("YA REGISTRADO HOY", Color.Blue, "Bienvenido de nuevo, " + nombre);
+                                    }
                                 }
                             }
                             else
