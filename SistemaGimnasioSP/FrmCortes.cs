@@ -26,7 +26,7 @@ namespace SistemaGimnasioSP
             // 1. EVENTO LOAD: Se ejecuta al abrir la pantalla
             private void FrmCortes_Load(object sender, EventArgs e)
             {
-                // 🌟 TRUCO PRO: Calcular automáticamente el "Jueves Pasado"
+                
                 DateTime hoy = DateTime.Today;
                 int diasRestar = (int)hoy.DayOfWeek - (int)DayOfWeek.Thursday;
                 if (diasRestar < 0) diasRestar += 7; // Si hoy es mar/mie, regresamos a la semana pasada
@@ -34,7 +34,7 @@ namespace SistemaGimnasioSP
                 dtpDesde.Value = hoy.AddDays(-diasRestar);
                 dtpHasta.Value = hoy; // Hasta hoy
 
-                // Mostramos el número de folio actual
+
                 CargarProximoFolio();
             }
 
