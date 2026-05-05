@@ -45,6 +45,8 @@
             this.lblMensaje = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.guna2Elipse3 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
+            this.guna2CheckBox1 = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.BtnOpcionesDeportes = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -225,6 +227,44 @@
             this.guna2Elipse3.BorderRadius = 10;
             this.guna2Elipse3.TargetControl = this.label6;
             // 
+            // guna2CheckBox1
+            // 
+            this.guna2CheckBox1.AutoSize = true;
+            this.guna2CheckBox1.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox1.CheckedState.BorderRadius = 0;
+            this.guna2CheckBox1.CheckedState.BorderThickness = 0;
+            this.guna2CheckBox1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox1.Location = new System.Drawing.Point(5, -67);
+            this.guna2CheckBox1.Name = "guna2CheckBox1";
+            this.guna2CheckBox1.Size = new System.Drawing.Size(134, 20);
+            this.guna2CheckBox1.TabIndex = 8;
+            this.guna2CheckBox1.Text = "guna2CheckBox1";
+            this.guna2CheckBox1.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2CheckBox1.UncheckedState.BorderRadius = 0;
+            this.guna2CheckBox1.UncheckedState.BorderThickness = 0;
+            this.guna2CheckBox1.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            // 
+            // BtnOpcionesDeportes
+            // 
+            this.BtnOpcionesDeportes.BackColor = System.Drawing.Color.Transparent;
+            this.BtnOpcionesDeportes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.BtnOpcionesDeportes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BtnOpcionesDeportes.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.BtnOpcionesDeportes.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.BtnOpcionesDeportes.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.BtnOpcionesDeportes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.BtnOpcionesDeportes.ItemHeight = 30;
+            this.BtnOpcionesDeportes.Items.AddRange(new object[] {
+            "Acondicionamiento Fisico",
+            "Futbol",
+            "Taekwondo",
+            "Ritmos Latinos",
+            "Halterofilia"});
+            this.BtnOpcionesDeportes.Location = new System.Drawing.Point(1361, 448);
+            this.BtnOpcionesDeportes.Name = "BtnOpcionesDeportes";
+            this.BtnOpcionesDeportes.Size = new System.Drawing.Size(306, 36);
+            this.BtnOpcionesDeportes.TabIndex = 9;
+            // 
             // FrmPruebaAccesos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -233,6 +273,8 @@
             this.BackgroundImage = global::AccesosGimnasioSP1.Properties.Resources.osos_fondo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1517, 828);
+            this.Controls.Add(this.BtnOpcionesDeportes);
+            this.Controls.Add(this.guna2CheckBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblMensaje);
@@ -271,5 +313,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse3;
+        private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox BtnOpcionesDeportes;
     }
 }
