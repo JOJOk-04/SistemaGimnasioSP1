@@ -124,6 +124,7 @@
             this.BtnConsultas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnConsultas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.BtnConsultas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnConsultas.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
             this.BtnConsultas.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnConsultas.ForeColor = System.Drawing.Color.White;
             this.BtnConsultas.Location = new System.Drawing.Point(315, 956);
@@ -144,9 +145,10 @@
             this.BtnGenPDF.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnGenPDF.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.BtnGenPDF.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnGenPDF.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
             this.BtnGenPDF.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnGenPDF.ForeColor = System.Drawing.Color.White;
-            this.BtnGenPDF.Location = new System.Drawing.Point(1288, 956);
+            this.BtnGenPDF.Location = new System.Drawing.Point(1292, 956);
             this.BtnGenPDF.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnGenPDF.Name = "BtnGenPDF";
             this.BtnGenPDF.Size = new System.Drawing.Size(278, 86);
@@ -216,7 +218,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bahnschrift", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(56, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(274, 58);
@@ -228,7 +230,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(437, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 26);
@@ -240,7 +242,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(864, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 26);
@@ -588,7 +590,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1911, 1181);
             this.Controls.Add(this.tabMenuAfluencia);
             this.Controls.Add(this.guna2PictureBox1);
