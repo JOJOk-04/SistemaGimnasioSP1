@@ -150,7 +150,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.LightGray;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Bahnschrift", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(361, 330);
             this.label5.Name = "label5";
@@ -199,6 +199,7 @@
             this.TextBoxId.SelectedText = "";
             this.TextBoxId.Size = new System.Drawing.Size(323, 48);
             this.TextBoxId.TabIndex = 2;
+            this.TextBoxId.TextChanged += new System.EventHandler(this.TextBoxId_TextChanged);
             // 
             // lblMensaje
             // 
@@ -214,7 +215,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.LightGray;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Bahnschrift", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(483, 405);
             this.label6.Name = "label6";

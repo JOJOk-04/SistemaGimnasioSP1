@@ -6,16 +6,16 @@ using MySql.Data.MySqlClient;
 
 namespace AccesosGimnasioSP1
 {
-    public class ItemDeporte
-    {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public override string ToString() { return Nombre; }
-    }
-
     public partial class FrmPruebaAccesos : Form
     {
         private Timer timerLimpieza = new Timer();
+
+        public class ItemDeporte
+        {
+            public int Id { get; set; }
+            public string Nombre { get; set; }
+            public override string ToString() { return Nombre; }
+        }
 
         public FrmPruebaAccesos()
         {
@@ -194,6 +194,11 @@ namespace AccesosGimnasioSP1
                 TextBoxId.Clear();
                 TextBoxId.Focus();
             }
+        }
+
+        private void TextBoxId_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
