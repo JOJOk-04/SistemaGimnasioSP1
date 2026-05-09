@@ -77,7 +77,7 @@ namespace SistemaGimnasioSP
                         string idUsuario = lector["id_usuario"].ToString();
 
                         // 1. Creamos el objeto de la nueva ventana mandándole el nombre y rol (opcional, pero útil)
-                        FrmMenuPrincipal ventanaMenu = new FrmMenuPrincipal();
+                        FrmPruebaMenu ventanaMenu = new FrmPruebaMenu();
 
                         // 2. Mostramos el Menú Principal
                         ventanaMenu.Show();

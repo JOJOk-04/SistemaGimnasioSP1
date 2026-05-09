@@ -6,12 +6,6 @@ using MySql.Data.MySqlClient;
 
 namespace AccesosGimnasioSP1
 {
-    public class ItemDeporte
-    {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public override string ToString() { return Nombre; }
-    }
 
     public partial class FrmPruebaAccesos : Form
     {
@@ -24,6 +18,13 @@ namespace AccesosGimnasioSP1
             timerLimpieza.Interval = 5000;
             timerLimpieza.Tick += TimerLimpieza_Tick;
             this.Load += FrmPruebaAccesos_Load;
+        }
+
+        public class ItemDeporte
+        {
+            public int Id { get; set; }
+            public string Nombre { get; set; }
+            public override string ToString() { return Nombre; }
         }
 
         private void FrmPruebaAccesos_Load(object sender, EventArgs e)
