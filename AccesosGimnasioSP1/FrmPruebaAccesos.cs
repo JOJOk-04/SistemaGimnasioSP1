@@ -30,7 +30,6 @@ namespace AccesosGimnasioSP1
         {
             BtnOpcionesDeportes.Items.Clear();
 
-            // Conectamos a la BD para llenar los deportes
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
@@ -38,7 +37,7 @@ namespace AccesosGimnasioSP1
             {
                 try
                 {
-                    // CAMBIA 'deportes' POR EL NOMBRE REAL DE TU TABLA DE DEPORTES
+                    // Cargamos los deportes disponibles para el ComboBox/Botón
                     string query = "SELECT id_deporte, nombre_deporte FROM deportes";
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
@@ -74,6 +73,7 @@ namespace AccesosGimnasioSP1
 
         private void MostrarMensajeTemporal(string mensaje, Color color, string nombre)
         {
+            // Puedes usar el parámetro 'nombre' para personalizar más el mensaje si gustas
             lblMensaje.Text = mensaje;
             lblMensaje.ForeColor = color;
             timerLimpieza.Stop();
@@ -96,6 +96,7 @@ namespace AccesosGimnasioSP1
 
         private void ProcesarAcceso()
         {
+            // Validamos que se haya seleccionado un deporte antes de procesar el ID
             if (BtnOpcionesDeportes.SelectedItem == null)
             {
                 MostrarMensajeTemporal("¡SELECCIONA UN DEPORTE!", Color.Red, "---");
@@ -114,6 +115,7 @@ namespace AccesosGimnasioSP1
 
         private void VerificarAcceso(string idCliente, int idDeporte)
         {
+            // Validación básica de longitud de ID
             if (idCliente.Length != 5 || !int.TryParse(idCliente, out _))
             {
                 MostrarMensajeTemporal("ID INVÁLIDO", Color.Red, "---");
@@ -127,8 +129,8 @@ namespace AccesosGimnasioSP1
 
             try
             {
-                // 1. Buscamos al cliente y verificamos si tiene una inscripción ACTIVA para ESE DEPORTE específico
-                // Cambiamos la tabla a 'inscripciones' como pediste anteriormente
+                // 1. Verificamos que el cliente exista y tenga inscripción ACTIVA para el deporte SELECCIONADO
+                // Usamos la tabla 'inscripciones' para validar el estatus y deporte específico
                 string queryValidarInscripcion = @"
                     SELECT c.nombre 
                     FROM Clientes c 
@@ -145,12 +147,18 @@ namespace AccesosGimnasioSP1
 
                     object result = cmdValidar.ExecuteScalar();
 
-                    if (result != null) // Si encontró registro, el cliente está activo en ESE deporte
+                    if (result != null)
                     {
                         string nombre = result.ToString();
 
-                        // 2. Ahora verificamos si ya registró asistencia en ESE deporte HOY
-                        string queryAsistencia = "SELECT COUNT(*) FROM accesos_diarios WHERE id_cliente = @id AND id_deporte = @idDeporte AND DATE(fecha_hora) = CURDATE()";
+                        // 2. Verificamos si ya registró asistencia en este deporte HOY
+                        // Es vital filtrar por id_deporte para no bloquear el acceso a otros deportes el mismo día
+                        string queryAsistencia = @"
+                            SELECT COUNT(*) 
+                            FROM accesos_diarios 
+                            WHERE id_cliente = @id 
+                            AND id_deporte = @idDeporte 
+                            AND DATE(fecha_hora) = CURDATE()";
 
                         using (MySqlCommand cmdAsistencia = new MySqlCommand(queryAsistencia, conexion))
                         {
@@ -161,7 +169,7 @@ namespace AccesosGimnasioSP1
 
                             if (yaEntro == 0)
                             {
-                                // 3. Insertar el acceso
+                                // 3. Insertar el acceso únicamente para el deporte seleccionado
                                 string queryInsert = "INSERT INTO accesos_diarios (id_cliente, fecha_hora, id_deporte) VALUES (@id, NOW(), @idDeporte)";
                                 using (MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion))
                                 {
@@ -169,24 +177,24 @@ namespace AccesosGimnasioSP1
                                     cmdInsert.Parameters.AddWithValue("@idDeporte", idDeporte);
                                     cmdInsert.ExecuteNonQuery();
                                 }
-                                MostrarMensajeTemporal("¡ACCESO CONCEDIDO!", Color.LimeGreen, nombre);
+                                MostrarMensajeTemporal($"¡ACCESO: {nombre}!", Color.LimeGreen, nombre);
                             }
                             else
                             {
-                                MostrarMensajeTemporal("YA ENTRÓ A ESTE DEPORTE HOY", Color.Blue, nombre);
+                                MostrarMensajeTemporal("YA SE REGISTRÓ HOY EN ESTE DEPORTE", Color.Orange, nombre);
                             }
                         }
                     }
                     else
                     {
-                        // Si no encontró registro en la tabla inscripciones para ese ID y ese Deporte
-                        MostrarMensajeTemporal("SIN INSCRIPCIÓN VIGENTE", Color.Red, "Revisar Deporte");
+                        // Si no hay registro en 'inscripciones' que coincida con el ID y el Deporte elegido
+                        MostrarMensajeTemporal("SIN INSCRIPCIÓN VIGENTE EN ESTE DEPORTE", Color.Red, "---");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error en el proceso: " + ex.Message);
             }
             finally
             {
@@ -198,7 +206,7 @@ namespace AccesosGimnasioSP1
 
         private void TextBoxId_TextChanged(object sender, EventArgs e)
         {
-
+            // Espacio para lógica adicional si es necesario
         }
     }
 }

@@ -265,7 +265,6 @@
             // 
             resources.ApplyResources(this.chartDeportes, "chartDeportes");
             this.chartDeportes.Name = "chartDeportes";
-            this.chartDeportes.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.chartDeportes_ChildChanged);
             // 
             // label4
             // 

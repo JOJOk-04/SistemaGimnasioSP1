@@ -16,7 +16,7 @@ namespace SistemaGimnasioSP
         {
             InitializeComponent();
             // Iniciamos maximizado para aprovechar el espacio
-            WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Maximized;
         }
 
         // =====================================================================
@@ -38,7 +38,7 @@ namespace SistemaGimnasioSP
             }
 
             // 2. Configuramos el nuevo formulario hijo
-            formularioHijo.TopLevel = true;
+            formularioHijo.TopLevel = false;
             formularioHijo.FormBorderStyle = FormBorderStyle.None;
             formularioHijo.Dock = DockStyle.Fill;
 
@@ -69,7 +69,6 @@ namespace SistemaGimnasioSP
 
         private void BtnAfluencias_Click(object sender, EventArgs e)
         {
-         // Restauramos el tamaño para que se ajuste al contenido
             AbrirFormularioHijo(new FrmAfluencia());
         }
 
