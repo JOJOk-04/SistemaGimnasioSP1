@@ -13,13 +13,11 @@ namespace SistemaGimnasioSP
 {
     public partial class FrmAfluencia : Form
     {
-        // Usamos tu clase de conexión
         ConexionDB bd = new ConexionDB();
 
         public FrmAfluencia()
         {
             InitializeComponent();
-            // Aseguramos que el evento Load se dispare para configurar las donas
             this.Load += (s, e) =>
             {
                 chartProcedencia.InnerRadius = 50;
@@ -29,7 +27,6 @@ namespace SistemaGimnasioSP
 
         private void BtnConsultas_Click(object sender, EventArgs e)
         {
-            // 🚀 DISPARAMOS LA CARGA SEGÚN LA PESTAÑA
             ActualizarGraficaActual();
         }
 
@@ -40,9 +37,7 @@ namespace SistemaGimnasioSP
 
         private void ActualizarGraficaActual()
         {
-            // Usamos índices para que sea infalible (0=Deportes, 1=Horarios, 2=Edades, 3=Procedencia)
             int index = tabMenuAfluencia.SelectedIndex;
-
             if (index == 0) CargarDatos("Deportes");
             else if (index == 1) CargarDatos("Horarios");
             else if (index == 2) CargarDatos("Edades");
@@ -57,26 +52,22 @@ namespace SistemaGimnasioSP
             try
             {
                 string queryGrafica = "";
-                string queryTabla = ""; // ✨ Nueva query para los detalles
+                string queryTabla = "";
                 DataGridView dgvActual = null;
                 dynamic chartActual = null;
 
-                // 1. Definimos las dos caras de la moneda: Detalle para tabla y Resumen para gráfica
                 switch (tipo)
                 {
                     case "Deportes":
                         queryTabla = @"SELECT a.id_acceso AS Folio, c.nombre AS Cliente, d.nombre_deporte AS Deporte, a.fecha_hora AS 'Fecha y Hora'
                                FROM accesos_diarios a 
                                INNER JOIN clientes c ON a.id_cliente = c.id_cliente 
-                               INNER JOIN inscripciones i ON c.id_cliente = i.id_cliente 
-                               INNER JOIN deportes d ON i.id_deporte = d.id_deporte 
+                               INNER JOIN deportes d ON a.id_deporte = d.id_deporte 
                                WHERE DATE(a.fecha_hora) BETWEEN @inicio AND @fin";
 
                         queryGrafica = @"SELECT d.nombre_deporte AS Concepto, COUNT(a.id_acceso) AS Total 
                                  FROM accesos_diarios a 
-                                 INNER JOIN clientes c ON a.id_cliente = c.id_cliente 
-                                 INNER JOIN inscripciones i ON c.id_cliente = i.id_cliente 
-                                 INNER JOIN deportes d ON i.id_deporte = d.id_deporte 
+                                 INNER JOIN deportes d ON a.id_deporte = d.id_deporte 
                                  WHERE DATE(a.fecha_hora) BETWEEN @inicio AND @fin 
                                  GROUP BY d.nombre_deporte";
                         dgvActual = dgvDeportes;
@@ -99,21 +90,19 @@ namespace SistemaGimnasioSP
                         break;
 
                     case "Horarios":
-                        // Esta tabla detallada no debería dar problemas
                         queryTabla = @"SELECT id_acceso AS Folio, fecha_hora AS 'Hora de Entrada' 
-                   FROM accesos_diarios 
-                   WHERE DATE(fecha_hora) BETWEEN @inicio AND @fin";
+                               FROM accesos_diarios 
+                               WHERE DATE(fecha_hora) BETWEEN @inicio AND @fin";
 
-                        // Modificamos el GROUP BY para que sea idéntico al SELECT y al ORDER BY
+                        // CORRECCIÓN: Ordenamos por la misma expresión que agrupamos para evitar el error de la imagen
                         queryGrafica = @"SELECT CONCAT(HOUR(fecha_hora), ':00') AS Concepto, COUNT(*) AS Total 
-                     FROM accesos_diarios 
-                     WHERE DATE(fecha_hora) BETWEEN @inicio AND @fin 
-                     GROUP BY HOUR(fecha_hora), Concepto -- 👈 Agregamos ambos aquí
-                     ORDER BY HOUR(fecha_hora) ASC"; // Ordenamos numéricamente
+                                 FROM accesos_diarios 
+                                 WHERE DATE(fecha_hora) BETWEEN @inicio AND @fin 
+                                 GROUP BY Concepto
+                                 ORDER BY MIN(HOUR(fecha_hora)) ASC";
                         dgvActual = dgvHorarios;
                         chartActual = chartHorarios;
                         break;
-
 
                     case "Edades":
                         queryTabla = @"SELECT c.nombre AS Cliente, c.fecha_nacimiento AS 'F. Nacimiento', 
@@ -133,36 +122,27 @@ namespace SistemaGimnasioSP
                         break;
                 }
 
-                // 2. LLENAMOS LA TABLA (Detalle)
                 MySqlCommand cmdTabla = new MySqlCommand(queryTabla, conexion);
                 cmdTabla.Parameters.AddWithValue("@inicio", VntnFechaInicio.Value.ToString("yyyy-MM-dd"));
                 cmdTabla.Parameters.AddWithValue("@fin", VntnFechaFinal.Value.ToString("yyyy-MM-dd"));
 
-                MySqlDataAdapter adpTabla = new MySqlDataAdapter(cmdTabla);
                 DataTable dtTabla = new DataTable();
-                adpTabla.Fill(dtTabla);
+                new MySqlDataAdapter(cmdTabla).Fill(dtTabla);
                 dgvActual.DataSource = dtTabla;
 
-                // 3. LLENAMOS LA GRÁFICA (Resumen)
                 MySqlCommand cmdGrafica = new MySqlCommand(queryGrafica, conexion);
                 cmdGrafica.Parameters.AddWithValue("@inicio", VntnFechaInicio.Value.ToString("yyyy-MM-dd"));
                 cmdGrafica.Parameters.AddWithValue("@fin", VntnFechaFinal.Value.ToString("yyyy-MM-dd"));
 
-                MySqlDataAdapter adpGrafica = new MySqlDataAdapter(cmdGrafica);
                 DataTable dtGrafica = new DataTable();
-                adpGrafica.Fill(dtGrafica);
+                new MySqlDataAdapter(cmdGrafica).Fill(dtGrafica);
 
                 if (tipo == "Deportes" || tipo == "Procedencia")
                 {
                     SeriesCollection series = new SeriesCollection();
                     foreach (DataRow fila in dtGrafica.Rows)
                     {
-                        series.Add(new PieSeries
-                        {
-                            Title = fila["Concepto"].ToString(),
-                            Values = new ChartValues<int> { Convert.ToInt32(fila["Total"]) },
-                            DataLabels = true
-                        });
+                        series.Add(new PieSeries { Title = fila["Concepto"].ToString(), Values = new ChartValues<int> { Convert.ToInt32(fila["Total"]) }, DataLabels = true });
                     }
                     chartActual.Series = series;
                 }
@@ -175,12 +155,11 @@ namespace SistemaGimnasioSP
                         etiquetas.Add(fila["Concepto"].ToString());
                         valores.Add(Convert.ToInt32(fila["Total"]));
                     }
-
                     chartActual.Series = new SeriesCollection {
-                tipo == "Horarios"
-                ? (Series)new LineSeries { Title = "Visitas", Values = valores }
-                : (Series)new ColumnSeries { Title = "Visitas", Values = valores, DataLabels = true }
-            };
+                        tipo == "Horarios"
+                        ? (Series)new LineSeries { Title = "Visitas", Values = valores }
+                        : (Series)new ColumnSeries { Title = "Visitas", Values = valores, DataLabels = true }
+                    };
                     chartActual.AxisX.Clear();
                     chartActual.AxisX.Add(new Axis { Labels = etiquetas });
                 }
@@ -188,30 +167,29 @@ namespace SistemaGimnasioSP
             catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
             finally { bd.CerrarConexion(); }
         }
+
         private void BtnGenPDF_Click(object sender, EventArgs e)
         {
             DataGridView dgvActual = null;
             string tituloReporte = "";
             string queryResumen = "";
-
             int index = tabMenuAfluencia.SelectedIndex;
 
-            // 1. Configuración de datos según la pestaña activa
             if (index == 0)
             {
                 dgvActual = dgvDeportes; tituloReporte = "AFLUENCIA POR DEPORTES";
                 queryResumen = @"SELECT d.nombre_deporte AS Concepto, COUNT(a.id_acceso) AS Total 
-                         FROM accesos_diarios a INNER JOIN clientes c ON a.id_cliente = c.id_cliente 
-                         INNER JOIN inscripciones i ON c.id_cliente = i.id_cliente 
-                         INNER JOIN deportes d ON i.id_deporte = d.id_deporte 
+                         FROM accesos_diarios a 
+                         INNER JOIN deportes d ON a.id_deporte = d.id_deporte 
                          WHERE DATE(a.fecha_hora) BETWEEN @inicio AND @fin GROUP BY d.nombre_deporte";
             }
             else if (index == 1)
             {
                 dgvActual = dgvHorarios; tituloReporte = "AFLUENCIA POR HORARIOS";
+                // CORRECCIÓN TAMBIÉN AQUÍ: Usamos MIN() en el ORDER BY para cumplir con la regla de agregación
                 queryResumen = @"SELECT CONCAT(HOUR(fecha_hora), ':00') AS Concepto, COUNT(*) AS Total 
                          FROM accesos_diarios WHERE DATE(fecha_hora) BETWEEN @inicio AND @fin 
-                         GROUP BY HOUR(fecha_hora), Concepto ORDER BY HOUR(fecha_hora) ASC";
+                         GROUP BY Concepto ORDER BY MIN(HOUR(fecha_hora)) ASC";
             }
             else if (index == 2)
             {
@@ -248,7 +226,6 @@ namespace SistemaGimnasioSP
                         PdfWriter writer = PdfWriter.GetInstance(doc, fs);
                         doc.Open();
 
-                        // --- 🏢 ENCABEZADO CENTRADO ---
                         var fuenteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
                         var fuenteBold = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
                         var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 10);
@@ -263,19 +240,13 @@ namespace SistemaGimnasioSP
                         p3.Alignment = Element.ALIGN_CENTER; doc.Add(p3);
                         doc.Add(new Paragraph("\n"));
 
-                        // --- 📑 TABLA DE RESUMEN (SUSTITUYE A LA GRÁFICA) ---
-                        doc.Add(new Paragraph("RESUMEN ESTADÍSTICO", fuenteBold));
-                        doc.Add(new Paragraph("\n"));
-
                         PdfPTable tablaResumen = new PdfPTable(3) { WidthPercentage = 80, HorizontalAlignment = Element.ALIGN_CENTER };
                         tablaResumen.SetWidths(new float[] { 50f, 25f, 25f });
 
-                        // Encabezados del resumen
                         tablaResumen.AddCell(new PdfPCell(new Phrase("Categoría", fuenteBold)) { BackgroundColor = new BaseColor(230, 230, 230), HorizontalAlignment = Element.ALIGN_CENTER });
                         tablaResumen.AddCell(new PdfPCell(new Phrase("Registros", fuenteBold)) { BackgroundColor = new BaseColor(230, 230, 230), HorizontalAlignment = Element.ALIGN_CENTER });
                         tablaResumen.AddCell(new PdfPCell(new Phrase("Porcentaje (%)", fuenteBold)) { BackgroundColor = new BaseColor(230, 230, 230), HorizontalAlignment = Element.ALIGN_CENTER });
 
-                        // Obtener datos para cálculos
                         MySqlConnection conexion = bd.AbrirConexion();
                         MySqlCommand cmdResumen = new MySqlCommand(queryResumen, conexion);
                         cmdResumen.Parameters.AddWithValue("@inicio", VntnFechaInicio.Value.ToString("yyyy-MM-dd"));
@@ -299,15 +270,11 @@ namespace SistemaGimnasioSP
                         conexion.Close();
                         doc.Add(tablaResumen);
 
-                        doc.Add(new Paragraph("\n" + new string('-', 100) + "\n")); // Línea divisora
-
-                        // --- 📄 TABLA DETALLADA ---
+                        doc.Add(new Paragraph("\n" + new string('-', 100) + "\n"));
                         doc.Add(new Paragraph("DETALLE COMPLETO DE INGRESOS", fuenteBold));
                         doc.Add(new Paragraph("\n"));
 
                         PdfPTable tablaDetalle = new PdfPTable(dgvActual.Columns.Count) { WidthPercentage = 100 };
-
-                        // Encabezados de la tabla larga
                         foreach (DataGridViewColumn col in dgvActual.Columns)
                         {
                             PdfPCell hCell = new PdfPCell(new Phrase(col.HeaderText, fuenteBold));
@@ -316,7 +283,6 @@ namespace SistemaGimnasioSP
                             tablaDetalle.AddCell(hCell);
                         }
 
-                        // Filas de datos
                         foreach (DataGridViewRow row in dgvActual.Rows)
                         {
                             if (row.IsNewRow) continue;
@@ -328,11 +294,10 @@ namespace SistemaGimnasioSP
 
                         doc.Add(tablaDetalle);
                         doc.Close();
-                        writer.Close();
                     }
-                    MessageBox.Show("Reporte generado con éxito. Sin gráficas, pero con datos reales.", "Runtime Sys Solutions");
+                    MessageBox.Show("Reporte generado con éxito.", "Gimnasio SP");
                 }
-                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+                catch (Exception ex) { MessageBox.Show("Error al generar PDF: " + ex.Message); }
             }
         }
     }
