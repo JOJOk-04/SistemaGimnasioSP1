@@ -221,5 +221,20 @@ namespace SistemaGimnasioSP
         {
 
         }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
