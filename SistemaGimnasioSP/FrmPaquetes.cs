@@ -260,5 +260,20 @@ namespace SistemaGimnasioSP
                 finally { bd.CerrarConexion(); }
             }
         }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Heterofilia_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmPaquetes_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

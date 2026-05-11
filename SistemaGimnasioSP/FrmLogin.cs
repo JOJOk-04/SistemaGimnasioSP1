@@ -28,30 +28,19 @@ namespace SistemaGimnasioSP
             }
         }
 
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            // 1. Atrapamos lo que escribieron
+                   // 1. Atrapamos lo que escribieron
             string usuario = txtUsuario.Text.Trim();
-            string password = txtPassword.Text.Trim();
+            string passwordIngresada = txtPassword.Text.Trim();
 
-            // 2. Validamos que no estén vacíos
-            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password))
+            // 2. Validamos campos vacíos
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(passwordIngresada))
             {
                 MessageBox.Show("Por favor, ingresa tu usuario y contraseña.", "Campos vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 3. Llamamos a nuestra conexión que ya sabemos que funciona
             ConexionDB bd = new ConexionDB();
             MySqlConnection conexion = bd.AbrirConexion();
 
@@ -59,39 +48,51 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // 4. Buscamos al usuario en MySQL
-                    string query = "SELECT id_usuario, nombre_completo, rol FROM Usuarios WHERE usuario_login = @user AND contrasena = @pass";
+                    // 3. CAMBIO CLAVE: Ya no buscamos el password en el WHERE. 
+                    // Buscamos solo por usuario para traer su hash y verificarlo aquí en C#.
+                    string query = "SELECT id_usuario, nombre_completo, rol, contrasena, estatus FROM Usuarios WHERE usuario_login = @user";
                     MySqlCommand comando = new MySqlCommand(query, conexion);
-
-                    // Bloqueamos inyecciones SQL
                     comando.Parameters.AddWithValue("@user", usuario);
-                    comando.Parameters.AddWithValue("@pass", password);
 
-                    // 5. Leemos el resultado
-                    MySqlDataReader lector = comando.ExecuteReader();
-
-                    if (lector.Read()) // ¡Sí existe y la clave es correcta!
+                    using (MySqlDataReader lector = comando.ExecuteReader())
                     {
-                        string nombre = lector["nombre_completo"].ToString();
-                        string rol = lector["rol"].ToString();
-                        string idUsuario = lector["id_usuario"].ToString();
+                        if (lector.Read()) // Si el usuario existe...
+                        {
+                            string hashEnBaseDatos = lector["contrasena"].ToString();
+                            string estatus = lector["estatus"].ToString();
 
-                        // 1. Creamos el objeto de la nueva ventana mandándole el nombre y rol (opcional, pero útil)
-                        FrmPruebaMenu ventanaMenu = new FrmPruebaMenu();
+                            // 4. Verificamos si el usuario está activo
+                            if (estatus != "Activo")
+                            {
+                                MessageBox.Show("Tu cuenta está desactivada. Contacta al administrador.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
 
-                        // 2. Mostramos el Menú Principal
-                        ventanaMenu.Show();
+                            // 5. LA MAGIA: Comparamos la clave ingresada contra el Hash de la DB
+                            bool esValida = BCrypt.Net.BCrypt.Verify(passwordIngresada, hashEnBaseDatos);
 
-                        // 3. Ocultamos el Login para que no estorbe atrás
-                        this.Hide();
+                            if (esValida)
+                            {
+                                string nombre = lector["nombre_completo"].ToString();
+                                string rol = lector["rol"].ToString();
 
-                        // TODO: Aquí después agregaremos el código para abrir el Menú Principal y esconder el Login
-                    }
-                    else // No existe o se equivocó de clave
-                    {
-                        MessageBox.Show("Usuario o contraseña incorrectos.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtPassword.Clear(); // Limpiamos la clave para que vuelva a intentar
-                        txtUsuario.Focus();
+                                MessageBox.Show($"¡Bienvenido {nombre}! Entrando como {rol}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                FrmPruebaMenu ventanaMenu = new FrmPruebaMenu();
+                                ventanaMenu.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Contraseña incorrecta.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                txtPassword.Clear();
+                                txtPassword.Focus();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El usuario no existe.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -100,14 +101,9 @@ namespace SistemaGimnasioSP
                 }
                 finally
                 {
-                    bd.CerrarConexion(); // Cerramos la puerta
+                    bd.CerrarConexion();
                 }
             }
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

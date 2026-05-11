@@ -52,7 +52,6 @@
             this.label1.Size = new System.Drawing.Size(94, 33);
             this.label1.TabIndex = 1;
             this.label1.Text = "Usuario";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -113,7 +112,6 @@
             this.label3.Size = new System.Drawing.Size(422, 45);
             this.label3.TabIndex = 6;
             this.label3.Text = "Sistema Gestor de Gimnasio";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // guna2Elipse1
             // 
@@ -154,7 +152,6 @@
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.FrmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
