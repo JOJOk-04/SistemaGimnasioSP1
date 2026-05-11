@@ -10,6 +10,7 @@ namespace AccesosGimnasioSP1
     {
         private Timer timerLimpieza = new Timer();
 
+        // Se mantiene una sola definición de la clase interna
         public class ItemDeporte
         {
             public int Id { get; set; }
@@ -24,13 +25,6 @@ namespace AccesosGimnasioSP1
             timerLimpieza.Interval = 5000;
             timerLimpieza.Tick += TimerLimpieza_Tick;
             this.Load += FrmPruebaAccesos_Load;
-        }
-
-        public class ItemDeporte
-        {
-            public int Id { get; set; }
-            public string Nombre { get; set; }
-            public override string ToString() { return Nombre; }
         }
 
         private void FrmPruebaAccesos_Load(object sender, EventArgs e)
@@ -80,7 +74,6 @@ namespace AccesosGimnasioSP1
 
         private void MostrarMensajeTemporal(string mensaje, Color color, string nombre)
         {
-            // Puedes usar el parámetro 'nombre' para personalizar más el mensaje si gustas
             lblMensaje.Text = mensaje;
             lblMensaje.ForeColor = color;
             timerLimpieza.Stop();
@@ -103,7 +96,6 @@ namespace AccesosGimnasioSP1
 
         private void ProcesarAcceso()
         {
-            // Validamos que se haya seleccionado un deporte antes de procesar el ID
             if (BtnOpcionesDeportes.SelectedItem == null)
             {
                 MostrarMensajeTemporal("¡SELECCIONA UN DEPORTE!", Color.Red, "---");
@@ -122,7 +114,6 @@ namespace AccesosGimnasioSP1
 
         private void VerificarAcceso(string idCliente, int idDeporte)
         {
-            // Validación básica de longitud de ID
             if (idCliente.Length != 5 || !int.TryParse(idCliente, out _))
             {
                 MostrarMensajeTemporal("ID INVÁLIDO", Color.Red, "---");
@@ -136,8 +127,6 @@ namespace AccesosGimnasioSP1
 
             try
             {
-                // 1. Verificamos que el cliente exista y tenga inscripción ACTIVA para el deporte SELECCIONADO
-                // Usamos la tabla 'inscripciones' para validar el estatus y deporte específico
                 string queryValidarInscripcion = @"
                     SELECT c.nombre 
                     FROM Clientes c 
@@ -158,8 +147,6 @@ namespace AccesosGimnasioSP1
                     {
                         string nombre = result.ToString();
 
-                        // 2. Verificamos si ya registró asistencia en este deporte HOY
-                        // Es vital filtrar por id_deporte para no bloquear el acceso a otros deportes el mismo día
                         string queryAsistencia = @"
                             SELECT COUNT(*) 
                             FROM accesos_diarios 
@@ -176,7 +163,6 @@ namespace AccesosGimnasioSP1
 
                             if (yaEntro == 0)
                             {
-                                // 3. Insertar el acceso únicamente para el deporte seleccionado
                                 string queryInsert = "INSERT INTO accesos_diarios (id_cliente, fecha_hora, id_deporte) VALUES (@id, NOW(), @idDeporte)";
                                 using (MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion))
                                 {
@@ -194,7 +180,6 @@ namespace AccesosGimnasioSP1
                     }
                     else
                     {
-                        // Si no hay registro en 'inscripciones' que coincida con el ID y el Deporte elegido
                         MostrarMensajeTemporal("SIN INSCRIPCIÓN VIGENTE EN ESTE DEPORTE", Color.Red, "---");
                     }
                 }
@@ -213,7 +198,6 @@ namespace AccesosGimnasioSP1
 
         private void TextBoxId_TextChanged(object sender, EventArgs e)
         {
-            // Espacio para lógica adicional si es necesario
         }
     }
 }
