@@ -28,11 +28,27 @@ namespace SistemaGimnasioSP
 
         private void LimpiarFicha()
         {
+            // Datos originales
             lblNombreResultado.Text = "Nombre: ---";
             lblMunicipioResultado.Text = "Municipio: ---";
             lblEstatusResultado.Text = "Estatus: ---";
             lblEdadResultado.Text = "Edad: ---";
             lblEstatusResultado.ForeColor = System.Drawing.Color.Black;
+
+            // Datos nuevos agregados
+            //lblDireccionResultado.Text = "Dirección: ---";
+            //lblColoniaResultado.Text = "Colonia: ---";
+            //lblTelefonoResultado.Text = "Teléfono: ---";
+           // lblContactoResultado.Text = "Emergencia: ---";
+           // lblCurpResultado.Text = "CURP: ---";
+           // lblRfcResultado.Text = "RFC: ---";
+           // lblGeneroResultado.Text = "Género: ---";
+           // lblEmailResultado.Text = "Correo: ---";
+           // lblPesoResultado.Text = "Peso: ---";
+            lblSangreResultado.Text = "Sangre: ---";
+            lblAlergiasResultado.Text = "Alergias: ---";
+           // lblPadecimientoResultado.Text = "Padecimiento: ---";
+
             busquedaRealizada = false;
         }
 
@@ -47,11 +63,15 @@ namespace SistemaGimnasioSP
 
             try
             {
+                // Se agregaron todas las columnas nuevas al SELECT
                 string query = @"SELECT c.nombre, c.fecha_nacimiento, c.municipio, 
+                                        c.direccion, c.colonia, c.telefono, c.contacto_emergencia,
+                                        c.curp, c.rfc, c.genero, c.email, c.peso, 
+                                        c.tipo_sangre, c.alergias, c.padecimiento,
                                         IF(i.fecha_vencimiento IS NULL, 'Sin registro', 
                                            IF(i.fecha_vencimiento >= CURDATE(), 'Activo', 'Inactivo')) AS estatus_calculado 
-                                 FROM Clientes c 
-                                 LEFT JOIN Inscripciones i ON c.id_cliente = i.id_cliente 
+                                 FROM clientes c 
+                                 LEFT JOIN inscripciones i ON c.id_cliente = i.id_cliente 
                                  WHERE c.id_cliente LIKE @b OR c.nombre LIKE @b 
                                  ORDER BY i.fecha_vencimiento DESC 
                                  LIMIT 1";
@@ -63,8 +83,25 @@ namespace SistemaGimnasioSP
                 {
                     if (lector.Read())
                     {
+                        // Llenado de datos originales
                         lblNombreResultado.Text = $"Nombre: {lector["nombre"]}";
                         lblMunicipioResultado.Text = $"Municipio: {lector["municipio"]}";
+
+                        // Llenado de datos nuevos
+                       // lblDireccionResultado.Text = $"Dirección: {lector["direccion"]}";
+                      //  lblColoniaResultado.Text = $"Colonia: {lector["colonia"]}";
+                       lblTelefonoResultado.Text = $"Teléfono: {lector["telefono"]}";
+                       // lblContactoResultado.Text = $"Emergencia: {lector["contacto_emergencia"]}";
+                       // lblCurpResultado.Text = $"CURP: {lector["curp"]}";
+                      //  lblRfcResultado.Text = $"RFC: {lector["rfc"]}";
+                      //  lblGeneroResultado.Text = $"Género: {lector["genero"]}";
+                      //  lblEmailResultado.Text = $"Correo: {lector["email"]}";
+                      //  lblPesoResultado.Text = $"Peso: {lector["peso"]}";
+                        lblSangreResultado.Text = $"Sangre: {lector["tipo_sangre"]}";
+                        lblAlergiasResultado.Text = $"Alergias: {lector["alergias"]}";
+                      //  lblPadecimientoResultado.Text = $"Padecimiento: {lector["padecimiento"]}";
+
+                        // Lógica de Estatus (Se mantiene igual)
                         string estatusSocio = lector["estatus_calculado"].ToString();
                         lblEstatusResultado.Text = $"Estatus: {estatusSocio}";
 
@@ -75,6 +112,7 @@ namespace SistemaGimnasioSP
                         else
                             lblEstatusResultado.ForeColor = System.Drawing.Color.DarkOrange;
 
+                        // Lógica de Edad (Se mantiene igual)
                         DateTime fechaNac = Convert.ToDateTime(lector["fecha_nacimiento"]);
                         int edad = DateTime.Today.Year - fechaNac.Year;
                         if (fechaNac.Date > DateTime.Today.AddYears(-edad)) edad--;
@@ -95,6 +133,9 @@ namespace SistemaGimnasioSP
 
         private void GenerarGafetePDF()
         {
+            // Esta sección se mantiene EXACTAMENTE igual como pediste. 
+            // El gafete seguirá mostrando solo el Nombre, Municipio, Edad y QR.
+
             string id = txtBuscar.Text.Trim();
             string ruta = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Gafete_{id}.pdf");
 
@@ -117,7 +158,6 @@ namespace SistemaGimnasioSP
                     iText.Kernel.Colors.Color grisTexto = new iText.Kernel.Colors.DeviceRgb(127, 140, 141);
                     iText.Kernel.Colors.Color azulOscuro = new iText.Kernel.Colors.DeviceRgb(39, 60, 117);
 
-                    // 1. MARCA DE AGUA (Fondo sutil)
                     if (File.Exists(rutaImagen))
                     {
                         ImageData data = ImageDataFactory.Create(rutaImagen);
@@ -126,14 +166,12 @@ namespace SistemaGimnasioSP
                         doc.Add(imgFondo);
                     }
 
-                    // 2. HEADER
                     Table header = new Table(1).UseAllAvailableWidth();
                     header.AddCell(new Cell().Add(new Paragraph("GAFETE DE ACCESO")
                         .SetFont(fBold).SetFontSize(14).SetFontColor(iText.Kernel.Colors.ColorConstants.WHITE))
                         .SetBackgroundColor(azulOscuro).SetTextAlignment(TextAlignment.CENTER).SetPadding(8).SetBorder(iText.Layout.Borders.Border.NO_BORDER));
                     doc.Add(header);
 
-                    // 3. FOTO PERFIL
                     Table photoFrame = new Table(1).SetWidth(90).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
                     photoFrame.SetMarginTop(15);
                     photoFrame.AddCell(new Cell().Add(new Paragraph("FOTO\nPERFIL").SetFont(fNormal).SetFontColor(grisTexto).SetFontSize(10))
@@ -141,21 +179,18 @@ namespace SistemaGimnasioSP
                         .SetBorder(new iText.Layout.Borders.SolidBorder(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY, 1)));
                     doc.Add(photoFrame);
 
-                    // 4. DATOS DEL SOCIO
                     string nombreLimpio = lblNombreResultado.Text.Replace("Nombre: ", "");
                     doc.Add(new Paragraph(nombreLimpio)
                         .SetFont(fBold).SetFontSize(16).SetFontColor(grisOscuro)
                         .SetTextAlignment(TextAlignment.CENTER)
                         .SetMarginTop(10).SetMarginBottom(0));
 
-                    // Municipio | Edad
                     string municipio = lblMunicipioResultado.Text;
                     string edad = lblEdadResultado.Text;
                     doc.Add(new Paragraph($"{municipio} | {edad}")
                         .SetFont(fNormal).SetFontSize(10).SetFontColor(grisTexto)
                         .SetTextAlignment(TextAlignment.CENTER).SetMarginTop(2));
 
-                    // 5. CÓDIGO QR (CENTRADO)
                     using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
                     {
                         QRCodeData qrCodeData = qrGenerator.CreateQrCode(id, QRCodeGenerator.ECCLevel.Q);
@@ -172,7 +207,6 @@ namespace SistemaGimnasioSP
                         }
                     }
 
-                    // 6. ID EN LA BASE (Forzado a página 1 para evitar salto)
                     Paragraph pId = new Paragraph($"ID: {id}")
                         .SetFont(fBold).SetFontSize(11).SetFontColor(grisTexto)
                         .SetFixedPosition(1, 0, 15, 260)

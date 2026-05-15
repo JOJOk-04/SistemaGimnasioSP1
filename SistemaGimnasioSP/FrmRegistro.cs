@@ -25,53 +25,36 @@ namespace SistemaGimnasioSP
         }
 
         private void BtnGuardar1_Click(object sender, EventArgs e)
-        {   //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //
-            // --- BLOQUE DE VALIDACIÓN PERSONALIZADA ---
-            // Solo el ID puede ignorarse (ya que se genera solo), los demás son obligatorios
-
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+        {
+            if (ValidarCampos())
             {
-                MessageBox.Show("Por favor, ingrese el nombre del cliente.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombre.Focus();
-                return;
+                GuardarRegistroCompleto();
             }
+        }
 
-            if (string.IsNullOrWhiteSpace(txtDireccion.Text))
-            {
-                MessageBox.Show("Por favor, ingrese la dirección.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDireccion.Focus();
-                return;
-            }
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text)) return MostrarAdvertencia("Ingrese el nombre completo.", txtNombre);
+            if (string.IsNullOrWhiteSpace(txtTelefono.Text)) return MostrarAdvertencia("Ingrese el teléfono.", txtTelefono);
+            if (cmbMunicipio.SelectedIndex == -1) return MostrarAdvertencia("Seleccione un municipio.", cmbMunicipio);
+            return true;
+        }
 
-            if (cmbMunicipio.SelectedIndex == -1)
-            {
-                MessageBox.Show("Por favor, seleccione un municipio.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbMunicipio.Focus();
-                return;
-            }
+        private bool MostrarAdvertencia(string mensaje, Control control)
+        {
+            MessageBox.Show(mensaje, "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            control.Focus();
+            return false;
+        }
 
-            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
-            {
-                MessageBox.Show("Por favor, ingrese el número de teléfono.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTelefono.Focus();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtContactoEmergencia.Text))
-            {
-                MessageBox.Show("Por favor, ingrese el contacto de emergencia.", "Campo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtContactoEmergencia.Focus();
-                return;
-            }
-            // --- FIN DE VALIDACIÓN ---
-            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        private void GuardarRegistroCompleto()
+        {
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
             if (conexion == null)
             {
-                MessageBox.Show("Error al conectar con la base de datos. Verifica que el servicio MySQL esté encendido.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error de conexión a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -81,12 +64,9 @@ namespace SistemaGimnasioSP
             {
                 transaccion = conexion.BeginTransaction();
 
-                // ---------------------------------------------------------
-                // FASE 1: Generar el ID Numérico Automático
-                // ---------------------------------------------------------
+                // FASE 1: Generar ID Automático
                 string nuevoId = "00001";
-                string queryId = "SELECT MAX(id_cliente) FROM Clientes";
-
+                string queryId = "SELECT MAX(id_cliente) FROM clientes";
                 MySqlCommand cmdId = new MySqlCommand(queryId, conexion, transaccion);
                 object resultado = cmdId.ExecuteScalar();
 
@@ -96,44 +76,45 @@ namespace SistemaGimnasioSP
                     nuevoId = numero.ToString("D5");
                 }
 
-                // ---------------------------------------------------------
-                // FASE 2: Insertar datos a MySQL
-                // ---------------------------------------------------------
-                // -AVISO Omar editó esta parte para eliminar el error al guardar un nuevo usuario en el apartado de registro
-                //  hablando en especifico de el error "Error critico al guardar: Uknow column 'estatus' in field list
-                //  que se corrijio eliminando la parte del código que hacia referencia a ese campo (estatus, 'Inactivo') que no
-                //  existe en la tabla de clientes y tambien a algo que nisiquiera se necesitaba a el momento de insertar un nuevo
-                //  cliente a el/la base de datos/registro
-                // ---------------------------------------------------------------------------------------------------------------
-                string queryInsert = @"INSERT INTO Clientes 
-            (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia)
-            VALUES (@id, @nombre, @fecha, @direccion, @municipio, @telefono, @contacto)";
+                // FASE 2: Insertar en Tabla Clientes
+                string queryInsertCliente = @"INSERT INTO clientes 
+                    (id_cliente, nombre, fecha_nacimiento, direccion, municipio, telefono, contacto_emergencia, 
+                      curp, rfc, genero, email, colonia, peso, tipo_sangre, alergias, padecimiento)
+                    VALUES 
+                    (@id, @nom, @fec, @dir, @mun, @tel, @con, @curp, @rfc, @gen, @mail, @col, @peso, @san, @ale, @pad)";
 
-                MySqlCommand cmdInsert = new MySqlCommand(queryInsert, conexion, transaccion);
+                MySqlCommand cmd = new MySqlCommand(queryInsertCliente, conexion, transaccion);
 
-                cmdInsert.Parameters.AddWithValue("@id", nuevoId);
-                cmdInsert.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@fecha", dtpFechaNacimiento.Value.ToString("yyyy-MM-dd"));
-                cmdInsert.Parameters.AddWithValue("@direccion", txtDireccion.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@municipio", cmbMunicipio.Text);
-                cmdInsert.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
-                cmdInsert.Parameters.AddWithValue("@contacto", txtContactoEmergencia.Text.Trim());
-                // EJECUTAR EL COMANDO
-                cmdInsert.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@id", nuevoId);
+                cmd.Parameters.AddWithValue("@nom", txtNombre.Text.Trim());
+                cmd.Parameters.AddWithValue("@fec", dtpFechaNacimiento.Value.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@dir", txtDireccion.Text.Trim());
+                cmd.Parameters.AddWithValue("@mun", cmbMunicipio.Text);
+                cmd.Parameters.AddWithValue("@tel", txtTelefono.Text.Trim());
+                cmd.Parameters.AddWithValue("@con", txtContactoEmergencia.Text.Trim());
+                cmd.Parameters.AddWithValue("@curp", txtCURP.Text.Trim());
+                cmd.Parameters.AddWithValue("@rfc", txtRFC.Text.Trim());
+                cmd.Parameters.AddWithValue("@gen", cmbGenero.Text);
+                cmd.Parameters.AddWithValue("@mail", txtEmail.Text.Trim());
+                cmd.Parameters.AddWithValue("@col", txtColonia.Text.Trim());
+                cmd.Parameters.AddWithValue("@peso", txtPeso.Text.Trim());
+                cmd.Parameters.AddWithValue("@san", txtTipoSangre.Text.Trim());
+                cmd.Parameters.AddWithValue("@ale", txtAlergias.Text.Trim());
+                cmd.Parameters.AddWithValue("@pad", txtPadecimiento.Text.Trim());
 
-                // Guardar cambios permanentemente
+                cmd.ExecuteNonQuery();
+
+                // LA FASE 3 SE ELIMINÓ PARA EVITAR EL ERROR DE 'ESTATUS'
+
                 transaccion.Commit();
 
-                MessageBox.Show($"¡Registro exitoso!\n\nNúmero de Cliente / Gafete: {nuevoId}",
-                                "Sistema de Gimnasio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Limpiar la pantalla
+                MessageBox.Show($"¡Registro exitoso!\nID asignado: {nuevoId}", "Sistema SP", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarTodo();
             }
             catch (Exception ex)
             {
                 if (transaccion != null) transaccion.Rollback();
-                MessageBox.Show("Error crítico al guardar: " + ex.Message, "Falla del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error crítico: " + ex.Message, "Falla de Inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -141,100 +122,16 @@ namespace SistemaGimnasioSP
             }
         }
 
-        // Método para dejar el formulario listo para el siguiente registro
         private void LimpiarTodo()
         {
-            txtNombre.Clear();
-            txtDireccion.Clear();
-            txtTelefono.Clear();
-            txtContactoEmergencia.Clear();
+            txtNombre.Clear(); txtDireccion.Clear(); txtTelefono.Clear();
+            txtContactoEmergencia.Clear(); txtCURP.Clear(); txtRFC.Clear();
+            txtEmail.Clear(); txtColonia.Clear();
+            txtPeso.Clear(); txtTipoSangre.Clear(); txtAlergias.Clear();
+            txtPadecimiento.Clear();
             cmbMunicipio.SelectedIndex = -1;
+            cmbGenero.SelectedIndex = -1;
             dtpFechaNacimiento.Value = DateTime.Now;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtContactoEmergencia_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dtpFechaNacimiento_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtTelefono_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDireccion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNombre_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbMunicipio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox9_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -26,6 +26,7 @@ namespace SistemaGimnasioSP
         {
             // 1. Limpiamos el panel de cualquier control o formulario previo
             if (this.PanelCentral.Controls.Count > 0)
+              // Elimina el control anterior (si existe)
             {
                 // Usamos una lista temporal para evitar errores al modificar la colección mientras se recorre
                 Control controlAnterior = this.PanelCentral.Controls[0];
