@@ -171,7 +171,7 @@
     <value>Bahnschrift, 16.2pt, style=Bold</value>
   </data>
   <data name="BtnConsultas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>280, 765</value>
+    <value>232, 779</value>
   </data>
   <data name="BtnConsultas.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 69</value>
@@ -198,7 +198,7 @@
     <value>Bahnschrift, 16.2pt, style=Bold</value>
   </data>
   <data name="BtnGenPDF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1145, 765</value>
+    <value>1097, 779</value>
   </data>
   <data name="BtnGenPDF.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 69</value>
@@ -225,13 +225,13 @@
     <value>4</value>
   </data>
   <data name="dgvDeportes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>739, 6</value>
+    <value>710, 6</value>
   </data>
   <data name="dgvDeportes.RowHeadersWidth" type="System.Int32, mscorlib">
     <value>51</value>
   </data>
   <data name="dgvDeportes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>746, 523</value>
+    <value>688, 523</value>
   </data>
   <data name="dgvDeportes.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -363,123 +363,6 @@
   <data name="&gt;&gt;guna2PictureBox1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;tabAsistencia.Name" xml:space="preserve">
-    <value>tabAsistencia</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.Parent" xml:space="preserve">
-    <value>tabMenuAfluencia</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabHorarios.Name" xml:space="preserve">
-    <value>tabHorarios</value>
-  </data>
-  <data name="&gt;&gt;tabHorarios.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabHorarios.Parent" xml:space="preserve">
-    <value>tabMenuAfluencia</value>
-  </data>
-  <data name="&gt;&gt;tabHorarios.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tabEdades.Name" xml:space="preserve">
-    <value>tabEdades</value>
-  </data>
-  <data name="&gt;&gt;tabEdades.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabEdades.Parent" xml:space="preserve">
-    <value>tabMenuAfluencia</value>
-  </data>
-  <data name="&gt;&gt;tabEdades.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;tabMunicipios.Name" xml:space="preserve">
-    <value>tabMunicipios</value>
-  </data>
-  <data name="&gt;&gt;tabMunicipios.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabMunicipios.Parent" xml:space="preserve">
-    <value>tabMenuAfluencia</value>
-  </data>
-  <data name="&gt;&gt;tabMunicipios.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabMenuAfluencia.ItemSize" type="System.Drawing.Size, System.Drawing">
-    <value>180, 40</value>
-  </data>
-  <data name="tabMenuAfluencia.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 147</value>
-  </data>
-  <data name="tabMenuAfluencia.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="tabMenuAfluencia.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1502, 567</value>
-  </data>
-  <data name="tabMenuAfluencia.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;tabMenuAfluencia.Name" xml:space="preserve">
-    <value>tabMenuAfluencia</value>
-  </data>
-  <data name="&gt;&gt;tabMenuAfluencia.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2TabControl, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="&gt;&gt;tabMenuAfluencia.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabMenuAfluencia.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabAsistencia</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabAsistencia.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 44</value>
-  </data>
-  <data name="tabAsistencia.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="tabAsistencia.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="tabAsistencia.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1494, 519</value>
-  </data>
-  <data name="tabAsistencia.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabAsistencia.Text" xml:space="preserve">
-    <value>Asistencias</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.Name" xml:space="preserve">
-    <value>tabAsistencia</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.Parent" xml:space="preserve">
-    <value>tabMenuAfluencia</value>
-  </data>
-  <data name="&gt;&gt;tabAsistencia.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="chartDeportes.Location" type="System.Drawing.Point, System.Drawing">
     <value>31, 94</value>
   </data>
@@ -525,59 +408,35 @@
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>tabHorarios</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dgvHorarios.Name" xml:space="preserve">
-    <value>dgvHorarios</value>
-  </data>
-  <data name="&gt;&gt;dgvHorarios.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2DataGridView, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="&gt;&gt;dgvHorarios.Parent" xml:space="preserve">
-    <value>tabHorarios</value>
-  </data>
-  <data name="&gt;&gt;dgvHorarios.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabHorarios.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabAsistencia.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 44</value>
   </data>
-  <data name="tabHorarios.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabAsistencia.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="tabHorarios.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabAsistencia.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="tabHorarios.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1494, 519</value>
+  <data name="tabAsistencia.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1401, 519</value>
   </data>
-  <data name="tabHorarios.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="tabAsistencia.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="tabHorarios.Text" xml:space="preserve">
-    <value>Horarios</value>
+  <data name="tabAsistencia.Text" xml:space="preserve">
+    <value>Asistencias</value>
   </data>
-  <data name="&gt;&gt;tabHorarios.Name" xml:space="preserve">
-    <value>tabHorarios</value>
+  <data name="&gt;&gt;tabAsistencia.Name" xml:space="preserve">
+    <value>tabAsistencia</value>
   </data>
-  <data name="&gt;&gt;tabHorarios.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabAsistencia.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabHorarios.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabAsistencia.Parent" xml:space="preserve">
     <value>tabMenuAfluencia</value>
   </data>
-  <data name="&gt;&gt;tabHorarios.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;tabAsistencia.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="chartHorarios.Location" type="System.Drawing.Point, System.Drawing">
     <value>32, 85</value>
@@ -651,59 +510,35 @@
   <data name="&gt;&gt;dgvHorarios.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabEdades</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dgvEdades.Name" xml:space="preserve">
-    <value>dgvEdades</value>
-  </data>
-  <data name="&gt;&gt;dgvEdades.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2DataGridView, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="&gt;&gt;dgvEdades.Parent" xml:space="preserve">
-    <value>tabEdades</value>
-  </data>
-  <data name="&gt;&gt;dgvEdades.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabEdades.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabHorarios.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 44</value>
   </data>
-  <data name="tabEdades.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabHorarios.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="tabEdades.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabHorarios.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="tabEdades.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1494, 519</value>
+  <data name="tabHorarios.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1427, 519</value>
   </data>
-  <data name="tabEdades.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="tabHorarios.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="tabEdades.Text" xml:space="preserve">
-    <value>Edades</value>
+  <data name="tabHorarios.Text" xml:space="preserve">
+    <value>Horarios</value>
   </data>
-  <data name="&gt;&gt;tabEdades.Name" xml:space="preserve">
-    <value>tabEdades</value>
+  <data name="&gt;&gt;tabHorarios.Name" xml:space="preserve">
+    <value>tabHorarios</value>
   </data>
-  <data name="&gt;&gt;tabEdades.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabHorarios.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabEdades.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabHorarios.Parent" xml:space="preserve">
     <value>tabMenuAfluencia</value>
   </data>
-  <data name="&gt;&gt;tabEdades.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;tabHorarios.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="chartEdades.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 94</value>
@@ -777,59 +612,35 @@
   <data name="&gt;&gt;dgvEdades.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>tabMunicipios</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dgvProcedencia.Name" xml:space="preserve">
-    <value>dgvProcedencia</value>
-  </data>
-  <data name="&gt;&gt;dgvProcedencia.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2DataGridView, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="&gt;&gt;dgvProcedencia.Parent" xml:space="preserve">
-    <value>tabMunicipios</value>
-  </data>
-  <data name="&gt;&gt;dgvProcedencia.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabMunicipios.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabEdades.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 44</value>
   </data>
-  <data name="tabMunicipios.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabEdades.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="tabMunicipios.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabEdades.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="tabMunicipios.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1494, 519</value>
+  <data name="tabEdades.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1427, 519</value>
   </data>
-  <data name="tabMunicipios.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="tabEdades.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="tabMunicipios.Text" xml:space="preserve">
-    <value>Municipios</value>
+  <data name="tabEdades.Text" xml:space="preserve">
+    <value>Edades</value>
   </data>
-  <data name="&gt;&gt;tabMunicipios.Name" xml:space="preserve">
-    <value>tabMunicipios</value>
+  <data name="&gt;&gt;tabEdades.Name" xml:space="preserve">
+    <value>tabEdades</value>
   </data>
-  <data name="&gt;&gt;tabMunicipios.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabEdades.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabMunicipios.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabEdades.Parent" xml:space="preserve">
     <value>tabMenuAfluencia</value>
   </data>
-  <data name="&gt;&gt;tabMunicipios.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;tabEdades.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="chartProcedencia.Location" type="System.Drawing.Point, System.Drawing">
     <value>96, 96</value>
@@ -902,6 +713,63 @@
   </data>
   <data name="&gt;&gt;dgvProcedencia.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="tabMunicipios.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 44</value>
+  </data>
+  <data name="tabMunicipios.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="tabMunicipios.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="tabMunicipios.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1427, 519</value>
+  </data>
+  <data name="tabMunicipios.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabMunicipios.Text" xml:space="preserve">
+    <value>Municipios</value>
+  </data>
+  <data name="&gt;&gt;tabMunicipios.Name" xml:space="preserve">
+    <value>tabMunicipios</value>
+  </data>
+  <data name="&gt;&gt;tabMunicipios.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabMunicipios.Parent" xml:space="preserve">
+    <value>tabMenuAfluencia</value>
+  </data>
+  <data name="&gt;&gt;tabMunicipios.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabMenuAfluencia.ItemSize" type="System.Drawing.Size, System.Drawing">
+    <value>180, 40</value>
+  </data>
+  <data name="tabMenuAfluencia.Location" type="System.Drawing.Point, System.Drawing">
+    <value>58, 161</value>
+  </data>
+  <data name="tabMenuAfluencia.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="tabMenuAfluencia.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1409, 567</value>
+  </data>
+  <data name="tabMenuAfluencia.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;tabMenuAfluencia.Name" xml:space="preserve">
+    <value>tabMenuAfluencia</value>
+  </data>
+  <data name="&gt;&gt;tabMenuAfluencia.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2TabControl, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;tabMenuAfluencia.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabMenuAfluencia.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

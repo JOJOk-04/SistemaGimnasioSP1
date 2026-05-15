@@ -277,7 +277,7 @@
             this.guna2Panel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(149)))), ((int)(((byte)(237)))));
             this.guna2Panel2.Location = new System.Drawing.Point(411, 0);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1315, 200);
+            this.guna2Panel2.Size = new System.Drawing.Size(1458, 200);
             this.guna2Panel2.TabIndex = 1;
             // 
             // guna2PictureBox1
@@ -286,7 +286,7 @@
             this.guna2PictureBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox1.Image = global::SistemaGimnasioSP.Properties.Resources.Code_Generated_Image;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(1401, 3);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1279, 0);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(176, 192);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -307,7 +307,7 @@
             this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.Transparent;
             this.guna2TextBox4.Font = new System.Drawing.Font("Bahnschrift Condensed", 30F);
             this.guna2TextBox4.ForeColor = System.Drawing.Color.Black;
-            this.guna2TextBox4.Location = new System.Drawing.Point(843, -4);
+            this.guna2TextBox4.Location = new System.Drawing.Point(860, 1);
             this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(2, 6, 2, 6);
             this.guna2TextBox4.Multiline = true;
             this.guna2TextBox4.Name = "guna2TextBox4";
@@ -325,15 +325,16 @@
             this.PanelCentral.ImageRotate = 0F;
             this.PanelCentral.Location = new System.Drawing.Point(411, 200);
             this.PanelCentral.Name = "PanelCentral";
-            this.PanelCentral.Size = new System.Drawing.Size(1315, 682);
+            this.PanelCentral.Size = new System.Drawing.Size(1458, 682);
             this.PanelCentral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PanelCentral.TabIndex = 2;
             this.PanelCentral.TabStop = false;
             // 
             // FrmPruebaMenu
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1726, 882);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1869, 882);
             this.Controls.Add(this.PanelCentral);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);

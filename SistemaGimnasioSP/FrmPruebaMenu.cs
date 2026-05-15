@@ -20,16 +20,15 @@ namespace SistemaGimnasioSP
         }
         private void Prueba_Load(object sender, EventArgs e)
         {
-            this.Bounds = Screen.PrimaryScreen.Bounds;
+            this.SuspendLayout();
+
+            // Forzamos a que el menú principal ocupe solo el área de trabajo (sin tapar la barra de tareas)
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
-            // Antes de mostrar la gráfica, bloqueamos el tamaño
-            this.SuspendLayout(); // Pausamos el acomodo visual
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.WindowState = FormWindowState.Normal; // Truco: lo regresamos a normal...
-            this.WindowState = FormWindowState.Maximized; // ...y lo volvemos a maximizar
-            this.Bounds = Screen.PrimaryScreen.Bounds; // Lo obligamos a medir lo que mide el monitor
-            this.ResumeLayout(); // Soltamos el diseño
+
+            this.ResumeLayout();
         }
+        
         // =====================================================================
         // MÉTODO DE INYECCIÓN (Asegúrate de que el panel se llame PanelCentral)
         // =====================================================================
@@ -37,6 +36,7 @@ namespace SistemaGimnasioSP
         {
             // 1. Limpiamos el panel de cualquier control o formulario previo
             if (this.PanelCentral.Controls.Count > 0)
+
               // Elimina el control anterior (si existe)
             {
                 // Usamos una lista temporal para evitar errores al modificar la colección mientras se recorre

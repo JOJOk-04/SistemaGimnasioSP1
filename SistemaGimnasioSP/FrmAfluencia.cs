@@ -30,13 +30,12 @@ namespace SistemaGimnasioSP
             
             // 1. Bloqueamos el rediseño para que no parpadee al encogerse
             this.SuspendLayout();
-
-            // 2. Quitamos bordes ANTES de maximizar
+            this.Dock = DockStyle.Fill;
             this.FormBorderStyle = FormBorderStyle.None;
 
             // 3. Ocupamos toda la pantalla real del monitor
             this.Bounds = Screen.PrimaryScreen.Bounds;
-            this.WindowState = FormWindowState.Maximized;
+            
 
             // 4. Liberamos el diseño
             this.ResumeLayout();
