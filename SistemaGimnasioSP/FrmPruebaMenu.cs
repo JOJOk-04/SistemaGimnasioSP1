@@ -18,7 +18,18 @@ namespace SistemaGimnasioSP
             // Iniciamos maximizado para aprovechar el espacio
             this.WindowState = FormWindowState.Maximized;
         }
-
+        private void Prueba_Load(object sender, EventArgs e)
+        {
+            this.Bounds = Screen.PrimaryScreen.Bounds;
+            this.WindowState = FormWindowState.Maximized;
+            // Antes de mostrar la gráfica, bloqueamos el tamaño
+            this.SuspendLayout(); // Pausamos el acomodo visual
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Normal; // Truco: lo regresamos a normal...
+            this.WindowState = FormWindowState.Maximized; // ...y lo volvemos a maximizar
+            this.Bounds = Screen.PrimaryScreen.Bounds; // Lo obligamos a medir lo que mide el monitor
+            this.ResumeLayout(); // Soltamos el diseño
+        }
         // =====================================================================
         // MÉTODO DE INYECCIÓN (Asegúrate de que el panel se llame PanelCentral)
         // =====================================================================
@@ -103,9 +114,7 @@ namespace SistemaGimnasioSP
             this.ActiveControl = null;
         }
 
-        private void Prueba_Load(object sender, EventArgs e)
-        {
-        }
+        
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
         {

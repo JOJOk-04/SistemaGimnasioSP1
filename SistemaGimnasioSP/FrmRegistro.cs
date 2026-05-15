@@ -133,5 +133,10 @@ namespace SistemaGimnasioSP
             cmbGenero.SelectedIndex = -1;
             dtpFechaNacimiento.Value = DateTime.Now;
         }
+
+        private void guna2Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

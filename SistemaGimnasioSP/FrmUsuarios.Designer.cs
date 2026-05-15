@@ -48,14 +48,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnEliminar = new Guna.UI2.WinForms.Guna2Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnBuscar = new Guna.UI2.WinForms.Guna2Button();
+            this.dgvClientes = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.txtBuscar = new Guna.UI2.WinForms.Guna2TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnEliminarCliente = new Guna.UI2.WinForms.Guna2Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtBuscar = new Guna.UI2.WinForms.Guna2TextBox();
-            this.dgvClientes = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.btnBuscar = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -65,14 +64,15 @@
             // 
             // guna2TabControl1
             // 
+            this.guna2TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.guna2TabControl1.Controls.Add(this.tabPage1);
             this.guna2TabControl1.Controls.Add(this.tabPage2);
             this.guna2TabControl1.Controls.Add(this.tabPage3);
             this.guna2TabControl1.ItemSize = new System.Drawing.Size(180, 40);
-            this.guna2TabControl1.Location = new System.Drawing.Point(1, 141);
+            this.guna2TabControl1.Location = new System.Drawing.Point(0, 0);
             this.guna2TabControl1.Name = "guna2TabControl1";
             this.guna2TabControl1.SelectedIndex = 0;
-            this.guna2TabControl1.Size = new System.Drawing.Size(1154, 480);
+            this.guna2TabControl1.Size = new System.Drawing.Size(1330, 830);
             this.guna2TabControl1.TabButtonHoverState.BorderColor = System.Drawing.Color.Empty;
             this.guna2TabControl1.TabButtonHoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(52)))), ((int)(((byte)(70)))));
             this.guna2TabControl1.TabButtonHoverState.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
@@ -108,7 +108,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 44);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1146, 432);
+            this.tabPage1.Size = new System.Drawing.Size(1322, 782);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "INSCRIBIR USUARIO";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -127,7 +127,7 @@
             "Gerente",
             "Colaborador",
             "Ayudante"});
-            this.cmbRol.Location = new System.Drawing.Point(449, 277);
+            this.cmbRol.Location = new System.Drawing.Point(515, 406);
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(323, 36);
             this.cmbRol.TabIndex = 12;
@@ -136,7 +136,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(388, 280);
+            this.label9.Location = new System.Drawing.Point(454, 409);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 24);
             this.label9.TabIndex = 11;
@@ -149,10 +149,10 @@
             this.btnInscribir.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnInscribir.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnInscribir.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnInscribir.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnInscribir.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnInscribir.Font = new System.Drawing.Font("Bahnschrift", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInscribir.ForeColor = System.Drawing.Color.White;
-            this.btnInscribir.Location = new System.Drawing.Point(496, 339);
+            this.btnInscribir.Location = new System.Drawing.Point(594, 478);
             this.btnInscribir.Name = "btnInscribir";
             this.btnInscribir.Size = new System.Drawing.Size(168, 53);
             this.btnInscribir.TabIndex = 10;
@@ -162,11 +162,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Bahnschrift", 16F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label6.Location = new System.Drawing.Point(492, 19);
+            this.label6.Location = new System.Drawing.Point(559, 39);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(161, 24);
+            this.label6.Size = new System.Drawing.Size(219, 33);
             this.label6.TabIndex = 7;
             this.label6.Text = "Inscribir Usuario";
             // 
@@ -181,7 +181,7 @@
             this.txtContrasena.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtContrasena.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtContrasena.Location = new System.Drawing.Point(449, 220);
+            this.txtContrasena.Location = new System.Drawing.Point(515, 349);
             this.txtContrasena.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PlaceholderText = "";
@@ -200,7 +200,7 @@
             this.txtUsuario.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtUsuario.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUsuario.Location = new System.Drawing.Point(449, 148);
+            this.txtUsuario.Location = new System.Drawing.Point(515, 277);
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.PlaceholderText = "";
@@ -219,7 +219,7 @@
             this.txtNombre.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNombre.Location = new System.Drawing.Point(449, 77);
+            this.txtNombre.Location = new System.Drawing.Point(515, 206);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.PlaceholderText = "";
@@ -231,7 +231,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(345, 148);
+            this.label3.Location = new System.Drawing.Point(411, 277);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 24);
             this.label3.TabIndex = 3;
@@ -241,7 +241,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(325, 219);
+            this.label2.Location = new System.Drawing.Point(391, 348);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 24);
             this.label2.TabIndex = 2;
@@ -251,7 +251,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(345, 77);
+            this.label1.Location = new System.Drawing.Point(411, 206);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 24);
             this.label1.TabIndex = 1;
@@ -266,7 +266,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 44);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1146, 432);
+            this.tabPage2.Size = new System.Drawing.Size(1322, 782);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ELIMINAR USUARIO";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -282,7 +282,7 @@
             this.cmbUsuariosEliminar.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbUsuariosEliminar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbUsuariosEliminar.ItemHeight = 30;
-            this.cmbUsuariosEliminar.Location = new System.Drawing.Point(431, 129);
+            this.cmbUsuariosEliminar.Location = new System.Drawing.Point(492, 184);
             this.cmbUsuariosEliminar.Name = "cmbUsuariosEliminar";
             this.cmbUsuariosEliminar.Size = new System.Drawing.Size(359, 36);
             this.cmbUsuariosEliminar.TabIndex = 12;
@@ -290,11 +290,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Bahnschrift", 16F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.Brown;
-            this.label7.Location = new System.Drawing.Point(519, 24);
+            this.label7.Location = new System.Drawing.Point(543, 73);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(161, 24);
+            this.label7.Size = new System.Drawing.Size(219, 33);
             this.label7.TabIndex = 11;
             this.label7.Text = "Eliminar Usuario";
             // 
@@ -309,7 +309,7 @@
             this.btnEliminar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnEliminar.Font = new System.Drawing.Font("Bahnschrift", 10.2F, System.Drawing.FontStyle.Bold);
             this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.Location = new System.Drawing.Point(512, 258);
+            this.btnEliminar.Location = new System.Drawing.Point(573, 313);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(168, 53);
             this.btnEliminar.TabIndex = 9;
@@ -320,22 +320,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(321, 134);
+            this.label4.Location = new System.Drawing.Point(382, 189);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 24);
             this.label4.TabIndex = 6;
             this.label4.Text = "Usuario:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Bahnschrift SemiBold", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label8.Location = new System.Drawing.Point(494, 40);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(149, 40);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Usuarios";
             // 
             // tabPage3
             // 
@@ -348,68 +337,28 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1146, 432);
+            this.tabPage3.Size = new System.Drawing.Size(1322, 782);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "ELIMINAR CLIENTE";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // btnBuscar
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Brown;
-            this.label5.Location = new System.Drawing.Point(537, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(154, 24);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Eliminar Cliente";
-            // 
-            // btnEliminarCliente
-            // 
-            this.btnEliminarCliente.Animated = true;
-            this.btnEliminarCliente.BorderRadius = 10;
-            this.btnEliminarCliente.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnEliminarCliente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnEliminarCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnEliminarCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnEliminarCliente.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnEliminarCliente.Font = new System.Drawing.Font("Bahnschrift", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btnEliminarCliente.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarCliente.Location = new System.Drawing.Point(523, 349);
-            this.btnEliminarCliente.Name = "btnEliminarCliente";
-            this.btnEliminarCliente.Size = new System.Drawing.Size(168, 53);
-            this.btnEliminarCliente.TabIndex = 14;
-            this.btnEliminarCliente.Text = "Eliminar";
-            this.btnEliminarCliente.Click += new System.EventHandler(this.btnEliminarCliente_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(339, 182);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(78, 24);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Cliente:";
-            // 
-            // txtBuscar
-            // 
-            this.txtBuscar.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtBuscar.DefaultText = "";
-            this.txtBuscar.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtBuscar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtBuscar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtBuscar.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtBuscar.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtBuscar.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtBuscar.Location = new System.Drawing.Point(436, 179);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.PlaceholderText = "";
-            this.txtBuscar.SelectedText = "";
-            this.txtBuscar.Size = new System.Drawing.Size(361, 37);
-            this.txtBuscar.TabIndex = 17;
+            this.btnBuscar.Animated = true;
+            this.btnBuscar.BorderRadius = 10;
+            this.btnBuscar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBuscar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBuscar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBuscar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBuscar.FillColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnBuscar.Font = new System.Drawing.Font("Bahnschrift", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnBuscar.ForeColor = System.Drawing.Color.White;
+            this.btnBuscar.Location = new System.Drawing.Point(858, 211);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(159, 44);
+            this.btnBuscar.TabIndex = 20;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // dgvClientes
             // 
@@ -424,7 +373,8 @@
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClientes.ColumnHeadersHeight = 4;
+            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -434,7 +384,7 @@
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvClientes.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgvClientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvClientes.Location = new System.Drawing.Point(436, 235);
+            this.dgvClientes.Location = new System.Drawing.Point(459, 271);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
             this.dgvClientes.RowHeadersVisible = false;
@@ -453,7 +403,7 @@
             this.dgvClientes.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvClientes.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvClientes.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvClientes.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClientes.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvClientes.ThemeStyle.HeaderStyle.Height = 4;
             this.dgvClientes.ThemeStyle.ReadOnly = true;
             this.dgvClientes.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
@@ -465,30 +415,69 @@
             this.dgvClientes.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dgvClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView1_CellContentClick);
             // 
-            // btnBuscar
+            // txtBuscar
             // 
-            this.btnBuscar.Animated = true;
-            this.btnBuscar.BorderRadius = 10;
-            this.btnBuscar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnBuscar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnBuscar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnBuscar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnBuscar.FillColor = System.Drawing.Color.MediumSlateBlue;
-            this.btnBuscar.Font = new System.Drawing.Font("Bahnschrift", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(835, 175);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(159, 44);
-            this.btnBuscar.TabIndex = 20;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.txtBuscar.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtBuscar.DefaultText = "";
+            this.txtBuscar.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtBuscar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtBuscar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtBuscar.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtBuscar.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtBuscar.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtBuscar.Location = new System.Drawing.Point(459, 215);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.PlaceholderText = "";
+            this.txtBuscar.SelectedText = "";
+            this.txtBuscar.Size = new System.Drawing.Size(361, 37);
+            this.txtBuscar.TabIndex = 17;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Bahnschrift", 16F, System.Drawing.FontStyle.Bold);
+            this.label5.ForeColor = System.Drawing.Color.Brown;
+            this.label5.Location = new System.Drawing.Point(545, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(208, 33);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Eliminar Cliente";
+            // 
+            // btnEliminarCliente
+            // 
+            this.btnEliminarCliente.Animated = true;
+            this.btnEliminarCliente.BorderRadius = 10;
+            this.btnEliminarCliente.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarCliente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnEliminarCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnEliminarCliente.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnEliminarCliente.Font = new System.Drawing.Font("Bahnschrift", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnEliminarCliente.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarCliente.Location = new System.Drawing.Point(546, 385);
+            this.btnEliminarCliente.Name = "btnEliminarCliente";
+            this.btnEliminarCliente.Size = new System.Drawing.Size(168, 53);
+            this.btnEliminarCliente.TabIndex = 14;
+            this.btnEliminarCliente.Text = "Eliminar";
+            this.btnEliminarCliente.Click += new System.EventHandler(this.btnEliminarCliente_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(318, 221);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(135, 24);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "ID del Cliente:";
             // 
             // FrmUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1157, 759);
-            this.Controls.Add(this.label8);
+            this.ClientSize = new System.Drawing.Size(1330, 830);
             this.Controls.Add(this.guna2TabControl1);
             this.Name = "FrmUsuarios";
             this.Text = "FrmUsuarios";
@@ -502,7 +491,6 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -521,7 +509,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private Guna.UI2.WinForms.Guna2Button btnInscribir;
         private Guna.UI2.WinForms.Guna2ComboBox cmbRol;
         private System.Windows.Forms.Label label9;

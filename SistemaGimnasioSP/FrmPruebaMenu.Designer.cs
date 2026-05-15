@@ -33,6 +33,7 @@
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.guna2ShadowForm1 = new Guna.UI2.WinForms.Guna2ShadowForm(this.components);
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.BtnUsuarios = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.BtnAfluencias = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
@@ -45,7 +46,6 @@
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2TextBox4 = new Guna.UI2.WinForms.Guna2TextBox();
             this.PanelCentral = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.BtnUsuarios = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -79,6 +79,26 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(411, 882);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // BtnUsuarios
+            // 
+            this.BtnUsuarios.Animated = true;
+            this.BtnUsuarios.BackColor = System.Drawing.Color.Transparent;
+            this.BtnUsuarios.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            this.BtnUsuarios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnUsuarios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnUsuarios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnUsuarios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnUsuarios.FillColor = System.Drawing.Color.Black;
+            this.BtnUsuarios.Font = new System.Drawing.Font("Bahnschrift", 13.8F, System.Drawing.FontStyle.Bold);
+            this.BtnUsuarios.ForeColor = System.Drawing.Color.White;
+            this.BtnUsuarios.Location = new System.Drawing.Point(0, 549);
+            this.BtnUsuarios.Name = "BtnUsuarios";
+            this.BtnUsuarios.Size = new System.Drawing.Size(411, 89);
+            this.BtnUsuarios.TabIndex = 9;
+            this.BtnUsuarios.Text = "Usuarios";
+            this.BtnUsuarios.UseTransparentBackground = true;
+            this.BtnUsuarios.Click += new System.EventHandler(this.BtnUsuarios_Click);
             // 
             // guna2Button5
             // 
@@ -310,30 +330,9 @@
             this.PanelCentral.TabIndex = 2;
             this.PanelCentral.TabStop = false;
             // 
-            // BtnUsuarios
-            // 
-            this.BtnUsuarios.Animated = true;
-            this.BtnUsuarios.BackColor = System.Drawing.Color.Transparent;
-            this.BtnUsuarios.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            this.BtnUsuarios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnUsuarios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnUsuarios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnUsuarios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnUsuarios.FillColor = System.Drawing.Color.Black;
-            this.BtnUsuarios.Font = new System.Drawing.Font("Bahnschrift", 13.8F, System.Drawing.FontStyle.Bold);
-            this.BtnUsuarios.ForeColor = System.Drawing.Color.White;
-            this.BtnUsuarios.Location = new System.Drawing.Point(0, 549);
-            this.BtnUsuarios.Name = "BtnUsuarios";
-            this.BtnUsuarios.Size = new System.Drawing.Size(411, 89);
-            this.BtnUsuarios.TabIndex = 9;
-            this.BtnUsuarios.Text = "Usuarios";
-            this.BtnUsuarios.UseTransparentBackground = true;
-            this.BtnUsuarios.Click += new System.EventHandler(this.BtnUsuarios_Click);
-            // 
             // FrmPruebaMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1726, 882);
             this.Controls.Add(this.PanelCentral);
             this.Controls.Add(this.guna2Panel2);

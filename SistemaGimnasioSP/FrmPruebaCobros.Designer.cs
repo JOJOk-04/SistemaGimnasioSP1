@@ -565,7 +565,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(68, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(209, 39);
+            this.label1.Size = new System.Drawing.Size(176, 33);
             this.label1.TabIndex = 19;
             this.label1.Text = "ID del cliente:";
             // 
@@ -578,7 +578,7 @@
             this.lblNombre.ForeColor = System.Drawing.Color.Black;
             this.lblNombre.Location = new System.Drawing.Point(44, 16);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(105, 29);
+            this.lblNombre.Size = new System.Drawing.Size(88, 24);
             this.lblNombre.TabIndex = 8;
             this.lblNombre.Text = "Nombre:";
             // 
@@ -591,7 +591,7 @@
             this.lblMunicipio.ForeColor = System.Drawing.Color.Black;
             this.lblMunicipio.Location = new System.Drawing.Point(44, 130);
             this.lblMunicipio.Name = "lblMunicipio";
-            this.lblMunicipio.Size = new System.Drawing.Size(119, 29);
+            this.lblMunicipio.Size = new System.Drawing.Size(100, 24);
             this.lblMunicipio.TabIndex = 10;
             this.lblMunicipio.Text = "Municipio:";
             // 
@@ -604,7 +604,7 @@
             this.lblEdad.ForeColor = System.Drawing.Color.Black;
             this.lblEdad.Location = new System.Drawing.Point(44, 74);
             this.lblEdad.Name = "lblEdad";
-            this.lblEdad.Size = new System.Drawing.Size(71, 29);
+            this.lblEdad.Size = new System.Drawing.Size(60, 24);
             this.lblEdad.TabIndex = 9;
             this.lblEdad.Text = "Edad:";
             // 
@@ -633,7 +633,7 @@
             this.lblTotalPagar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblTotalPagar.Location = new System.Drawing.Point(150, 589);
             this.lblTotalPagar.Name = "lblTotalPagar";
-            this.lblTotalPagar.Size = new System.Drawing.Size(273, 48);
+            this.lblTotalPagar.Size = new System.Drawing.Size(232, 41);
             this.lblTotalPagar.TabIndex = 24;
             this.lblTotalPagar.Text = "Total a Pagar :";
             // 

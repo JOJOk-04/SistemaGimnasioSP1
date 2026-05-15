@@ -44,6 +44,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCortes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -51,42 +52,45 @@
             // 
             // dtpDesde
             // 
+            this.dtpDesde.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpDesde.BorderRadius = 5;
             this.dtpDesde.Checked = true;
             this.dtpDesde.FillColor = System.Drawing.Color.DeepSkyBlue;
             this.dtpDesde.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.dtpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtpDesde.Location = new System.Drawing.Point(51, 48);
+            this.dtpDesde.Location = new System.Drawing.Point(54, 173);
             this.dtpDesde.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpDesde.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpDesde.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpDesde.Name = "dtpDesde";
-            this.dtpDesde.Size = new System.Drawing.Size(379, 36);
+            this.dtpDesde.Size = new System.Drawing.Size(337, 29);
             this.dtpDesde.TabIndex = 0;
             this.dtpDesde.Value = new System.DateTime(2026, 5, 1, 15, 29, 52, 790);
             // 
             // dtpHasta
             // 
+            this.dtpHasta.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpHasta.BorderRadius = 5;
             this.dtpHasta.Checked = true;
             this.dtpHasta.FillColor = System.Drawing.Color.DeepSkyBlue;
             this.dtpHasta.Font = new System.Drawing.Font("Century Gothic", 11F);
             this.dtpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtpHasta.Location = new System.Drawing.Point(513, 48);
+            this.dtpHasta.Location = new System.Drawing.Point(465, 173);
             this.dtpHasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpHasta.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpHasta.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpHasta.Name = "dtpHasta";
-            this.dtpHasta.Size = new System.Drawing.Size(385, 36);
+            this.dtpHasta.Size = new System.Drawing.Size(342, 29);
             this.dtpHasta.TabIndex = 1;
             this.dtpHasta.Value = new System.DateTime(2026, 5, 1, 15, 29, 52, 790);
             // 
             // btnConsultar
             // 
+            this.btnConsultar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnConsultar.Animated = true;
             this.btnConsultar.AutoRoundedCorners = true;
             this.btnConsultar.BackColor = System.Drawing.Color.Transparent;
-            this.btnConsultar.BorderRadius = 29;
+            this.btnConsultar.BorderRadius = 23;
             this.btnConsultar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnConsultar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnConsultar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -94,37 +98,39 @@
             this.btnConsultar.FillColor = System.Drawing.Color.RoyalBlue;
             this.btnConsultar.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.btnConsultar.ForeColor = System.Drawing.Color.White;
-            this.btnConsultar.Location = new System.Drawing.Point(948, 48);
+            this.btnConsultar.Location = new System.Drawing.Point(853, 161);
             this.btnConsultar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(184, 60);
+            this.btnConsultar.Size = new System.Drawing.Size(164, 48);
             this.btnConsultar.TabIndex = 2;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
             // lblFolioSiguiente
             // 
+            this.lblFolioSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblFolioSiguiente.AutoSize = true;
             this.lblFolioSiguiente.BackColor = System.Drawing.Color.Transparent;
             this.lblFolioSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFolioSiguiente.ForeColor = System.Drawing.Color.Black;
-            this.lblFolioSiguiente.Location = new System.Drawing.Point(1164, 62);
+            this.lblFolioSiguiente.Location = new System.Drawing.Point(1044, 185);
             this.lblFolioSiguiente.Name = "lblFolioSiguiente";
-            this.lblFolioSiguiente.Size = new System.Drawing.Size(169, 26);
+            this.lblFolioSiguiente.Size = new System.Drawing.Size(146, 24);
             this.lblFolioSiguiente.TabIndex = 3;
             this.lblFolioSiguiente.Text = "Folio SIguiente :";
             // 
             // guna2Panel3
             // 
+            this.guna2Panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel3.BorderRadius = 10;
             this.guna2Panel3.Controls.Add(this.lblGranTotal);
             this.guna2Panel3.CustomBorderColor = System.Drawing.Color.Black;
             this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(1198, 189);
+            this.guna2Panel3.Location = new System.Drawing.Point(1074, 286);
             this.guna2Panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(434, 228);
+            this.guna2Panel3.Size = new System.Drawing.Size(386, 182);
             this.guna2Panel3.TabIndex = 6;
             // 
             // lblGranTotal
@@ -132,9 +138,9 @@
             this.lblGranTotal.AutoSize = true;
             this.lblGranTotal.BackColor = System.Drawing.Color.Transparent;
             this.lblGranTotal.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGranTotal.Location = new System.Drawing.Point(32, 39);
+            this.lblGranTotal.Location = new System.Drawing.Point(28, 31);
             this.lblGranTotal.Name = "lblGranTotal";
-            this.lblGranTotal.Size = new System.Drawing.Size(115, 23);
+            this.lblGranTotal.Size = new System.Drawing.Size(96, 19);
             this.lblGranTotal.TabIndex = 0;
             this.lblGranTotal.Text = "Gran Total:";
             // 
@@ -145,6 +151,7 @@
             this.dgvCortes.AllowUserToOrderColumns = true;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
             this.dgvCortes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvCortes.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dgvCortes.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvCortes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -165,14 +172,14 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCortes.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCortes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvCortes.Location = new System.Drawing.Point(53, 189);
+            this.dgvCortes.Location = new System.Drawing.Point(56, 286);
             this.dgvCortes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvCortes.Name = "dgvCortes";
             this.dgvCortes.ReadOnly = true;
             this.dgvCortes.RowHeadersVisible = false;
             this.dgvCortes.RowHeadersWidth = 62;
             this.dgvCortes.RowTemplate.Height = 28;
-            this.dgvCortes.Size = new System.Drawing.Size(1091, 635);
+            this.dgvCortes.Size = new System.Drawing.Size(970, 508);
             this.dgvCortes.TabIndex = 7;
             this.dgvCortes.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvCortes.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -198,6 +205,7 @@
             // 
             // btnGenerarCorte
             // 
+            this.btnGenerarCorte.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnGenerarCorte.BorderRadius = 20;
             this.btnGenerarCorte.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnGenerarCorte.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -206,35 +214,37 @@
             this.btnGenerarCorte.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
             this.btnGenerarCorte.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.btnGenerarCorte.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarCorte.Location = new System.Drawing.Point(1245, 746);
+            this.btnGenerarCorte.Location = new System.Drawing.Point(1116, 732);
             this.btnGenerarCorte.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerarCorte.Name = "btnGenerarCorte";
-            this.btnGenerarCorte.Size = new System.Drawing.Size(324, 78);
+            this.btnGenerarCorte.Size = new System.Drawing.Size(288, 62);
             this.btnGenerarCorte.TabIndex = 8;
             this.btnGenerarCorte.Text = "Generar Corte";
             this.btnGenerarCorte.Click += new System.EventHandler(this.btnGenerarCorte_Click);
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(46, 19);
+            this.label1.Location = new System.Drawing.Point(50, 150);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 26);
+            this.label1.Size = new System.Drawing.Size(78, 23);
             this.label1.TabIndex = 9;
             this.label1.Text = "Desde :";
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(508, 16);
+            this.label2.Location = new System.Drawing.Point(461, 148);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 26);
+            this.label2.Size = new System.Drawing.Size(73, 23);
             this.label2.TabIndex = 10;
             this.label2.Text = "Hasta :";
             // 
@@ -249,20 +259,35 @@
             this.guna2PictureBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox1.Image = global::SistemaGimnasioSP.Properties.Resources.OsosSanPedro;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(1532, 1015);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1362, 812);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(153, 147);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(136, 118);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2PictureBox1.TabIndex = 27;
             this.guna2PictureBox1.TabStop = false;
             // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(52, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(146, 47);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Cortes";
+            // 
             // FrmCortes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1685, 1174);
+            this.ClientSize = new System.Drawing.Size(1498, 939);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.guna2PictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -301,5 +326,6 @@
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private System.Windows.Forms.Label label3;
     }
 }

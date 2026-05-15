@@ -23,6 +23,23 @@ namespace SistemaGimnasioSP
                 chartProcedencia.InnerRadius = 50;
                 chartDeportes.InnerRadius = 0;
             };
+
+        }
+        private void FrmAfluencia_Load(object sender, EventArgs e)
+        {
+            
+            // 1. Bloqueamos el rediseño para que no parpadee al encogerse
+            this.SuspendLayout();
+
+            // 2. Quitamos bordes ANTES de maximizar
+            this.FormBorderStyle = FormBorderStyle.None;
+
+            // 3. Ocupamos toda la pantalla real del monitor
+            this.Bounds = Screen.PrimaryScreen.Bounds;
+            this.WindowState = FormWindowState.Maximized;
+
+            // 4. Liberamos el diseño
+            this.ResumeLayout();
         }
 
         private void BtnConsultas_Click(object sender, EventArgs e)
@@ -300,5 +317,6 @@ namespace SistemaGimnasioSP
                 catch (Exception ex) { MessageBox.Show("Error al generar PDF: " + ex.Message); }
             }
         }
+
     }
 }
