@@ -48,7 +48,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtPadecimiento = new System.Windows.Forms.TextBox();
             this.txtAlergias = new System.Windows.Forms.TextBox();
-            this.txtTipoSangre = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.txtPeso = new System.Windows.Forms.TextBox();
@@ -65,6 +64,7 @@
             this.BtnGuardar1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.cmbTipoSangre = new System.Windows.Forms.ComboBox();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -173,7 +173,7 @@
             this.txtNombre.Location = new System.Drawing.Point(315, 75);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(289, 32);
+            this.txtNombre.Size = new System.Drawing.Size(303, 32);
             this.txtNombre.TabIndex = 6;
             // 
             // txtDireccion
@@ -185,7 +185,7 @@
             this.txtDireccion.Location = new System.Drawing.Point(315, 168);
             this.txtDireccion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(289, 32);
+            this.txtDireccion.Size = new System.Drawing.Size(303, 32);
             this.txtDireccion.TabIndex = 8;
             // 
             // txtTelefono
@@ -197,7 +197,7 @@
             this.txtTelefono.Location = new System.Drawing.Point(315, 259);
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(289, 32);
+            this.txtTelefono.Size = new System.Drawing.Size(303, 32);
             this.txtTelefono.TabIndex = 10;
             // 
             // dtpFechaNacimiento
@@ -210,7 +210,7 @@
             this.dtpFechaNacimiento.Location = new System.Drawing.Point(315, 121);
             this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            this.dtpFechaNacimiento.Size = new System.Drawing.Size(289, 32);
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(303, 32);
             this.dtpFechaNacimiento.TabIndex = 11;
             // 
             // txtContactoEmergencia
@@ -222,7 +222,7 @@
             this.txtContactoEmergencia.Location = new System.Drawing.Point(315, 305);
             this.txtContactoEmergencia.Margin = new System.Windows.Forms.Padding(2);
             this.txtContactoEmergencia.Name = "txtContactoEmergencia";
-            this.txtContactoEmergencia.Size = new System.Drawing.Size(289, 32);
+            this.txtContactoEmergencia.Size = new System.Drawing.Size(303, 32);
             this.txtContactoEmergencia.TabIndex = 13;
             // 
             // label7
@@ -303,22 +303,22 @@
             this.cmbMunicipio.Location = new System.Drawing.Point(315, 212);
             this.cmbMunicipio.Margin = new System.Windows.Forms.Padding(2);
             this.cmbMunicipio.Name = "cmbMunicipio";
-            this.cmbMunicipio.Size = new System.Drawing.Size(289, 32);
+            this.cmbMunicipio.Size = new System.Drawing.Size(303, 32);
             this.cmbMunicipio.TabIndex = 15;
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.guna2Panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
             this.guna2Panel1.BorderColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 20;
+            this.guna2Panel1.Controls.Add(this.cmbTipoSangre);
             this.guna2Panel1.Controls.Add(this.textBox9);
             this.guna2Panel1.Controls.Add(this.label17);
             this.guna2Panel1.Controls.Add(this.label13);
             this.guna2Panel1.Controls.Add(this.label14);
             this.guna2Panel1.Controls.Add(this.txtPadecimiento);
             this.guna2Panel1.Controls.Add(this.txtAlergias);
-            this.guna2Panel1.Controls.Add(this.txtTipoSangre);
             this.guna2Panel1.Controls.Add(this.label15);
             this.guna2Panel1.Controls.Add(this.label16);
             this.guna2Panel1.Controls.Add(this.txtPeso);
@@ -349,7 +349,7 @@
             this.guna2Panel1.Location = new System.Drawing.Point(146, 182);
             this.guna2Panel1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1216, 592);
+            this.guna2Panel1.Size = new System.Drawing.Size(1230, 667);
             this.guna2Panel1.TabIndex = 16;
             // 
             // textBox9
@@ -361,7 +361,7 @@
             this.textBox9.Location = new System.Drawing.Point(314, 599);
             this.textBox9.Margin = new System.Windows.Forms.Padding(2);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(289, 32);
+            this.textBox9.Size = new System.Drawing.Size(303, 32);
             this.textBox9.TabIndex = 35;
             // 
             // label17
@@ -421,7 +421,7 @@
             this.txtPadecimiento.Location = new System.Drawing.Point(901, 212);
             this.txtPadecimiento.Margin = new System.Windows.Forms.Padding(2);
             this.txtPadecimiento.Name = "txtPadecimiento";
-            this.txtPadecimiento.Size = new System.Drawing.Size(289, 32);
+            this.txtPadecimiento.Size = new System.Drawing.Size(303, 32);
             this.txtPadecimiento.TabIndex = 33;
             // 
             // txtAlergias
@@ -433,20 +433,8 @@
             this.txtAlergias.Location = new System.Drawing.Point(900, 168);
             this.txtAlergias.Margin = new System.Windows.Forms.Padding(2);
             this.txtAlergias.Name = "txtAlergias";
-            this.txtAlergias.Size = new System.Drawing.Size(289, 32);
+            this.txtAlergias.Size = new System.Drawing.Size(303, 32);
             this.txtAlergias.TabIndex = 32;
-            // 
-            // txtTipoSangre
-            // 
-            this.txtTipoSangre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTipoSangre.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTipoSangre.Location = new System.Drawing.Point(901, 122);
-            this.txtTipoSangre.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTipoSangre.Name = "txtTipoSangre";
-            this.txtTipoSangre.Size = new System.Drawing.Size(289, 32);
-            this.txtTipoSangre.TabIndex = 29;
             // 
             // label15
             // 
@@ -489,7 +477,7 @@
             this.txtPeso.Location = new System.Drawing.Point(901, 76);
             this.txtPeso.Margin = new System.Windows.Forms.Padding(2);
             this.txtPeso.Name = "txtPeso";
-            this.txtPeso.Size = new System.Drawing.Size(289, 32);
+            this.txtPeso.Size = new System.Drawing.Size(303, 32);
             this.txtPeso.TabIndex = 27;
             // 
             // txtColonia
@@ -501,7 +489,7 @@
             this.txtColonia.Location = new System.Drawing.Point(314, 549);
             this.txtColonia.Margin = new System.Windows.Forms.Padding(2);
             this.txtColonia.Name = "txtColonia";
-            this.txtColonia.Size = new System.Drawing.Size(289, 32);
+            this.txtColonia.Size = new System.Drawing.Size(303, 32);
             this.txtColonia.TabIndex = 25;
             // 
             // label12
@@ -529,60 +517,14 @@
             this.cmbGenero.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbGenero.FormattingEnabled = true;
             this.cmbGenero.Items.AddRange(new object[] {
-            "Abasolo",
-            "Agualeguas",
-            "Allende",
-            "Anáhuac",
-            "Apodaca",
-            "Aramberri",
-            "Bustamante",
-            "Cadereyta",
-            "Carmen",
-            "Cerralvo",
-            "China",
-            "Ciénega de Flores",
-            "Doctor Arroyo",
-            "Doctor Coss",
-            "Doctor González",
-            "Galeana",
-            "García",
-            "General Bravo",
-            "General Escobedo",
-            "General Terán",
-            "General Treviño",
-            "General Zuazua",
-            "Guadalupe",
-            "Hidalgo",
-            "Higueras",
-            "Hualahuises",
-            "Iturbide",
-            "Juárez",
-            "Lampazos de Naranjo",
-            "Linares",
-            "Los Aldamas",
-            "Los Herreras",
-            "Los Ramones",
-            "Marín",
-            "Melchor Ocampo",
-            "Mier y Noriega",
-            "Mina",
-            "Montemorelos",
-            "Monterrey",
-            "Parás",
-            "Pesquería",
-            "Rayones",
-            "Sabinas Hidalgo",
-            "Salinas Victoria",
-            "San Nicolás de los Garza",
-            "San Pedro Garza García",
-            "Santa Catarina",
-            "Santiago",
-            "Vallecillo",
-            "Villaldama."});
+            "Masculino",
+            "Femenino",
+            "No binario",
+            "Otro..."});
             this.cmbGenero.Location = new System.Drawing.Point(314, 451);
             this.cmbGenero.Margin = new System.Windows.Forms.Padding(2);
             this.cmbGenero.Name = "cmbGenero";
-            this.cmbGenero.Size = new System.Drawing.Size(289, 32);
+            this.cmbGenero.Size = new System.Drawing.Size(303, 32);
             this.cmbGenero.TabIndex = 23;
             // 
             // label8
@@ -610,7 +552,7 @@
             this.txtEmail.Location = new System.Drawing.Point(314, 501);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(289, 32);
+            this.txtEmail.Size = new System.Drawing.Size(303, 32);
             this.txtEmail.TabIndex = 22;
             // 
             // label9
@@ -670,7 +612,7 @@
             this.txtRFC.Location = new System.Drawing.Point(315, 396);
             this.txtRFC.Margin = new System.Windows.Forms.Padding(2);
             this.txtRFC.Name = "txtRFC";
-            this.txtRFC.Size = new System.Drawing.Size(289, 32);
+            this.txtRFC.Size = new System.Drawing.Size(303, 32);
             this.txtRFC.TabIndex = 20;
             // 
             // txtCURP
@@ -682,7 +624,7 @@
             this.txtCURP.Location = new System.Drawing.Point(314, 351);
             this.txtCURP.Margin = new System.Windows.Forms.Padding(2);
             this.txtCURP.Name = "txtCURP";
-            this.txtCURP.Size = new System.Drawing.Size(289, 32);
+            this.txtCURP.Size = new System.Drawing.Size(303, 32);
             this.txtCURP.TabIndex = 19;
             // 
             // BtnGuardar1
@@ -698,7 +640,7 @@
             this.BtnGuardar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
             this.BtnGuardar1.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnGuardar1.ForeColor = System.Drawing.Color.White;
-            this.BtnGuardar1.Location = new System.Drawing.Point(653, 805);
+            this.BtnGuardar1.Location = new System.Drawing.Point(653, 882);
             this.BtnGuardar1.Margin = new System.Windows.Forms.Padding(2);
             this.BtnGuardar1.Name = "BtnGuardar1";
             this.BtnGuardar1.Size = new System.Drawing.Size(248, 56);
@@ -728,11 +670,34 @@
             this.guna2Panel2.Controls.Add(this.label1);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel2.Location = new System.Drawing.Point(0, 0);
-            this.guna2Panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guna2Panel2.Margin = new System.Windows.Forms.Padding(4);
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(1496, 985);
             this.guna2Panel2.TabIndex = 28;
             this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
+            // 
+            // cmbTipoSangre
+            // 
+            this.cmbTipoSangre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTipoSangre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoSangre.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoSangre.FormattingEnabled = true;
+            this.cmbTipoSangre.Items.AddRange(new object[] {
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "O+",
+            "O-",
+            "AB+",
+            "AB-"});
+            this.cmbTipoSangre.Location = new System.Drawing.Point(900, 125);
+            this.cmbTipoSangre.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbTipoSangre.Name = "cmbTipoSangre";
+            this.cmbTipoSangre.Size = new System.Drawing.Size(303, 32);
+            this.cmbTipoSangre.TabIndex = 36;
             // 
             // FrmRegistro
             // 
@@ -788,7 +753,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtPadecimiento;
         private System.Windows.Forms.TextBox txtAlergias;
-        private System.Windows.Forms.TextBox txtTipoSangre;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtPeso;
@@ -797,5 +761,6 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label17;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
+        private System.Windows.Forms.ComboBox cmbTipoSangre;
     }
 }

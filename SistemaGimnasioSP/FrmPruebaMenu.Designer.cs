@@ -104,7 +104,7 @@
             // 
             this.guna2Button5.Animated = true;
             this.guna2Button5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -117,7 +117,7 @@
             this.guna2Button5.ImageSize = new System.Drawing.Size(50, 50);
             this.guna2Button5.Location = new System.Drawing.Point(3, 642);
             this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.Size = new System.Drawing.Size(395, 89);
+            this.guna2Button5.Size = new System.Drawing.Size(408, 89);
             this.guna2Button5.TabIndex = 8;
             this.guna2Button5.Text = "Cortes";
             this.guna2Button5.UseTransparentBackground = true;
@@ -242,7 +242,7 @@
             this.guna2Button2.ImageSize = new System.Drawing.Size(40, 40);
             this.guna2Button2.Location = new System.Drawing.Point(0, 290);
             this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(393, 88);
+            this.guna2Button2.Size = new System.Drawing.Size(411, 88);
             this.guna2Button2.TabIndex = 2;
             this.guna2Button2.Text = "Consultas";
             this.guna2Button2.UseTransparentBackground = true;
@@ -262,7 +262,7 @@
             this.guna2Button1.IndicateFocus = true;
             this.guna2Button1.Location = new System.Drawing.Point(0, 202);
             this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(393, 88);
+            this.guna2Button1.Size = new System.Drawing.Size(411, 88);
             this.guna2Button1.TabIndex = 1;
             this.guna2Button1.Text = "Registro";
             this.guna2Button1.UseTransparentBackground = true;

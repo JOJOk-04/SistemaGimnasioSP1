@@ -112,7 +112,7 @@ namespace SistemaGimnasioSP
         {
             ActualizarColoresBotones();
         }
-        private void ToggleDeporteFamiliar(Button btn, int idDeporte)
+        private void ToggleDeporteFamiliar(Control btn, int idDeporte)
         {
             if (cmbMiembros.SelectedValue == null) return;
             string idSeleccionado = cmbMiembros.SelectedValue.ToString();
@@ -131,27 +131,27 @@ namespace SistemaGimnasioSP
 
         private void btnAcondicionamiento_Click(object sender, EventArgs e)
         {
-            ToggleDeporteFamiliar((Button)sender, 1);
+            ToggleDeporteFamiliar((Control)sender, 1);
         }
 
         private void btnFutbol_Click(object sender, EventArgs e)
         {
-            ToggleDeporteFamiliar((Button)sender, 2);
+            ToggleDeporteFamiliar((Control)sender, 2);
         }
 
         private void btnTaekwondo_Click(object sender, EventArgs e)
         {
-            ToggleDeporteFamiliar((Button)sender, 3);
+            ToggleDeporteFamiliar((Control)sender, 3);
         }
 
         private void btnHeterofilia_Click(object sender, EventArgs e)
         {
-            ToggleDeporteFamiliar((Button)sender, 4);
+            ToggleDeporteFamiliar((Control)sender, 4);
         }
 
         private void btnRitmos_Click(object sender, EventArgs e)
         {
-            ToggleDeporteFamiliar((Button)sender, 5);
+            ToggleDeporteFamiliar((Control)sender, 5);
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

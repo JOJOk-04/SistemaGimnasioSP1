@@ -98,7 +98,7 @@ namespace SistemaGimnasioSP
                 cmd.Parameters.AddWithValue("@mail", txtEmail.Text.Trim());
                 cmd.Parameters.AddWithValue("@col", txtColonia.Text.Trim());
                 cmd.Parameters.AddWithValue("@peso", txtPeso.Text.Trim());
-                cmd.Parameters.AddWithValue("@san", txtTipoSangre.Text.Trim());
+                cmd.Parameters.AddWithValue("@san", cmbTipoSangre.Text.Trim());
                 cmd.Parameters.AddWithValue("@ale", txtAlergias.Text.Trim());
                 cmd.Parameters.AddWithValue("@pad", txtPadecimiento.Text.Trim());
 
@@ -127,7 +127,8 @@ namespace SistemaGimnasioSP
             txtNombre.Clear(); txtDireccion.Clear(); txtTelefono.Clear();
             txtContactoEmergencia.Clear(); txtCURP.Clear(); txtRFC.Clear();
             txtEmail.Clear(); txtColonia.Clear();
-            txtPeso.Clear(); txtTipoSangre.Clear(); txtAlergias.Clear();
+            txtPeso.Clear(); cmbTipoSangre.SelectedIndex = -1; 
+            txtAlergias.Clear();
             txtPadecimiento.Clear();
             cmbMunicipio.SelectedIndex = -1;
             cmbGenero.SelectedIndex = -1;
