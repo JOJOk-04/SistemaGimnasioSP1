@@ -651,5 +651,10 @@ namespace SistemaGimnasioSP
             btnTaekwondo.BackColor = Color.White;
             btnRitmos.BackColor = Color.White;
         }
+
+        private void lblTotalPagar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

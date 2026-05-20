@@ -31,9 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPruebaCobros));
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
-            this.txtBusquedaId = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.tabMenuTesoreria = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnRitmos = new Guna.UI2.WinForms.Guna2Button();
@@ -54,7 +52,6 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.btnAgregarHno = new Guna.UI2.WinForms.Guna2Button();
             this.btnCampamento = new Guna.UI2.WinForms.Guna2Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblMunicipio = new System.Windows.Forms.Label();
             this.lblEdad = new System.Windows.Forms.Label();
@@ -65,6 +62,10 @@
             this.guna2ImageCheckBox1 = new Guna.UI2.WinForms.Guna2ImageCheckBox();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.txtBusquedaId = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabMenuTesoreria.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
@@ -83,29 +84,9 @@
             this.guna2Elipse1.BorderRadius = 0;
             this.guna2Elipse1.TargetControl = this;
             // 
-            // txtBusquedaId
-            // 
-            this.txtBusquedaId.BorderRadius = 10;
-            this.txtBusquedaId.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtBusquedaId.DefaultText = "";
-            this.txtBusquedaId.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtBusquedaId.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtBusquedaId.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtBusquedaId.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtBusquedaId.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtBusquedaId.Font = new System.Drawing.Font("Bahnschrift", 14F, System.Drawing.FontStyle.Bold);
-            this.txtBusquedaId.ForeColor = System.Drawing.Color.Black;
-            this.txtBusquedaId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtBusquedaId.Location = new System.Drawing.Point(278, 48);
-            this.txtBusquedaId.Margin = new System.Windows.Forms.Padding(9, 11, 9, 11);
-            this.txtBusquedaId.Name = "txtBusquedaId";
-            this.txtBusquedaId.PlaceholderText = "";
-            this.txtBusquedaId.SelectedText = "";
-            this.txtBusquedaId.Size = new System.Drawing.Size(207, 41);
-            this.txtBusquedaId.TabIndex = 1;
-            // 
             // guna2Button1
             // 
+            this.guna2Button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2Button1.Animated = true;
             this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button1.BorderRadius = 10;
@@ -115,7 +96,7 @@
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button1.Font = new System.Drawing.Font("Bahnschrift", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(509, 41);
+            this.guna2Button1.Location = new System.Drawing.Point(497, 125);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(166, 48);
@@ -124,28 +105,9 @@
             this.guna2Button1.UseTransparentBackground = true;
             this.guna2Button1.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
-            // guna2Button2
-            // 
-            this.guna2Button2.Animated = true;
-            this.guna2Button2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button2.BorderRadius = 10;
-            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.FillColor = System.Drawing.Color.White;
-            this.guna2Button2.Font = new System.Drawing.Font("Bahnschrift", 13.8F, System.Drawing.FontStyle.Bold);
-            this.guna2Button2.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button2.Location = new System.Drawing.Point(53, 172);
-            this.guna2Button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(295, 51);
-            this.guna2Button2.TabIndex = 9;
-            this.guna2Button2.Text = "Mensualidad";
-            this.guna2Button2.UseTransparentBackground = true;
-            // 
             // tabMenuTesoreria
             // 
+            this.tabMenuTesoreria.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tabMenuTesoreria.Controls.Add(this.tabPage1);
             this.tabMenuTesoreria.Controls.Add(this.tabPage2);
             this.tabMenuTesoreria.Controls.Add(this.tabPage3);
@@ -153,10 +115,10 @@
             this.tabMenuTesoreria.Controls.Add(this.tabPage5);
             this.tabMenuTesoreria.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabMenuTesoreria.ItemSize = new System.Drawing.Size(180, 40);
-            this.tabMenuTesoreria.Location = new System.Drawing.Point(12, 245);
+            this.tabMenuTesoreria.Location = new System.Drawing.Point(28, 315);
             this.tabMenuTesoreria.Name = "tabMenuTesoreria";
             this.tabMenuTesoreria.SelectedIndex = 0;
-            this.tabMenuTesoreria.Size = new System.Drawing.Size(1182, 303);
+            this.tabMenuTesoreria.Size = new System.Drawing.Size(1424, 374);
             this.tabMenuTesoreria.TabButtonHoverState.BorderColor = System.Drawing.Color.Empty;
             this.tabMenuTesoreria.TabButtonHoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(52)))), ((int)(((byte)(70)))));
             this.tabMenuTesoreria.TabButtonHoverState.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
@@ -189,7 +151,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 44);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1174, 255);
+            this.tabPage1.Size = new System.Drawing.Size(1416, 326);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Deportes";
             // 
@@ -208,9 +170,9 @@
             this.btnRitmos.Image = global::SistemaGimnasioSP.Properties.Resources.performance;
             this.btnRitmos.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnRitmos.ImageSize = new System.Drawing.Size(40, 40);
-            this.btnRitmos.Location = new System.Drawing.Point(657, 125);
+            this.btnRitmos.Location = new System.Drawing.Point(761, 186);
             this.btnRitmos.Name = "btnRitmos";
-            this.btnRitmos.Size = new System.Drawing.Size(311, 55);
+            this.btnRitmos.Size = new System.Drawing.Size(414, 103);
             this.btnRitmos.TabIndex = 27;
             this.btnRitmos.Text = "Ritmos Latinos";
             this.btnRitmos.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -241,10 +203,10 @@
             this.btnAcondicionamiento.Image = global::SistemaGimnasioSP.Properties.Resources.dumb_bell;
             this.btnAcondicionamiento.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnAcondicionamiento.ImageSize = new System.Drawing.Size(40, 40);
-            this.btnAcondicionamiento.Location = new System.Drawing.Point(191, 125);
+            this.btnAcondicionamiento.Location = new System.Drawing.Point(114, 186);
             this.btnAcondicionamiento.Name = "btnAcondicionamiento";
             this.btnAcondicionamiento.PressedColor = System.Drawing.Color.Transparent;
-            this.btnAcondicionamiento.Size = new System.Drawing.Size(434, 55);
+            this.btnAcondicionamiento.Size = new System.Drawing.Size(537, 103);
             this.btnAcondicionamiento.TabIndex = 10;
             this.btnAcondicionamiento.Text = "Acondicionamiento Fisico";
             this.btnAcondicionamiento.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -266,9 +228,9 @@
             this.btnHeterofilia.Image = global::SistemaGimnasioSP.Properties.Resources.fitness;
             this.btnHeterofilia.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnHeterofilia.ImageSize = new System.Drawing.Size(40, 40);
-            this.btnHeterofilia.Location = new System.Drawing.Point(129, 48);
+            this.btnHeterofilia.Location = new System.Drawing.Point(63, 48);
             this.btnHeterofilia.Name = "btnHeterofilia";
-            this.btnHeterofilia.Size = new System.Drawing.Size(254, 55);
+            this.btnHeterofilia.Size = new System.Drawing.Size(357, 103);
             this.btnHeterofilia.TabIndex = 25;
             this.btnHeterofilia.Text = "Heterofilia";
             this.btnHeterofilia.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -290,9 +252,9 @@
             this.btnFutbol.Image = global::SistemaGimnasioSP.Properties.Resources.football;
             this.btnFutbol.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnFutbol.ImageSize = new System.Drawing.Size(40, 40);
-            this.btnFutbol.Location = new System.Drawing.Point(431, 48);
+            this.btnFutbol.Location = new System.Drawing.Point(528, 48);
             this.btnFutbol.Name = "btnFutbol";
-            this.btnFutbol.Size = new System.Drawing.Size(242, 55);
+            this.btnFutbol.Size = new System.Drawing.Size(345, 103);
             this.btnFutbol.TabIndex = 21;
             this.btnFutbol.Text = "Futbol";
             this.btnFutbol.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -315,9 +277,9 @@
             this.btnTaekwondo.Image = global::SistemaGimnasioSP.Properties.Resources.karate;
             this.btnTaekwondo.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnTaekwondo.ImageSize = new System.Drawing.Size(40, 40);
-            this.btnTaekwondo.Location = new System.Drawing.Point(739, 48);
+            this.btnTaekwondo.Location = new System.Drawing.Point(989, 48);
             this.btnTaekwondo.Name = "btnTaekwondo";
-            this.btnTaekwondo.Size = new System.Drawing.Size(274, 55);
+            this.btnTaekwondo.Size = new System.Drawing.Size(377, 103);
             this.btnTaekwondo.TabIndex = 23;
             this.btnTaekwondo.Text = "Taekwondo";
             this.btnTaekwondo.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -331,7 +293,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 44);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1174, 255);
+            this.tabPage2.Size = new System.Drawing.Size(1416, 326);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Paquetes";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -351,7 +313,7 @@
             this.btnPaquetef2.Image = global::SistemaGimnasioSP.Properties.Resources.family_group_100dp_000000_FILL0_wght400_GRAD0_opsz481;
             this.btnPaquetef2.ImageOffset = new System.Drawing.Point(0, 80);
             this.btnPaquetef2.ImageSize = new System.Drawing.Size(80, 80);
-            this.btnPaquetef2.Location = new System.Drawing.Point(778, 21);
+            this.btnPaquetef2.Location = new System.Drawing.Point(860, 57);
             this.btnPaquetef2.Name = "btnPaquetef2";
             this.btnPaquetef2.Size = new System.Drawing.Size(280, 193);
             this.btnPaquetef2.TabIndex = 6;
@@ -375,9 +337,9 @@
             this.btnPaquetef1.Image = global::SistemaGimnasioSP.Properties.Resources.partner_exchange_100dp_000000_FILL0_wght400_GRAD0_opsz48;
             this.btnPaquetef1.ImageOffset = new System.Drawing.Point(70, 40);
             this.btnPaquetef1.ImageSize = new System.Drawing.Size(80, 80);
-            this.btnPaquetef1.Location = new System.Drawing.Point(173, 21);
+            this.btnPaquetef1.Location = new System.Drawing.Point(255, 57);
             this.btnPaquetef1.Name = "btnPaquetef1";
-            this.btnPaquetef1.Size = new System.Drawing.Size(284, 193);
+            this.btnPaquetef1.Size = new System.Drawing.Size(284, 198);
             this.btnPaquetef1.TabIndex = 5;
             this.btnPaquetef1.Text = "Paquete Familiar (2 personas)";
             this.btnPaquetef1.TextOffset = new System.Drawing.Point(-20, -50);
@@ -390,7 +352,7 @@
             this.tabPage3.Controls.Add(this.btnEquipoSoftbol);
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1174, 255);
+            this.tabPage3.Size = new System.Drawing.Size(1416, 326);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Servicios";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -411,7 +373,7 @@
             this.btnLigasdeFutbol.Image = global::SistemaGimnasioSP.Properties.Resources.football;
             this.btnLigasdeFutbol.ImageOffset = new System.Drawing.Point(0, 80);
             this.btnLigasdeFutbol.ImageSize = new System.Drawing.Size(80, 80);
-            this.btnLigasdeFutbol.Location = new System.Drawing.Point(200, 11);
+            this.btnLigasdeFutbol.Location = new System.Drawing.Point(283, 58);
             this.btnLigasdeFutbol.Name = "btnLigasdeFutbol";
             this.btnLigasdeFutbol.Size = new System.Drawing.Size(291, 213);
             this.btnLigasdeFutbol.TabIndex = 5;
@@ -436,7 +398,7 @@
             this.btnEquipoSoftbol.Image = global::SistemaGimnasioSP.Properties.Resources.sports_baseball_1000dp_000000_FILL0_wght400_GRAD0_opsz48;
             this.btnEquipoSoftbol.ImageOffset = new System.Drawing.Point(0, 80);
             this.btnEquipoSoftbol.ImageSize = new System.Drawing.Size(80, 80);
-            this.btnEquipoSoftbol.Location = new System.Drawing.Point(777, 3);
+            this.btnEquipoSoftbol.Location = new System.Drawing.Point(860, 50);
             this.btnEquipoSoftbol.Name = "btnEquipoSoftbol";
             this.btnEquipoSoftbol.Size = new System.Drawing.Size(281, 221);
             this.btnEquipoSoftbol.TabIndex = 4;
@@ -450,7 +412,7 @@
             this.tabPage4.Controls.Add(this.guna2Button3);
             this.tabPage4.Location = new System.Drawing.Point(4, 44);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1174, 255);
+            this.tabPage4.Size = new System.Drawing.Size(1416, 326);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Alberca";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -471,7 +433,7 @@
             this.guna2Button4.Image = global::SistemaGimnasioSP.Properties.Resources.pool_100dp_000000_FILL0_wght400_GRAD0_opsz48;
             this.guna2Button4.ImageOffset = new System.Drawing.Point(15, 50);
             this.guna2Button4.ImageSize = new System.Drawing.Size(80, 80);
-            this.guna2Button4.Location = new System.Drawing.Point(714, 14);
+            this.guna2Button4.Location = new System.Drawing.Point(827, 58);
             this.guna2Button4.Name = "guna2Button4";
             this.guna2Button4.Size = new System.Drawing.Size(318, 207);
             this.guna2Button4.TabIndex = 5;
@@ -495,7 +457,7 @@
             this.guna2Button3.Image = global::SistemaGimnasioSP.Properties.Resources.pool_100dp_000000_FILL0_wght400_GRAD0_opsz48;
             this.guna2Button3.ImageOffset = new System.Drawing.Point(20, 50);
             this.guna2Button3.ImageSize = new System.Drawing.Size(80, 80);
-            this.guna2Button3.Location = new System.Drawing.Point(188, 14);
+            this.guna2Button3.Location = new System.Drawing.Point(301, 58);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(310, 207);
             this.guna2Button3.TabIndex = 4;
@@ -509,7 +471,7 @@
             this.tabPage5.Controls.Add(this.btnCampamento);
             this.tabPage5.Location = new System.Drawing.Point(4, 44);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1174, 255);
+            this.tabPage5.Size = new System.Drawing.Size(1416, 326);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Campamento";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -528,7 +490,7 @@
             this.btnAgregarHno.Image = global::SistemaGimnasioSP.Properties.Resources.group_add_100dp_000000_FILL0_wght400_GRAD0_opsz48;
             this.btnAgregarHno.ImageOffset = new System.Drawing.Point(50, 50);
             this.btnAgregarHno.ImageSize = new System.Drawing.Size(80, 80);
-            this.btnAgregarHno.Location = new System.Drawing.Point(734, 3);
+            this.btnAgregarHno.Location = new System.Drawing.Point(860, 52);
             this.btnAgregarHno.Name = "btnAgregarHno";
             this.btnAgregarHno.Size = new System.Drawing.Size(325, 213);
             this.btnAgregarHno.TabIndex = 10;
@@ -550,24 +512,13 @@
             this.btnCampamento.Image = global::SistemaGimnasioSP.Properties.Resources.camping_100dp_000000_FILL0_wght400_GRAD0_opsz48;
             this.btnCampamento.ImageOffset = new System.Drawing.Point(65, 30);
             this.btnCampamento.ImageSize = new System.Drawing.Size(80, 80);
-            this.btnCampamento.Location = new System.Drawing.Point(155, 3);
+            this.btnCampamento.Location = new System.Drawing.Point(281, 52);
             this.btnCampamento.Name = "btnCampamento";
             this.btnCampamento.Size = new System.Drawing.Size(314, 211);
             this.btnCampamento.TabIndex = 9;
             this.btnCampamento.Text = "Campamento de Verano";
             this.btnCampamento.TextOffset = new System.Drawing.Point(-20, -30);
             this.btnCampamento.Click += new System.EventHandler(this.btnCampamento_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bahnschrift", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(68, 48);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 33);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "ID del cliente:";
             // 
             // lblNombre
             // 
@@ -576,7 +527,7 @@
             this.lblNombre.BackColor = System.Drawing.Color.Transparent;
             this.lblNombre.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.Color.Black;
-            this.lblNombre.Location = new System.Drawing.Point(44, 16);
+            this.lblNombre.Location = new System.Drawing.Point(29, 22);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(88, 24);
             this.lblNombre.TabIndex = 8;
@@ -589,7 +540,7 @@
             this.lblMunicipio.BackColor = System.Drawing.Color.Transparent;
             this.lblMunicipio.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMunicipio.ForeColor = System.Drawing.Color.Black;
-            this.lblMunicipio.Location = new System.Drawing.Point(44, 130);
+            this.lblMunicipio.Location = new System.Drawing.Point(29, 136);
             this.lblMunicipio.Name = "lblMunicipio";
             this.lblMunicipio.Size = new System.Drawing.Size(100, 24);
             this.lblMunicipio.TabIndex = 10;
@@ -602,7 +553,7 @@
             this.lblEdad.BackColor = System.Drawing.Color.Transparent;
             this.lblEdad.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEdad.ForeColor = System.Drawing.Color.Black;
-            this.lblEdad.Location = new System.Drawing.Point(44, 74);
+            this.lblEdad.Location = new System.Drawing.Point(29, 80);
             this.lblEdad.Name = "lblEdad";
             this.lblEdad.Size = new System.Drawing.Size(60, 24);
             this.lblEdad.TabIndex = 9;
@@ -610,6 +561,7 @@
             // 
             // btnCobrar
             // 
+            this.btnCobrar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCobrar.BackColor = System.Drawing.Color.Transparent;
             this.btnCobrar.BorderRadius = 15;
             this.btnCobrar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -619,7 +571,7 @@
             this.btnCobrar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
             this.btnCobrar.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCobrar.ForeColor = System.Drawing.Color.White;
-            this.btnCobrar.Location = new System.Drawing.Point(802, 589);
+            this.btnCobrar.Location = new System.Drawing.Point(1062, 735);
             this.btnCobrar.Name = "btnCobrar";
             this.btnCobrar.Size = new System.Drawing.Size(257, 71);
             this.btnCobrar.TabIndex = 23;
@@ -628,14 +580,16 @@
             // 
             // lblTotalPagar
             // 
+            this.lblTotalPagar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTotalPagar.AutoSize = true;
             this.lblTotalPagar.Font = new System.Drawing.Font("Bahnschrift", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalPagar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblTotalPagar.Location = new System.Drawing.Point(150, 589);
+            this.lblTotalPagar.Location = new System.Drawing.Point(134, 745);
             this.lblTotalPagar.Name = "lblTotalPagar";
             this.lblTotalPagar.Size = new System.Drawing.Size(232, 41);
             this.lblTotalPagar.TabIndex = 24;
             this.lblTotalPagar.Text = "Total a Pagar :";
+            this.lblTotalPagar.Click += new System.EventHandler(this.lblTotalPagar_Click);
             // 
             // guna2PictureBox1
             // 
@@ -643,7 +597,7 @@
             this.guna2PictureBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox1.Image = global::SistemaGimnasioSP.Properties.Resources.OsosSanPedro;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(1041, 724);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1325, 724);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(153, 147);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -652,11 +606,12 @@
             // 
             // guna2PictureBox8
             // 
+            this.guna2PictureBox8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2PictureBox8.BackColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox8.FillColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox8.Image")));
             this.guna2PictureBox8.ImageRotate = 0F;
-            this.guna2PictureBox8.Location = new System.Drawing.Point(93, 579);
+            this.guna2PictureBox8.Location = new System.Drawing.Point(77, 735);
             this.guna2PictureBox8.Name = "guna2PictureBox8";
             this.guna2PictureBox8.Size = new System.Drawing.Size(71, 69);
             this.guna2PictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -678,9 +633,10 @@
             // 
             // guna2PictureBox2
             // 
+            this.guna2PictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2PictureBox2.Image = global::SistemaGimnasioSP.Properties.Resources.calendar;
             this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(375, 172);
+            this.guna2PictureBox2.Location = new System.Drawing.Point(407, 233);
             this.guna2PictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2PictureBox2.Name = "guna2PictureBox2";
             this.guna2PictureBox2.Size = new System.Drawing.Size(34, 51);
@@ -690,21 +646,90 @@
             // 
             // guna2Panel1
             // 
+            this.guna2Panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2Panel1.BorderRadius = 20;
             this.guna2Panel1.Controls.Add(this.lblNombre);
             this.guna2Panel1.Controls.Add(this.lblMunicipio);
             this.guna2Panel1.Controls.Add(this.lblEdad);
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
-            this.guna2Panel1.Location = new System.Drawing.Point(730, 18);
+            this.guna2Panel1.Location = new System.Drawing.Point(859, 69);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(373, 190);
+            this.guna2Panel1.Size = new System.Drawing.Size(506, 190);
             this.guna2Panel1.TabIndex = 27;
+            // 
+            // txtBusquedaId
+            // 
+            this.txtBusquedaId.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtBusquedaId.BorderRadius = 10;
+            this.txtBusquedaId.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtBusquedaId.DefaultText = "";
+            this.txtBusquedaId.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtBusquedaId.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtBusquedaId.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtBusquedaId.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtBusquedaId.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtBusquedaId.Font = new System.Drawing.Font("Bahnschrift", 14F, System.Drawing.FontStyle.Bold);
+            this.txtBusquedaId.ForeColor = System.Drawing.Color.Black;
+            this.txtBusquedaId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtBusquedaId.Location = new System.Drawing.Point(266, 129);
+            this.txtBusquedaId.Margin = new System.Windows.Forms.Padding(9, 11, 9, 11);
+            this.txtBusquedaId.Name = "txtBusquedaId";
+            this.txtBusquedaId.PlaceholderText = "";
+            this.txtBusquedaId.SelectedText = "";
+            this.txtBusquedaId.Size = new System.Drawing.Size(207, 41);
+            this.txtBusquedaId.TabIndex = 1;
+            // 
+            // guna2Button2
+            // 
+            this.guna2Button2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.guna2Button2.Animated = true;
+            this.guna2Button2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button2.BorderRadius = 10;
+            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button2.FillColor = System.Drawing.Color.White;
+            this.guna2Button2.Font = new System.Drawing.Font("Bahnschrift", 13.8F, System.Drawing.FontStyle.Bold);
+            this.guna2Button2.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button2.Location = new System.Drawing.Point(85, 233);
+            this.guna2Button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2Button2.Name = "guna2Button2";
+            this.guna2Button2.Size = new System.Drawing.Size(295, 51);
+            this.guna2Button2.TabIndex = 9;
+            this.guna2Button2.Text = "Mensualidad";
+            this.guna2Button2.UseTransparentBackground = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(56, 129);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(176, 33);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "ID del cliente:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 22F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(56, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(138, 45);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Cobros";
             // 
             // FrmPruebaCobros
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1198, 871);
+            this.ClientSize = new System.Drawing.Size(1482, 871);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.guna2PictureBox1);
             this.Controls.Add(this.guna2PictureBox8);
@@ -746,9 +771,7 @@
 
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2TextBox txtBusquedaId;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private Guna.UI2.WinForms.Guna2TabControl tabMenuTesoreria;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -758,7 +781,6 @@
         private Guna.UI2.WinForms.Guna2Button btnAcondicionamiento;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox6;
         private Guna.UI2.WinForms.Guna2ImageCheckBox guna2ImageCheckBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblMunicipio;
         private System.Windows.Forms.Label lblEdad;
@@ -779,5 +801,9 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2TextBox txtBusquedaId;
     }
 }
