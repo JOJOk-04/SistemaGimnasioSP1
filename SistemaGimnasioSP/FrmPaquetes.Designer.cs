@@ -108,6 +108,7 @@
             this.btnRitmos.BackColor = System.Drawing.Color.Transparent;
             this.btnRitmos.BorderRadius = 20;
             this.btnRitmos.BorderThickness = 2;
+            this.btnRitmos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnRitmos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnRitmos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnRitmos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -133,6 +134,7 @@
             this.btnAcondicionamiento.BackColor = System.Drawing.Color.Transparent;
             this.btnAcondicionamiento.BorderRadius = 20;
             this.btnAcondicionamiento.BorderThickness = 2;
+            this.btnAcondicionamiento.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnAcondicionamiento.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnAcondicionamiento.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnAcondicionamiento.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -159,6 +161,7 @@
             this.btnHeterofilia.BackColor = System.Drawing.Color.Transparent;
             this.btnHeterofilia.BorderRadius = 20;
             this.btnHeterofilia.BorderThickness = 2;
+            this.btnHeterofilia.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnHeterofilia.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnHeterofilia.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnHeterofilia.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -184,6 +187,7 @@
             this.btnFutbol.BackColor = System.Drawing.Color.Transparent;
             this.btnFutbol.BorderRadius = 20;
             this.btnFutbol.BorderThickness = 2;
+            this.btnFutbol.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnFutbol.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnFutbol.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnFutbol.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -209,6 +213,7 @@
             this.btnTaekwondo.BackColor = System.Drawing.Color.Transparent;
             this.btnTaekwondo.BorderRadius = 20;
             this.btnTaekwondo.BorderThickness = 2;
+            this.btnTaekwondo.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnTaekwondo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnTaekwondo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnTaekwondo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));

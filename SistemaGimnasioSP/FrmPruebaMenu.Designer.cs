@@ -84,7 +84,7 @@
             // 
             this.BtnUsuarios.Animated = true;
             this.BtnUsuarios.BackColor = System.Drawing.Color.Transparent;
-            this.BtnUsuarios.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            this.BtnUsuarios.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.BtnUsuarios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.BtnUsuarios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.BtnUsuarios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -104,7 +104,7 @@
             // 
             this.guna2Button5.Animated = true;
             this.guna2Button5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            this.guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -223,7 +223,7 @@
             this.guna2Button3.ImageSize = new System.Drawing.Size(40, 40);
             this.guna2Button3.Location = new System.Drawing.Point(0, 378);
             this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.Size = new System.Drawing.Size(411, 89);
+            this.guna2Button3.Size = new System.Drawing.Size(411, 81);
             this.guna2Button3.TabIndex = 3;
             this.guna2Button3.Text = "Tesoreria";
             this.guna2Button3.UseTransparentBackground = true;

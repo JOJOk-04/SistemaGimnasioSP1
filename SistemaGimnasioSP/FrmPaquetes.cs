@@ -156,9 +156,43 @@ namespace SistemaGimnasioSP
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            // --- ✨ NUEVA VALIDACIÓN: REGLA DE MÍNIMO DE PERSONAS ---
+            int cantidadPersonasActuales = memoriaSeleccion.Count;
+            int limiteMinimo = 1; // Por defecto es 1 (para inscripciones normales)
+
+            // Deducimos el mínimo basándonos en el límite máximo del paquete
+            if (limiteMaximo == 2)
+            {
+                limiteMinimo = 2; // El paquete de pareja exige a fuerzas 2 personas
+            }
+            else if (limiteMaximo > 2)
+            {
+                limiteMinimo = 3; // El paquete de 3 a 5 exige mínimo 3 personas
+            }
+
+            // Si no cumplen con el mínimo, detenemos el guardado
+            if (cantidadPersonasActuales < limiteMinimo)
+            {
+                MessageBox.Show($"Este paquete requiere un mínimo de {limiteMinimo} personas para ser válido.\n\nActualmente solo tienes {cantidadPersonasActuales} persona(s) en la lista. Por favor, agrega a los integrantes faltantes usando el campo de búsqueda.",
+                                "Faltan Integrantes",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return; // El "return" cancela el guardado y los deja en la pantalla
+            }
+            // --------------------------------------------------------
+
+            // Si pasaron la validación del cadenero, ahora sí procesamos el cobro
             foreach (var registro in memoriaSeleccion)
             {
                 string idCliente = registro.Key;
+
+                // Opcional: Validar que la persona tenga al menos 1 deporte seleccionado
+                if (registro.Value.Count == 0)
+                {
+                    MessageBox.Show($"El cliente con ID {idCliente} no tiene ningún deporte seleccionado. Selecciona al menos uno.", "Falta Deporte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 foreach (int idDeporte in registro.Value)
                 {
                     // Si es el primer deporte (índice 0), cuesta 0 (ya lo incluye el paquete).
@@ -173,6 +207,7 @@ namespace SistemaGimnasioSP
                     });
                 }
             }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -221,14 +256,6 @@ namespace SistemaGimnasioSP
                     if (reader.Read())
                     {
                         string municipioNuevo = reader["municipio"].ToString();
-
-                        // REGLA DE VALIDACIÓN:
-                        if (municipioNuevo != municipioTitular)
-                        {
-                            MessageBox.Show($"No puedes agregar a esta persona. El titular es de '{municipioTitular}' y esta persona es de '{municipioNuevo}'. Todos deben ser del mismo municipio.", "Conflicto de Ubicación", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            reader.Close();
-                            return;
-                        }
 
                         // Verificamos si ya está en la lista para no duplicarlo
                         if (memoriaSeleccion.ContainsKey(idNuevo))
