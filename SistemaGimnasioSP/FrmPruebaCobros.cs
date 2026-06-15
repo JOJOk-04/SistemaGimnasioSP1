@@ -74,6 +74,9 @@ namespace SistemaGimnasioSP
             int.TryParse(edadTexto, out edad);
             bool esSenior = (edad >= 60);
 
+            // ✨ LE PREGUNTAMOS A MYSQL SI YA TIENE BENEFICIOS
+            bool yaTieneBeneficio = TieneBeneficioActivo(txtBusquedaId.Text.Trim());
+
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
@@ -81,21 +84,30 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    int idDeportePrincipal = deportesSeleccionados[0];
-                    string query = $"SELECT {columnaPrecio} FROM deportes WHERE id_deporte = @id";
-                    MySqlCommand cmd = new MySqlCommand(query, conexion);
-                    cmd.Parameters.AddWithValue("@id", idDeportePrincipal);
-
-                    decimal precioBase = Convert.ToDecimal(cmd.ExecuteScalar());
-
-                    if (esSenior) { precioBase = 0; }
-
-                    subtotalDeportes += precioBase;
-
-                    if (deportesSeleccionados.Count > 1)
+                    for (int i = 0; i < deportesSeleccionados.Count; i++)
                     {
-                        int cantidadExtras = deportesSeleccionados.Count - 1;
-                        subtotalDeportes += (cantidadExtras * costoExtra);
+                        // Si es el primero de la lista y NO tiene beneficios, paga completo
+                        if (i == 0 && !yaTieneBeneficio)
+                        {
+                            int idDeportePrincipal = deportesSeleccionados[i];
+                            string query = $"SELECT {columnaPrecio} FROM deportes WHERE id_deporte = @id";
+                            MySqlCommand cmd = new MySqlCommand(query, conexion);
+                            cmd.Parameters.AddWithValue("@id", idDeportePrincipal);
+
+                            decimal precioBase = Convert.ToDecimal(cmd.ExecuteScalar());
+
+                            if (esSenior) { precioBase = 0; }
+
+                            subtotalDeportes += precioBase;
+                        }
+                        else
+                        {
+                            // A partir del segundo, o si ya tenía paquete, paga 100 o 200
+                            if (!esSenior)
+                            {
+                                subtotalDeportes += costoExtra;
+                            }
+                        }
                     }
                 }
                 catch (Exception ex) { MessageBox.Show("Error en cálculo de deportes: " + ex.Message); }
@@ -461,19 +473,40 @@ namespace SistemaGimnasioSP
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            if (deportesSeleccionados.Count == 0 && carritoFamiliarPendiente.Count == 0)
+            // 1. Validaciones iniciales de seguridad
+            if (deportesSeleccionados.Count == 0 && carritoFamiliarPendiente.Count == 0 && serviciosSeleccionados.Count == 0)
             {
-                MessageBox.Show("No hay actividades seleccionadas para cobrar.", "Aviso de Caja", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No hay actividades ni servicios seleccionados para cobrar.", "Aviso de Caja", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             idClientePrincipal = txtBusquedaId.Text.Trim();
-
             if (string.IsNullOrWhiteSpace(idClientePrincipal))
             {
                 MessageBox.Show("Falta seleccionar el ID del cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // 2. Extraer el gran total
+            decimal totalLimpioTransaccion = 0;
+            string totalLimpio = lblTotalPagar.Text.Replace("Total a Pagar:", "").Replace("$", "").Trim();
+            decimal.TryParse(totalLimpio, out totalLimpioTransaccion);
+
+            // =================================================================
+            // 💸 PASO NUEVO: ABRIR CAJA ANTES DE CONECTAR A MYSQL
+            // =================================================================
+            FrmCaja ventanaCaja = new FrmCaja(totalLimpioTransaccion);
+
+            if (ventanaCaja.ShowDialog() != DialogResult.OK)
+            {
+                return; // Si cancela la ventana, abortamos la misión
+            }
+
+            if (ventanaCaja.EsBecaAutorizada)
+            {
+                totalLimpioTransaccion = 0; // Si puso contraseña, el total será gratis
+            }
+            // =================================================================
 
             ConexionDB bd = new ConexionDB();
             MySqlConnection conexion = bd.AbrirConexion();
@@ -485,14 +518,51 @@ namespace SistemaGimnasioSP
                 {
                     transaccion = conexion.BeginTransaction();
 
+                    // Calculamos las edades y aplicamos el truco de la beca
+                    int edad = 0;
+                    string edadTexto = lblEdad.Text.Replace("Edad:", "").Replace("años", "").Trim();
+                    int.TryParse(edadTexto, out edad);
+                    bool esSenior = (edad >= 60);
+
+                    if (ventanaCaja.EsBecaAutorizada)
+                    {
+                        esSenior = true; // Trucazo: esto obligará a los desgloses a guardar 0.00
+                    }
+
+                    // REGISTRAR EL FOLIO MAESTRO
+                    string queryPagoMaestro = @"INSERT INTO pagos (id_cliente, monto_cobrado, fecha_pago, metodo_pago, id_usuario) 
+                                                VALUES (@idC, @monto, NOW(), 'Efectivo', 1);
+                                                SELECT LAST_INSERT_ID();";
+
+                    MySqlCommand cmdPago = new MySqlCommand(queryPagoMaestro, conexion, transaccion);
+                    cmdPago.Parameters.AddWithValue("@idC", idClientePrincipal);
+                    cmdPago.Parameters.AddWithValue("@monto", totalLimpioTransaccion);
+                    int idPagoGenerado = Convert.ToInt32(cmdPago.ExecuteScalar());
+
+                    // Variables de descuentos
+                    string municipioPuro = lblMunicipio.Text.Replace("Municipio:", "").Trim();
+                    bool esLocal = (municipioPuro == "San Pedro Garza García");
+                    decimal costoExtra = esLocal ? 100 : 200;
+
+                    // ✨ PREGUNTAMOS SI EL CLIENTE YA TIENE BENEFICIOS 
+                    bool yaTieneBeneficio = TieneBeneficioActivo(idClientePrincipal);
+
+                    // =================================================================
+                    // PASO B: REGISTRAR DEPORTES
+                    // =================================================================
                     if (carritoFamiliarPendiente.Count > 0)
                     {
                         foreach (var item in carritoFamiliarPendiente)
                         {
-                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago, fecha_vencimiento) VALUES (@idC, @idD, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
+                            string queryInscripcion = @"INSERT INTO inscripciones (id_cliente, id_deporte, id_pago, monto_cobrado, fecha_pago, fecha_vencimiento) 
+                                                        VALUES (@idC, @idD, @idPago, @montoCobrado, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
                             MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
                             cmdInsc.Parameters.AddWithValue("@idC", item.IdCliente);
                             cmdInsc.Parameters.AddWithValue("@idD", item.IdDeporte);
+                            cmdInsc.Parameters.AddWithValue("@idPago", idPagoGenerado);
+
+                            // Si es becado se fuerza a 0, si no, respeta el monto familiar
+                            cmdInsc.Parameters.AddWithValue("@montoCobrado", ventanaCaja.EsBecaAutorizada ? 0 : item.Monto);
                             cmdInsc.ExecuteNonQuery();
 
                             string queryFamilia = "UPDATE clientes SET id_titular_familia = @idTitular WHERE id_cliente = @idHijo AND id_cliente != @idTitular";
@@ -504,33 +574,70 @@ namespace SistemaGimnasioSP
                     }
                     else if (deportesSeleccionados.Count > 0)
                     {
-                        foreach (int idDeporte in deportesSeleccionados)
+                        for (int i = 0; i < deportesSeleccionados.Count; i++)
                         {
-                            string queryInscripcion = "INSERT INTO inscripciones (id_cliente, id_deporte, fecha_pago, fecha_vencimiento) VALUES (@idC, @idD, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
+                            int idDeporte = deportesSeleccionados[i];
+                            decimal montoCobradoRenglon = 0;
+
+                            if (!esSenior)
+                            {
+                                // ✨ REGLA INTELIGENTE: Cobra completo solo si es el primero y NO tiene beneficio activo
+                                if (i == 0 && !yaTieneBeneficio)
+                                {
+                                    string queryPrecio = $"SELECT {(esLocal ? "precio_local" : "precio_foraneo")} FROM deportes WHERE id_deporte = @id";
+                                    MySqlCommand cmdPrecio = new MySqlCommand(queryPrecio, conexion, transaccion);
+                                    cmdPrecio.Parameters.AddWithValue("@id", idDeporte);
+                                    montoCobradoRenglon = Convert.ToDecimal(cmdPrecio.ExecuteScalar());
+                                }
+                                else
+                                {
+                                    montoCobradoRenglon = costoExtra; // 100 o 200 pesos
+                                }
+                            }
+
+                            string queryInscripcion = @"INSERT INTO inscripciones (id_cliente, id_deporte, id_pago, monto_cobrado, fecha_pago, fecha_vencimiento) 
+                                                        VALUES (@idC, @idD, @idPago, @montoCobrado, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH))";
+
                             MySqlCommand cmdInsc = new MySqlCommand(queryInscripcion, conexion, transaccion);
                             cmdInsc.Parameters.AddWithValue("@idC", idClientePrincipal);
                             cmdInsc.Parameters.AddWithValue("@idD", idDeporte);
+                            cmdInsc.Parameters.AddWithValue("@idPago", idPagoGenerado);
+                            cmdInsc.Parameters.AddWithValue("@montoCobrado", montoCobradoRenglon);
                             cmdInsc.ExecuteNonQuery();
                         }
                     }
 
+                    // =================================================================
+                    // PASO C: SERVICIOS EXTRAS (Ligas, Alberca, etc.)
+                    // =================================================================
                     if (serviciosSeleccionados.Count > 0)
                     {
-                        foreach (int idServicio in serviciosSeleccionados)
+                        foreach (int idService in serviciosSeleccionados)
                         {
+                            string queryPrecioS = $"SELECT {(esLocal ? "precio_local" : "precio_foraneo")} FROM servicios WHERE id_servicio = @id";
+                            MySqlCommand cmdPrecioS = new MySqlCommand(queryPrecioS, conexion, transaccion);
+                            cmdPrecioS.Parameters.AddWithValue("@id", idService);
+                            decimal montoServicio = Convert.ToDecimal(cmdPrecioS.ExecuteScalar());
+
+                            if (ventanaCaja.EsBecaAutorizada) montoServicio = 0; // Si es servidor público, los servicios también bajan a 0
+
                             string queryInscServicio = @"INSERT INTO inscripciones_servicios 
-                                                         (id_cliente, id_servicio, fecha_pago) 
-                                                         VALUES (@idC, @idS, CURDATE())";
+                                                         (id_cliente, id_servicio, id_pago, monto_cobrado, fecha_pago) 
+                                                         VALUES (@idC, @idS, @idPago, @montoCobrado, CURDATE())";
 
                             MySqlCommand cmdInscS = new MySqlCommand(queryInscServicio, conexion, transaccion);
                             cmdInscS.Parameters.AddWithValue("@idC", idClientePrincipal);
-                            cmdInscS.Parameters.AddWithValue("@idS", idServicio);
+                            cmdInscS.Parameters.AddWithValue("@idS", idService);
+                            cmdInscS.Parameters.AddWithValue("@idPago", idPagoGenerado);
+                            cmdInscS.Parameters.AddWithValue("@montoCobrado", montoServicio);
                             cmdInscS.ExecuteNonQuery();
                         }
                     }
 
                     transaccion.Commit();
-                    MessageBox.Show("¡Cobro realizado con éxito! Todos los datos fueron guardados correctamente.", "Venta Completada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    MessageBox.Show("¡Cobro realizado con éxito! ", "Venta Completada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     ImprimirTicket();
                     LimpiarPantallaCobros();
                 }
@@ -540,7 +647,7 @@ namespace SistemaGimnasioSP
                     {
                         try { transaccion.Rollback(); } catch { }
                     }
-                    MessageBox.Show("Ocurrió un error al guardar en la base de datos.\n\nEl sistema reporta: " + ex.Message, "Error de MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al procesar el cobro: " + ex.Message, "Error de MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -548,7 +655,6 @@ namespace SistemaGimnasioSP
                 }
             }
         }
-
         private void ImprimirTicket()
         {
             PrintDocument ticket = new PrintDocument();
@@ -632,7 +738,40 @@ namespace SistemaGimnasioSP
             y += 15;
             graficos.DrawString("Conserve este ticket.", fuentePequeña, Brushes.Black, margen, y);
         }
+        // =====================================================================
+        // MÉTODO DE INTELIGENCIA DE PRECIOS (NUEVO)
+        // =====================================================================
+        private bool TieneBeneficioActivo(string idCliente)
+        {
+            bool tieneBeneficio = false;
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
 
+            if (conexion != null)
+            {
+                try
+                {
+                    // Revisa si es familiar de alguien o si ya tiene un deporte pagado que no ha vencido
+                    string query = @"
+                        SELECT 
+                            (SELECT COUNT(*) FROM clientes WHERE id_cliente = @id AND id_titular_familia IS NOT NULL)
+                            +
+                            (SELECT COUNT(*) FROM inscripciones WHERE id_cliente = @id AND fecha_vencimiento > CURDATE())";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@id", idCliente);
+                    int coincidencias = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (coincidencias > 0)
+                    {
+                        tieneBeneficio = true;
+                    }
+                }
+                catch { }
+                finally { bd.CerrarConexion(); }
+            }
+            return tieneBeneficio;
+        }
         private void LimpiarPantallaCobros()
         {
             txtBusquedaId.Clear();
@@ -652,9 +791,5 @@ namespace SistemaGimnasioSP
             btnRitmos.BackColor = Color.White;
         }
 
-        private void lblTotalPagar_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

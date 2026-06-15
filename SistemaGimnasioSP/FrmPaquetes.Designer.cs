@@ -176,7 +176,7 @@
             this.btnHeterofilia.Name = "btnHeterofilia";
             this.btnHeterofilia.Size = new System.Drawing.Size(254, 55);
             this.btnHeterofilia.TabIndex = 34;
-            this.btnHeterofilia.Text = "Heterofilia";
+            this.btnHeterofilia.Text = "Halterofilia";
             this.btnHeterofilia.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             this.btnHeterofilia.UseTransparentBackground = true;
             this.btnHeterofilia.Click += new System.EventHandler(this.btnHeterofilia_Click);

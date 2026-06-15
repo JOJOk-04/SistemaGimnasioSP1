@@ -89,23 +89,40 @@ namespace SistemaGimnasioSP
             // 1. Verificamos que haya alguien seleccionado
             if (cmbMiembros.SelectedValue == null) return;
 
-            // 2. Obtenemos el ID oculto del familiar seleccionado (Ej: "005")
-            string idSeleccionado = cmbMiembros.SelectedValue.ToString();
+            // 2. Extraemos el ID de forma segura (por si el ComboBox devuelve toda la fila)
+            string idSeleccionado = "";
+            if (cmbMiembros.SelectedValue is DataRowView filaVista)
+            {
+                idSeleccionado = filaVista["id_cliente"].ToString();
+            }
+            else
+            {
+                idSeleccionado = cmbMiembros.SelectedValue.ToString();
+            }
 
-            // 3. Verificamos que este ID ya exista en nuestra memoria RAM
+            // 3. Verificamos que este ID exista en nuestra memoria RAM
             if (!memoriaSeleccion.ContainsKey(idSeleccionado)) return;
 
-            // 4. Sacamos la lista de deportes que tiene esta persona
+            // 4. Sacamos la lista de deportes que tiene ESTA persona específica
             List<int> deportesDeEstaPersona = memoriaSeleccion[idSeleccionado];
 
-            // 5. Encendemos o apagamos los botones (¡OJO! Cambia los nombres de los botones por los tuyos y el número por el ID de tu base de datos)
-            btnAcondicionamiento.BackColor = deportesDeEstaPersona.Contains(1) ? Color.LightGreen : Color.White;
-            btnFutbol.BackColor = deportesDeEstaPersona.Contains(2) ? Color.LightGreen : Color.White;
-            btnHeterofilia.BackColor = deportesDeEstaPersona.Contains(3) ? Color.LightGreen : Color.White;
-            btnTaekwondo.BackColor = deportesDeEstaPersona.Contains(4) ? Color.LightGreen : Color.White;
-            btnRitmos.BackColor = deportesDeEstaPersona.Contains(5) ? Color.LightGreen : Color.White;
-            // Agrega aquí los demás botones que tengas...
+            // 5. ✨ EL SECRETO DE GUNA: Usar FillColor casteando el control ✨
+            if (btnAcondicionamiento is Guna.UI2.WinForms.Guna2Button btn1)
+                btn1.FillColor = deportesDeEstaPersona.Contains(1) ? Color.LightGreen : Color.White;
 
+            if (btnFutbol is Guna.UI2.WinForms.Guna2Button btn2)
+                btn2.FillColor = deportesDeEstaPersona.Contains(2) ? Color.LightGreen : Color.White;
+
+            if (btnHeterofilia is Guna.UI2.WinForms.Guna2Button btn4)
+                btn4.FillColor = deportesDeEstaPersona.Contains(4) ? Color.LightGreen : Color.White;
+
+            if (btnTaekwondo is Guna.UI2.WinForms.Guna2Button btn3)
+                btn3.FillColor = deportesDeEstaPersona.Contains(3) ? Color.LightGreen : Color.White;
+
+            if (btnRitmos is Guna.UI2.WinForms.Guna2Button btn5)
+                btn5.FillColor = deportesDeEstaPersona.Contains(5) ? Color.LightGreen : Color.White;
+
+            // (Si tienes más botones de deportes en tu paquete familiar, agrégalos aquí con la misma lógica)
         }
 
         private void cmbMiembros_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,16 +134,54 @@ namespace SistemaGimnasioSP
             if (cmbMiembros.SelectedValue == null) return;
             string idSeleccionado = cmbMiembros.SelectedValue.ToString();
 
+            // Si ya lo tenía seleccionado, lo quitamos (lo apaga)
             if (memoriaSeleccion[idSeleccionado].Contains(idDeporte))
             {
                 memoriaSeleccion[idSeleccionado].Remove(idDeporte);
             }
             else
             {
+                // 🛑 REGLA 2: Validamos en MySQL si ya lo tiene pagado antes de encenderlo
+                if (TieneDeporteActivo(idSeleccionado, idDeporte))
+                {
+                    return; // Cortamos el flujo, el botón se queda en blanco
+                }
+
+                // Si no lo tiene activo, lo agregamos a la memoria
                 memoriaSeleccion[idSeleccionado].Add(idDeporte);
             }
 
             ActualizarColoresBotones();
+        }
+        private bool TieneDeporteActivo(string idCliente, int idDeporte)
+        {
+            bool activo = false;
+            ConexionDB bd = new ConexionDB();
+            MySqlConnection conexion = bd.AbrirConexion();
+
+            if (conexion != null)
+            {
+                try
+                {
+                    string query = "SELECT fecha_vencimiento FROM inscripciones WHERE id_cliente = @idC AND id_deporte = @idD AND fecha_vencimiento > CURDATE() LIMIT 1";
+                    MySqlCommand cmd = new MySqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@idC", idCliente);
+                    cmd.Parameters.AddWithValue("@idD", idDeporte);
+
+                    object resultado = cmd.ExecuteScalar();
+
+                    if (resultado != null && resultado != DBNull.Value)
+                    {
+                        DateTime fechaVencimiento = Convert.ToDateTime(resultado);
+                        MessageBox.Show($"Este familiar ya tiene este deporte pagado y activo.\n\nLa membresía actual vence el: {fechaVencimiento.ToString("dd/MM/yyyy")}.\n\nNo es necesario incluirlo en el paquete por esta disciplina.",
+                                        "Suscripción Activa Detectada", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        activo = true;
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show("Error al verificar estatus: " + ex.Message); }
+                finally { bd.CerrarConexion(); }
+            }
+            return activo;
         }
 
         private void btnAcondicionamiento_Click(object sender, EventArgs e)
@@ -247,17 +302,27 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    string query = "SELECT id_cliente, nombre, municipio, CONCAT(id_cliente, ' - ', nombre) AS info_completa FROM clientes WHERE id_cliente = @id";
+                    // ✨ TRAEMOS id_titular_familia PARA VALIDAR
+                    string query = "SELECT id_cliente, nombre, municipio, id_titular_familia, CONCAT(id_cliente, ' - ', nombre) AS info_completa FROM clientes WHERE id_cliente = @id";
                     MySqlCommand cmd = new MySqlCommand(query, conexion);
-                    cmd.Parameters.AddWithValue("@id", idNuevo); // Ahora busca "00002"
+                    cmd.Parameters.AddWithValue("@id", idNuevo);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
                         string municipioNuevo = reader["municipio"].ToString();
+                        string titularExistente = reader["id_titular_familia"].ToString();
 
-                        // Verificamos si ya está en la lista para no duplicarlo
+                        // 🛑 REGLA 1: Evitar que esté en múltiples paquetes
+                        // Si ya tiene un titular, y NO es el de este paquete, lo bloqueamos de inmediato
+                        if (!string.IsNullOrWhiteSpace(titularExistente) && titularExistente != idTitularRecibido && titularExistente != idNuevo)
+                        {
+                            MessageBox.Show($"Esta persona ya pertenece a otro paquete familiar (Titular ID: {titularExistente}).\n\nNo puede estar inscrita en dos paquetes a la vez.", "Bloqueo de Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        // Verificamos si ya está en la lista actual para no duplicarlo en la vista
                         if (memoriaSeleccion.ContainsKey(idNuevo))
                         {
                             MessageBox.Show("Esta persona ya está agregada en el paquete actual.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -274,6 +339,10 @@ namespace SistemaGimnasioSP
 
                             MessageBox.Show($"{reader["nombre"]} agregado al paquete.", "Éxito");
                             txtAgregar.Clear();
+
+                            // ✨ REGLA 3: Forzamos el reinicio de los Toggles
+                            // Seleccionamos al nuevo integrante, lo que disparará el evento de limpiar colores
+                            cmbMiembros.SelectedValue = idNuevo;
                         }
                     }
                     else
@@ -287,7 +356,6 @@ namespace SistemaGimnasioSP
                 finally { bd.CerrarConexion(); }
             }
         }
-
         private void guna2Button2_Click(object sender, EventArgs e)
         {
 

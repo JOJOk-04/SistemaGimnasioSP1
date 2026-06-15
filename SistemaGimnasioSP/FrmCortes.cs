@@ -42,25 +42,42 @@ namespace SistemaGimnasioSP
 
             try
             {
-                // SQL Optimizado: Agrupa por cliente y fecha, suma montos y concatena deportes.
+                // SQL Optimizado: Une inscripciones y servicios leyendo el dinero exacto cobrado
                 string query = @"
-                    SELECT 
-                        CONCAT('1-', LPAD(MIN(i.id_inscripcion), 5, '0')) AS Folio,
-                        i.fecha_pago AS Fecha,
-                        c.nombre AS Cliente,
-                        GROUP_CONCAT(d.nombre_deporte SEPARATOR ', ') AS Conceptos,
-                        (
-                            IF(c.municipio = 'San Pedro Garza García', MAX(d.precio_local), MAX(d.precio_foraneo)) 
-                            + (COUNT(i.id_inscripcion) - 1) * 200
-                        ) AS Total_Pagado
-                    FROM inscripciones i
-                    INNER JOIN clientes c ON i.id_cliente = c.id_cliente
-                    INNER JOIN deportes d ON i.id_deporte = d.id_deporte
-                    WHERE i.fecha_pago >= @inicio AND i.fecha_pago <= @fin
-                    GROUP BY i.id_cliente, i.fecha_pago, c.nombre, c.municipio
-                    ORDER BY i.fecha_pago DESC, Folio ASC";
+            SELECT 
+                CONCAT('1-', LPAD(i.id_pago, 5, '0')) AS Folio,
+                i.fecha_pago AS Fecha,
+                c.nombre AS Cliente,
+                CASE 
+                    WHEN i.monto_cobrado = 0 THEN CONCAT(d.nombre_deporte, ' (Beca / Adulto Mayor)')
+                    WHEN i.monto_cobrado IN (100, 200) AND d.id_deporte != 1 THEN CONCAT(d.nombre_deporte, ' (Segundo Deporte)')
+                    ELSE d.nombre_deporte 
+                END AS Concepto,
+                IF(c.municipio = 'San Pedro Garza García', 'Local', 'Foráneo') AS Tipo,
+                i.monto_cobrado AS Monto_Cobrado
+            FROM inscripciones i
+            INNER JOIN clientes c ON i.id_cliente = c.id_cliente
+            INNER JOIN deportes d ON i.id_deporte = d.id_deporte
+            WHERE DATE(i.fecha_pago) >= @inicio AND DATE(i.fecha_pago) <= @fin
+
+            UNION ALL
+
+            SELECT 
+                CONCAT('1-', LPAD(iserv.id_pago, 5, '0')) AS Folio,
+                iserv.fecha_pago AS Fecha,
+                c.nombre AS Cliente,
+                s.nombre_servicio AS Concepto,
+                IF(c.municipio = 'San Pedro Garza García', 'Local', 'Foráneo') AS Tipo,
+                iserv.monto_cobrado AS Monto_Cobrado
+            FROM inscripciones_servicios iserv
+            INNER JOIN clientes c ON iserv.id_cliente = c.id_cliente
+            INNER JOIN servicios s ON iserv.id_servicio = s.id_servicio
+            WHERE DATE(iserv.fecha_pago) >= @inicio AND DATE(iserv.fecha_pago) <= @fin
+
+            ORDER BY Folio DESC, Concepto ASC";
 
                 MySqlCommand cmd = new MySqlCommand(query, conexion);
+                // Usamos tus DateTimPickers originales
                 cmd.Parameters.AddWithValue("@inicio", dtpDesde.Value.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@fin", dtpHasta.Value.ToString("yyyy-MM-dd"));
 
@@ -72,20 +89,20 @@ namespace SistemaGimnasioSP
                 decimal granTotal = 0;
                 foreach (DataRow fila in tablaCortes.Rows)
                 {
-                    granTotal += Convert.ToDecimal(fila["Total_Pagado"]);
+                    granTotal += Convert.ToDecimal(fila["Monto_Cobrado"]);
                 }
 
                 // Llenamos el DataGridView
                 dgvCortes.DataSource = tablaCortes;
 
                 // Formato visual para que se vea más profesional la tabla
-                if (dgvCortes.Columns.Contains("Total_Pagado"))
+                if (dgvCortes.Columns.Contains("Monto_Cobrado"))
                 {
-                    dgvCortes.Columns["Total_Pagado"].HeaderText = "Monto Total";
-                    dgvCortes.Columns["Total_Pagado"].DefaultCellStyle.Format = "C2"; // Formato de moneda ($)
+                    dgvCortes.Columns["Monto_Cobrado"].HeaderText = "Monto Total";
+                    dgvCortes.Columns["Monto_Cobrado"].DefaultCellStyle.Format = "C2"; // Formato de moneda ($)
                 }
 
-                // Actualizamos el Label
+                // Actualizamos tu Label original
                 lblGranTotal.Text = $"GRAN TOTAL: {granTotal:C}";
             }
             catch (Exception ex)
@@ -106,7 +123,8 @@ namespace SistemaGimnasioSP
 
             try
             {
-                string query = "SELECT MAX(id_inscripcion) FROM inscripciones";
+                // Ahora busca el máximo en la tabla de pagos reales
+                string query = "SELECT MAX(id_pago) FROM pagos";
                 MySqlCommand cmd = new MySqlCommand(query, conexion);
                 object resultado = cmd.ExecuteScalar();
                 int maxId = (resultado == DBNull.Value || resultado == null) ? 0 : Convert.ToInt32(resultado);
@@ -144,14 +162,12 @@ namespace SistemaGimnasioSP
                     titulo.Alignment = Element.ALIGN_CENTER;
                     documento.Add(titulo);
 
-                    // Contamos columnas visibles (aunque ahora todas deberían serlo)
                     int columnasVisibles = 0;
                     foreach (DataGridViewColumn col in dgvCortes.Columns) if (col.Visible) columnasVisibles++;
 
                     PdfPTable tablaPdf = new PdfPTable(columnasVisibles);
                     tablaPdf.WidthPercentage = 100;
 
-                    // Ajustar anchos relativos (ejemplo: hacer la columna de Conceptos más ancha)
                     float[] anchos = new float[] { 1.5f, 2f, 3f, 4f, 2f };
                     if (columnasVisibles == 5) tablaPdf.SetWidths(anchos);
 
@@ -174,9 +190,9 @@ namespace SistemaGimnasioSP
                             {
                                 if (dgvCortes.Columns[celda.ColumnIndex].Visible)
                                 {
-                                    // Validamos si es la columna de Total_Pagado para darle formato en el PDF
                                     string valor = celda.Value?.ToString() ?? "";
-                                    if (dgvCortes.Columns[celda.ColumnIndex].Name == "Total_Pagado" && decimal.TryParse(valor, out decimal monto))
+                                    // 🌟 Ajuste aquí: Ahora se llama Monto_Cobrado
+                                    if (dgvCortes.Columns[celda.ColumnIndex].Name == "Monto_Cobrado" && decimal.TryParse(valor, out decimal monto))
                                     {
                                         valor = monto.ToString("C2");
                                     }

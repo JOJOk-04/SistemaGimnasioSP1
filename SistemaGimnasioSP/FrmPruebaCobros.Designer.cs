@@ -94,7 +94,7 @@
             this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.Font = new System.Drawing.Font("Bahnschrift", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2Button1.Font = new System.Drawing.Font("Bahnschrift", 14F, System.Drawing.FontStyle.Bold);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.Location = new System.Drawing.Point(497, 125);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -232,7 +232,7 @@
             this.btnHeterofilia.Name = "btnHeterofilia";
             this.btnHeterofilia.Size = new System.Drawing.Size(357, 103);
             this.btnHeterofilia.TabIndex = 25;
-            this.btnHeterofilia.Text = "Heterofilia";
+            this.btnHeterofilia.Text = "Halterofilia";
             this.btnHeterofilia.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             this.btnHeterofilia.UseTransparentBackground = true;
             this.btnHeterofilia.Click += new System.EventHandler(this.Heterofilia_Click);
@@ -335,14 +335,16 @@
             this.btnPaquetef1.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnPaquetef1.ForeColor = System.Drawing.Color.Black;
             this.btnPaquetef1.Image = global::SistemaGimnasioSP.Properties.Resources.partner_exchange_100dp_000000_FILL0_wght400_GRAD0_opsz48;
-            this.btnPaquetef1.ImageOffset = new System.Drawing.Point(70, 40);
+            this.btnPaquetef1.ImageOffset = new System.Drawing.Point(0, 80);
             this.btnPaquetef1.ImageSize = new System.Drawing.Size(80, 80);
             this.btnPaquetef1.Location = new System.Drawing.Point(255, 57);
             this.btnPaquetef1.Name = "btnPaquetef1";
             this.btnPaquetef1.Size = new System.Drawing.Size(284, 198);
             this.btnPaquetef1.TabIndex = 5;
-            this.btnPaquetef1.Text = "Paquete Familiar (2 personas)";
-            this.btnPaquetef1.TextOffset = new System.Drawing.Point(-20, -50);
+            this.btnPaquetef1.Text = "Paquete Familiar(2 personas)";
+            this.btnPaquetef1.TextFormatNoPrefix = true;
+            this.btnPaquetef1.TextOffset = new System.Drawing.Point(0, -80);
+            this.btnPaquetef1.Tile = true;
             this.btnPaquetef1.UseTransparentBackground = true;
             this.btnPaquetef1.Click += new System.EventHandler(this.btnPaquetef1_Click);
             // 
@@ -589,7 +591,6 @@
             this.lblTotalPagar.Size = new System.Drawing.Size(232, 41);
             this.lblTotalPagar.TabIndex = 24;
             this.lblTotalPagar.Text = "Total a Pagar :";
-            this.lblTotalPagar.Click += new System.EventHandler(this.lblTotalPagar_Click);
             // 
             // guna2PictureBox1
             // 
@@ -726,6 +727,7 @@
             // 
             // FrmPruebaCobros
             // 
+            this.AcceptButton = this.guna2Button1;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1482, 871);
