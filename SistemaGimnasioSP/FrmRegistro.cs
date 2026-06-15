@@ -35,8 +35,21 @@ namespace SistemaGimnasioSP
         private bool ValidarCampos()
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text)) return MostrarAdvertencia("Ingrese el nombre completo.", txtNombre);
-            if (string.IsNullOrWhiteSpace(txtTelefono.Text)) return MostrarAdvertencia("Ingrese el teléfono.", txtTelefono);
+            if (string.IsNullOrWhiteSpace(txtDireccion.Text)) return MostrarAdvertencia("Ingrese la dirección.", txtDireccion);
             if (cmbMunicipio.SelectedIndex == -1) return MostrarAdvertencia("Seleccione un municipio.", cmbMunicipio);
+            if (string.IsNullOrWhiteSpace(txtTelefono.Text)) return MostrarAdvertencia("Ingrese el teléfono.", txtTelefono);
+            if (string.IsNullOrWhiteSpace(txtContactoEmergencia.Text)) return MostrarAdvertencia("Ingrese el contacto de emergencia.", txtContactoEmergencia);
+            if (string.IsNullOrWhiteSpace(txtCURP.Text)) return MostrarAdvertencia("Ingrese la CURP.", txtCURP);
+            if (string.IsNullOrWhiteSpace(txtRFC.Text)) return MostrarAdvertencia("Ingrese el RFC.", txtRFC);
+            if (cmbGenero.SelectedIndex == -1) return MostrarAdvertencia("Seleccione un género.", cmbGenero);
+            if (string.IsNullOrWhiteSpace(txtEmail.Text)) return MostrarAdvertencia("Ingrese el email.", txtEmail);
+            if (string.IsNullOrWhiteSpace(txtColonia.Text)) return MostrarAdvertencia("Ingrese la colonia.", txtColonia);
+            if (string.IsNullOrWhiteSpace(txtPeso.Text)) return MostrarAdvertencia("Ingrese el peso.", txtPeso);
+            if (cmbTipoSangre.SelectedIndex == -1) return MostrarAdvertencia("Seleccione el tipo de sangre.", cmbTipoSangre);
+            if (string.IsNullOrWhiteSpace(txtAlergias.Text)) return MostrarAdvertencia("Ingrese las alergias.", txtAlergias);
+            if (string.IsNullOrWhiteSpace(txtNacionalidad.Text)) return MostrarAdvertencia("Ingrese la nacionalidad.", txtNacionalidad);
+            if (string.IsNullOrWhiteSpace(txtPadecimiento.Text)) return MostrarAdvertencia("Ingrese el padecimiento.", txtPadecimiento);
+
             return true;
         }
 
@@ -98,6 +111,7 @@ namespace SistemaGimnasioSP
                 cmd.Parameters.AddWithValue("@mail", txtEmail.Text.Trim());
                 cmd.Parameters.AddWithValue("@col", txtColonia.Text.Trim());
                 cmd.Parameters.AddWithValue("@peso", txtPeso.Text.Trim());
+                cmd.Parameters.AddWithValue("@Nacion", txtNacionalidad.Text.Trim());
                 cmd.Parameters.AddWithValue("@san", cmbTipoSangre.Text.Trim());
                 cmd.Parameters.AddWithValue("@ale", txtAlergias.Text.Trim());
                 cmd.Parameters.AddWithValue("@pad", txtPadecimiento.Text.Trim());
@@ -130,12 +144,18 @@ namespace SistemaGimnasioSP
             txtPeso.Clear(); cmbTipoSangre.SelectedIndex = -1; 
             txtAlergias.Clear();
             txtPadecimiento.Clear();
+            txtNacionalidad.Clear();
             cmbMunicipio.SelectedIndex = -1;
             cmbGenero.SelectedIndex = -1;
             dtpFechaNacimiento.Value = DateTime.Now;
         }
 
         private void guna2Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
         {
 
         }

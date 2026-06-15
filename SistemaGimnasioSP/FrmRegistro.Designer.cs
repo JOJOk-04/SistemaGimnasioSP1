@@ -42,7 +42,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cmbMunicipio = new System.Windows.Forms.ComboBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.cmbTipoSangre = new System.Windows.Forms.ComboBox();
+            this.txtNacionalidad = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -64,10 +65,11 @@
             this.BtnGuardar1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.cmbTipoSangre = new System.Windows.Forms.ComboBox();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
+            this.guna2Panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -77,7 +79,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Bahnschrift SemiBold Condensed", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(613, 113);
+            this.label1.Location = new System.Drawing.Point(613, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(333, 57);
@@ -313,7 +315,7 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 20;
             this.guna2Panel1.Controls.Add(this.cmbTipoSangre);
-            this.guna2Panel1.Controls.Add(this.textBox9);
+            this.guna2Panel1.Controls.Add(this.txtNacionalidad);
             this.guna2Panel1.Controls.Add(this.label17);
             this.guna2Panel1.Controls.Add(this.label13);
             this.guna2Panel1.Controls.Add(this.label14);
@@ -346,23 +348,47 @@
             this.guna2Panel1.Controls.Add(this.txtDireccion);
             this.guna2Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.guna2Panel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.guna2Panel1.Location = new System.Drawing.Point(146, 182);
+            this.guna2Panel1.Location = new System.Drawing.Point(146, 99);
             this.guna2Panel1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1230, 667);
+            this.guna2Panel1.Size = new System.Drawing.Size(1230, 648);
             this.guna2Panel1.TabIndex = 16;
             // 
-            // textBox9
+            // cmbTipoSangre
             // 
-            this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.cmbTipoSangre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox9.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(314, 599);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(303, 32);
-            this.textBox9.TabIndex = 35;
+            this.cmbTipoSangre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoSangre.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoSangre.FormattingEnabled = true;
+            this.cmbTipoSangre.Items.AddRange(new object[] {
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "O+",
+            "O-",
+            "AB+",
+            "AB-"});
+            this.cmbTipoSangre.Location = new System.Drawing.Point(900, 125);
+            this.cmbTipoSangre.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbTipoSangre.Name = "cmbTipoSangre";
+            this.cmbTipoSangre.Size = new System.Drawing.Size(303, 32);
+            this.cmbTipoSangre.TabIndex = 36;
+            // 
+            // txtNacionalidad
+            // 
+            this.txtNacionalidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNacionalidad.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNacionalidad.Location = new System.Drawing.Point(314, 599);
+            this.txtNacionalidad.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNacionalidad.Name = "txtNacionalidad";
+            this.txtNacionalidad.Size = new System.Drawing.Size(303, 32);
+            this.txtNacionalidad.TabIndex = 35;
+            this.txtNacionalidad.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // label17
             // 
@@ -640,7 +666,7 @@
             this.BtnGuardar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(46)))), ((int)(((byte)(96)))));
             this.BtnGuardar1.Font = new System.Drawing.Font("Bahnschrift", 16.2F, System.Drawing.FontStyle.Bold);
             this.BtnGuardar1.ForeColor = System.Drawing.Color.White;
-            this.BtnGuardar1.Location = new System.Drawing.Point(653, 882);
+            this.BtnGuardar1.Location = new System.Drawing.Point(33, 15);
             this.BtnGuardar1.Margin = new System.Windows.Forms.Padding(2);
             this.BtnGuardar1.Name = "BtnGuardar1";
             this.BtnGuardar1.Size = new System.Drawing.Size(248, 56);
@@ -665,8 +691,8 @@
             // 
             // guna2Panel2
             // 
+            this.guna2Panel2.Controls.Add(this.guna2Panel3);
             this.guna2Panel2.Controls.Add(this.guna2Panel1);
-            this.guna2Panel2.Controls.Add(this.BtnGuardar1);
             this.guna2Panel2.Controls.Add(this.label1);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel2.Location = new System.Drawing.Point(0, 0);
@@ -676,28 +702,13 @@
             this.guna2Panel2.TabIndex = 28;
             this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
             // 
-            // cmbTipoSangre
+            // guna2Panel3
             // 
-            this.cmbTipoSangre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoSangre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoSangre.Font = new System.Drawing.Font("Bahnschrift Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbTipoSangre.FormattingEnabled = true;
-            this.cmbTipoSangre.Items.AddRange(new object[] {
-            "A+",
-            "A-",
-            "B+",
-            "B-",
-            "O+",
-            "O-",
-            "AB+",
-            "AB-"});
-            this.cmbTipoSangre.Location = new System.Drawing.Point(900, 125);
-            this.cmbTipoSangre.Margin = new System.Windows.Forms.Padding(2);
-            this.cmbTipoSangre.Name = "cmbTipoSangre";
-            this.cmbTipoSangre.Size = new System.Drawing.Size(303, 32);
-            this.cmbTipoSangre.TabIndex = 36;
+            this.guna2Panel3.Controls.Add(this.BtnGuardar1);
+            this.guna2Panel3.Location = new System.Drawing.Point(623, 752);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(300, 100);
+            this.guna2Panel3.TabIndex = 17;
             // 
             // FrmRegistro
             // 
@@ -719,6 +730,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
+            this.guna2Panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -758,9 +770,10 @@
         private System.Windows.Forms.TextBox txtPeso;
         private System.Windows.Forms.TextBox txtColonia;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox txtNacionalidad;
         private System.Windows.Forms.Label label17;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private System.Windows.Forms.ComboBox cmbTipoSangre;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
     }
 }
