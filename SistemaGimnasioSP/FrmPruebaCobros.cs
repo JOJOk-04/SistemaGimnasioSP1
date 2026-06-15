@@ -741,6 +741,9 @@ namespace SistemaGimnasioSP
         // =====================================================================
         // MÉTODO DE INTELIGENCIA DE PRECIOS (NUEVO)
         // =====================================================================
+        // =====================================================================
+        // MÉTODO DE INTELIGENCIA DE PRECIOS (CORREGIDO Y BLINDADO)
+        // =====================================================================
         private bool TieneBeneficioActivo(string idCliente)
         {
             bool tieneBeneficio = false;
@@ -751,12 +754,9 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // Revisa si es familiar de alguien o si ya tiene un deporte pagado que no ha vencido
-                    string query = @"
-                        SELECT 
-                            (SELECT COUNT(*) FROM clientes WHERE id_cliente = @id AND id_titular_familia IS NOT NULL)
-                            +
-                            (SELECT COUNT(*) FROM inscripciones WHERE id_cliente = @id AND fecha_vencimiento > CURDATE())";
+                    // ✨ MAGIA AQUÍ: Ya no leemos si tiene familia. 
+                    // Solo nos importa si HOY tiene al menos 1 deporte pagado y activo (sin vencer).
+                    string query = "SELECT COUNT(*) FROM inscripciones WHERE id_cliente = @id AND fecha_vencimiento > CURDATE()";
 
                     MySqlCommand cmd = new MySqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@id", idCliente);
@@ -764,6 +764,8 @@ namespace SistemaGimnasioSP
 
                     if (coincidencias > 0)
                     {
+                        // Como ya tiene algo activo (ya sea individual o por el paquete de su papá), 
+                        // se le hace válido el precio barato de "Segundo Deporte".
                         tieneBeneficio = true;
                     }
                 }
@@ -774,21 +776,38 @@ namespace SistemaGimnasioSP
         }
         private void LimpiarPantallaCobros()
         {
+            // 1. Limpiar campos de texto y labels de información
             txtBusquedaId.Clear();
             idClientePrincipal = "";
             lblNombre.Text = "Nombre: ---";
             lblEdad.Text = "Edad: ---";
+            lblEdad.ForeColor = Color.Black; // Quitamos el verde de adulto mayor por si acaso
             lblMunicipio.Text = "Municipio: ---";
             lblTotalPagar.Text = "Total a Pagar: $0.00";
 
+            // 2. Vaciar las "bolsas" de memoria RAM
             deportesSeleccionados.Clear();
+            serviciosSeleccionados.Clear(); // Limpiamos también las ligas y extras
             carritoFamiliarPendiente.Clear();
             subtotalDeportes = 0;
+            subtotalServicios = 0;
 
-            btnAcondicionamiento.BackColor = Color.White;
-            btnFutbol.BackColor = Color.White;
-            btnTaekwondo.BackColor = Color.White;
-            btnRitmos.BackColor = Color.White;
+            // 3. ✨ EL SECRETO DE GUNA: Apagar los botones usando FillColor ✨
+
+            // Apagamos los botones de Deportes
+            if (btnAcondicionamiento is Guna.UI2.WinForms.Guna2Button btn1) btn1.FillColor = Color.White;
+            if (btnFutbol is Guna.UI2.WinForms.Guna2Button btn2) btn2.FillColor = Color.White;
+            if (btnTaekwondo is Guna.UI2.WinForms.Guna2Button btn3) btn3.FillColor = Color.White;
+            if (btnHeterofilia is Guna.UI2.WinForms.Guna2Button btn4) btn4.FillColor = Color.White;
+            if (btnRitmos is Guna.UI2.WinForms.Guna2Button btn5) btn5.FillColor = Color.White;
+
+            // Apagamos los botones de Servicios Extras
+            if (btnLigasdeFutbol is Guna.UI2.WinForms.Guna2Button btn6) btn6.FillColor = Color.White;
+            if (btnEquipoSoftbol is Guna.UI2.WinForms.Guna2Button btn7) btn7.FillColor = Color.White;
+            if (btnCampamento is Guna.UI2.WinForms.Guna2Button btn8) btn8.FillColor = Color.White;
+            if (btnAgregarHno is Guna.UI2.WinForms.Guna2Button btn9) btn9.FillColor = Color.White;
+            if (btnNiño is Guna.UI2.WinForms.Guna2Button btn10) btn10.FillColor = Color.White;
+            if (btnAdulto is Guna.UI2.WinForms.Guna2Button btn11) btn11.FillColor = Color.White;
         }
 
     }
