@@ -18,6 +18,7 @@ namespace SistemaGimnasioSP
     {
         // === BOLSAS DE MEMORIA ===
         string idClientePrincipal = "";
+        string usuarioAutorizoTicket = ""; // ✨ Memoria para el nombre de quien dio la beca/colaborador
 
         // Bolsa 1: Para los deportes individuales (Acondicionamiento, Box, etc)
         List<int> deportesSeleccionados = new List<int>();
@@ -28,6 +29,7 @@ namespace SistemaGimnasioSP
         decimal subtotalServicios = 0;
 
         List<InscripcionTemporal> carritoFamiliarPendiente = new List<InscripcionTemporal>();
+
 
         public FrmPruebaCobros()
         {
@@ -502,7 +504,10 @@ namespace SistemaGimnasioSP
                 return; // Si cancela la ventana, abortamos la misión
             }
 
-            if (ventanaCaja.EsBecaAutorizada)
+            // ✨ CORRECCIÓN AQUÍ: Evaluamos la nueva propiedad de texto de la caja
+            bool esGratisAutorizado = (ventanaCaja.TipoAutorizacion == "Becado" || ventanaCaja.TipoAutorizacion == "Colaborador");
+
+            if (esGratisAutorizado)
             {
                 totalLimpioTransaccion = 0; // Si puso contraseña, el total será gratis
             }
@@ -524,19 +529,27 @@ namespace SistemaGimnasioSP
                     int.TryParse(edadTexto, out edad);
                     bool esSenior = (edad >= 60);
 
-                    if (ventanaCaja.EsBecaAutorizada)
+                    if (esGratisAutorizado)
                     {
-                        esSenior = true; // Trucazo: esto obligará a los desgloses a guardar 0.00
+                        totalLimpioTransaccion = 0; // El total será gratis
+                        usuarioAutorizoTicket = ventanaCaja.UsuarioAutorizo; // ✨ CAPTURAMOS EL NOMBRE DE LA VENTANA CAJA
                     }
+                    else
+                    {
+                        usuarioAutorizoTicket = ""; // Si fue pago normal, se queda vacío
+                    }
+                    // ✨ PREPARACIÓN PARA LOS CORTES: Si es gratis, guardamos el motivo exacto, si no, 'Efectivo'
+                    string metodoPagoReal = esGratisAutorizado ? ventanaCaja.TipoAutorizacion : "Efectivo";
 
-                    // REGISTRAR EL FOLIO MAESTRO
+                    // REGISTRAR EL FOLIO MAESTRO (Cambiamos el 'Efectivo' fijo por la variable @metodo)
                     string queryPagoMaestro = @"INSERT INTO pagos (id_cliente, monto_cobrado, fecha_pago, metodo_pago, id_usuario) 
-                                                VALUES (@idC, @monto, NOW(), 'Efectivo', 1);
+                                                VALUES (@idC, @monto, NOW(), @metodo, 1);
                                                 SELECT LAST_INSERT_ID();";
 
                     MySqlCommand cmdPago = new MySqlCommand(queryPagoMaestro, conexion, transaccion);
                     cmdPago.Parameters.AddWithValue("@idC", idClientePrincipal);
                     cmdPago.Parameters.AddWithValue("@monto", totalLimpioTransaccion);
+                    cmdPago.Parameters.AddWithValue("@metodo", metodoPagoReal); // En BD dirá 'Becado' o 'Colaborador'
                     int idPagoGenerado = Convert.ToInt32(cmdPago.ExecuteScalar());
 
                     // Variables de descuentos
@@ -544,7 +557,7 @@ namespace SistemaGimnasioSP
                     bool esLocal = (municipioPuro == "San Pedro Garza García");
                     decimal costoExtra = esLocal ? 100 : 200;
 
-                    // ✨ PREGUNTAMOS SI EL CLIENTE YA TIENE BENEFICIOS 
+                    // PREGUNTAMOS SI EL CLIENTE YA TIENE BENEFICIOS 
                     bool yaTieneBeneficio = TieneBeneficioActivo(idClientePrincipal);
 
                     // =================================================================
@@ -561,8 +574,8 @@ namespace SistemaGimnasioSP
                             cmdInsc.Parameters.AddWithValue("@idD", item.IdDeporte);
                             cmdInsc.Parameters.AddWithValue("@idPago", idPagoGenerado);
 
-                            // Si es becado se fuerza a 0, si no, respeta el monto familiar
-                            cmdInsc.Parameters.AddWithValue("@montoCobrado", ventanaCaja.EsBecaAutorizada ? 0 : item.Monto);
+                            // Si es gratis se fuerza a 0, si no, respeta el monto familiar
+                            cmdInsc.Parameters.AddWithValue("@montoCobrado", esGratisAutorizado ? 0 : item.Monto);
                             cmdInsc.ExecuteNonQuery();
 
                             string queryFamilia = "UPDATE clientes SET id_titular_familia = @idTitular WHERE id_cliente = @idHijo AND id_cliente != @idTitular";
@@ -581,7 +594,6 @@ namespace SistemaGimnasioSP
 
                             if (!esSenior)
                             {
-                                // ✨ REGLA INTELIGENTE: Cobra completo solo si es el primero y NO tiene beneficio activo
                                 if (i == 0 && !yaTieneBeneficio)
                                 {
                                     string queryPrecio = $"SELECT {(esLocal ? "precio_local" : "precio_foraneo")} FROM deportes WHERE id_deporte = @id";
@@ -591,7 +603,7 @@ namespace SistemaGimnasioSP
                                 }
                                 else
                                 {
-                                    montoCobradoRenglon = costoExtra; // 100 o 200 pesos
+                                    montoCobradoRenglon = costoExtra;
                                 }
                             }
 
@@ -619,7 +631,7 @@ namespace SistemaGimnasioSP
                             cmdPrecioS.Parameters.AddWithValue("@id", idService);
                             decimal montoServicio = Convert.ToDecimal(cmdPrecioS.ExecuteScalar());
 
-                            if (ventanaCaja.EsBecaAutorizada) montoServicio = 0; // Si es servidor público, los servicios también bajan a 0
+                            if (esGratisAutorizado) montoServicio = 0; // Si es descuento especial baja a 0
 
                             string queryInscServicio = @"INSERT INTO inscripciones_servicios 
                                                          (id_cliente, id_servicio, id_pago, monto_cobrado, fecha_pago) 
@@ -700,6 +712,9 @@ namespace SistemaGimnasioSP
             graficos.DrawString("CONCEPTOS PAGADOS:", fuenteTitulo, Brushes.Black, margen, y);
             y += 20;
 
+            // ✨ VARIABLE PARA SABER SI HUBO DESCUENTO
+            string etiquetaDescuento = "";
+
             ConexionDB bd = new ConexionDB();
             MySqlConnection conexion = bd.AbrirConexion();
 
@@ -707,6 +722,7 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
+                    // 1. Imprime los deportes
                     foreach (int idD in deportesSeleccionados)
                     {
                         MySqlCommand cmdD = new MySqlCommand("SELECT nombre_deporte FROM deportes WHERE id_deporte = @id", conexion);
@@ -716,6 +732,7 @@ namespace SistemaGimnasioSP
                         y += 20;
                     }
 
+                    // 2. Imprime los servicios extra
                     foreach (int idS in serviciosSeleccionados)
                     {
                         MySqlCommand cmdS = new MySqlCommand("SELECT nombre_servicio FROM servicios WHERE id_servicio = @id", conexion);
@@ -724,20 +741,62 @@ namespace SistemaGimnasioSP
                         graficos.DrawString("- " + nombreServ, fuenteNormal, Brushes.Black, margen, y);
                         y += 20;
                     }
+
+                    // 3. ✨ CEREBRO DEL TICKET: Revisamos en BD si el pago que acabamos de guardar fue gratis
+                    MySqlCommand cmdMetodo = new MySqlCommand("SELECT metodo_pago FROM pagos WHERE id_cliente = @idC ORDER BY id_pago DESC LIMIT 1", conexion);
+                    cmdMetodo.Parameters.AddWithValue("@idC", idClientePrincipal);
+                    string metodoPago = cmdMetodo.ExecuteScalar()?.ToString() ?? "Efectivo";
+
+                    if (metodoPago == "Becado") etiquetaDescuento = "BECA DEPORTIVA (100% DESC)";
+                    else if (metodoPago == "Colaborador") etiquetaDescuento = "PRESTACIÓN EMPLEADO (100% DESC)";
                 }
                 finally { bd.CerrarConexion(); }
+            }
+
+            // 4. ✨ REVISIÓN DE ADULTO MAYOR
+            int edad = 0;
+            string edadTexto = lblEdad.Text.Replace("Edad:", "").Replace("años", "").Trim();
+            int.TryParse(edadTexto, out edad);
+
+            if (edad >= 60 && etiquetaDescuento == "")
+            {
+                etiquetaDescuento = "INAPAM / ADULTO MAYOR (100% DESC)";
             }
 
             graficos.DrawString("--------------------------------", fuenteNormal, Brushes.Black, margen, y);
             y += 20;
 
-            graficos.DrawString(lblTotalPagar.Text, fuenteTitulo, Brushes.Black, margen, y);
+            // 5. ✨ IMPRESIÓN DEL TOTAL Y DE QUIÉN AUTORIZÓ
+            if (etiquetaDescuento != "")
+            {
+                // Pinta el motivo (Beca, Colaborador, o INAPAM)
+                graficos.DrawString("Motivo: " + etiquetaDescuento, fuentePequeña, Brushes.Black, margen, y);
+                y += 15;
+
+                // Pinta el nombre del gerente que metió la contraseña (si está vacío, no pinta nada)
+                if (!string.IsNullOrEmpty(usuarioAutorizoTicket))
+                {
+                    graficos.DrawString("Autorizó: " + usuarioAutorizoTicket, fuentePequeña, Brushes.Black, margen, y);
+                    y += 15;
+                }
+
+                // Como es 100% de descuento, forzamos la vista del ticket a cero
+                graficos.DrawString("TOTAL PAGADO: $0.00", fuenteTitulo, Brushes.Black, margen, y);
+            }
+            else
+            {
+                // Si no hubo descuento, se cobra normal en efectivo
+                string textoTotal = lblTotalPagar.Text.ToUpper().Replace("TOTAL A PAGAR", "TOTAL PAGADO");
+                graficos.DrawString(textoTotal, fuenteTitulo, Brushes.Black, margen, y);
+            }
+
             y += 40;
 
             graficos.DrawString("¡Gracias por fomentar el deporte!", fuentePequeña, Brushes.Black, margen, y);
             y += 15;
             graficos.DrawString("Conserve este ticket.", fuentePequeña, Brushes.Black, margen, y);
         }
+
         // =====================================================================
         // MÉTODO DE INTELIGENCIA DE PRECIOS (NUEVO)
         // =====================================================================
@@ -791,6 +850,8 @@ namespace SistemaGimnasioSP
             carritoFamiliarPendiente.Clear();
             subtotalDeportes = 0;
             subtotalServicios = 0;
+            // Al final de tu método LimpiarPantallaCobros agregas:
+            usuarioAutorizoTicket = ""; // Limpieza total
 
             // 3. ✨ EL SECRETO DE GUNA: Apagar los botones usando FillColor ✨
 

@@ -40,6 +40,7 @@
             // 
             // btnBeca
             // 
+            this.btnBeca.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnBeca.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnBeca.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnBeca.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -55,13 +56,14 @@
             // 
             // btnConfirmar
             // 
+            this.btnConfirmar.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnConfirmar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnConfirmar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnConfirmar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnConfirmar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnConfirmar.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnConfirmar.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmar.Location = new System.Drawing.Point(180, 379);
+            this.btnConfirmar.Location = new System.Drawing.Point(168, 379);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(180, 45);
             this.btnConfirmar.TabIndex = 1;
@@ -130,6 +132,7 @@
             // 
             // btnColaborador
             // 
+            this.btnColaborador.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
             this.btnColaborador.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnColaborador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnColaborador.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -141,6 +144,7 @@
             this.btnColaborador.Size = new System.Drawing.Size(180, 45);
             this.btnColaborador.TabIndex = 7;
             this.btnColaborador.Text = "COLABORADOR";
+            this.btnColaborador.Click += new System.EventHandler(this.btnColaborador_Click);
             // 
             // FrmCaja
             // 
