@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Media; // Agregado para habilitar los sonidos del sistema
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -57,6 +58,7 @@ namespace AccesosGimnasioSP1
                 }
                 catch (Exception ex)
                 {
+                    SystemSounds.Hand.Play(); // Sonido malo
                     MessageBox.Show("Error al cargar deportes: " + ex.Message);
                 }
                 finally
@@ -98,6 +100,7 @@ namespace AccesosGimnasioSP1
         {
             if (BtnOpcionesDeportes.SelectedItem == null)
             {
+                SystemSounds.Hand.Play(); // Sonido malo
                 MostrarMensajeTemporal("¡SELECCIONA UN DEPORTE!", Color.Red, "---");
                 return;
             }
@@ -110,12 +113,17 @@ namespace AccesosGimnasioSP1
             {
                 VerificarAcceso(gafete, idDeporte);
             }
+            else
+            {
+                SystemSounds.Hand.Play(); // Sonido malo si mandan el campo vacío
+            }
         }
 
         private void VerificarAcceso(string idCliente, int idDeporte)
         {
             if (idCliente.Length != 5 || !int.TryParse(idCliente, out _))
             {
+                SystemSounds.Hand.Play(); // Sonido malo
                 MostrarMensajeTemporal("ID INVÁLIDO", Color.Red, "---");
                 return;
             }
@@ -123,7 +131,11 @@ namespace AccesosGimnasioSP1
             ConexionDB baseDatos = new ConexionDB();
             MySqlConnection conexion = baseDatos.AbrirConexion();
 
-            if (conexion == null) return;
+            if (conexion == null)
+            {
+                SystemSounds.Hand.Play(); // Sonido malo
+                return;
+            }
 
             try
             {
@@ -170,22 +182,26 @@ namespace AccesosGimnasioSP1
                                     cmdInsert.Parameters.AddWithValue("@idDeporte", idDeporte);
                                     cmdInsert.ExecuteNonQuery();
                                 }
+                                SystemSounds.Asterisk.Play(); // Sonido bueno (éxito)
                                 MostrarMensajeTemporal($"¡ACCESO: {nombre}!", Color.LimeGreen, nombre);
                             }
                             else
                             {
+                                SystemSounds.Exclamation.Play(); // Sonido de advertencia (ya había entrado)
                                 MostrarMensajeTemporal("YA SE REGISTRÓ HOY EN ESTE DEPORTE", Color.Orange, nombre);
                             }
                         }
                     }
                     else
                     {
+                        SystemSounds.Hand.Play(); // Sonido malo
                         MostrarMensajeTemporal("SIN INSCRIPCIÓN VIGENTE EN ESTE DEPORTE", Color.Red, "---");
                     }
                 }
             }
             catch (Exception ex)
             {
+                SystemSounds.Hand.Play(); // Sonido malo
                 MessageBox.Show("Error en el proceso: " + ex.Message);
             }
             finally
