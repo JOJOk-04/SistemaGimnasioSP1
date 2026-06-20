@@ -36,18 +36,16 @@ namespace SistemaGimnasioSP
             lblEstatusResultado.ForeColor = System.Drawing.Color.Black;
 
             // Datos nuevos agregados
-            //lblDireccionResultado.Text = "Dirección: ---";
-            //lblColoniaResultado.Text = "Colonia: ---";
-            //lblTelefonoResultado.Text = "Teléfono: ---";
-           // lblContactoResultado.Text = "Emergencia: ---";
-           // lblCurpResultado.Text = "CURP: ---";
-           // lblRfcResultado.Text = "RFC: ---";
-           // lblGeneroResultado.Text = "Género: ---";
-           // lblEmailResultado.Text = "Correo: ---";
-           // lblPesoResultado.Text = "Peso: ---";
+            label10.Text = "Dirección: ---";
+            label9.Text = "Colonia: ---";
+            lblTelefonoResultado.Text = "Teléfono: ---";
+            label7.Text = "Emergencia: ---";
+            label6.Text = "CURP: ---";
+            label5.Text = "RFC: ---";
+            label4.Text = "Género: ---";
+            label8.Text = "Correo: ---";
             lblSangreResultado.Text = "Sangre: ---";
             lblAlergiasResultado.Text = "Alergias: ---";
-           // lblPadecimientoResultado.Text = "Padecimiento: ---";
 
             busquedaRealizada = false;
         }
@@ -63,7 +61,6 @@ namespace SistemaGimnasioSP
 
             try
             {
-                // Se agregaron todas las columnas nuevas al SELECT
                 string query = @"SELECT c.nombre, c.fecha_nacimiento, c.municipio, 
                                         c.direccion, c.colonia, c.telefono, c.contacto_emergencia,
                                         c.curp, c.rfc, c.genero, c.email, c.peso, 
@@ -83,25 +80,21 @@ namespace SistemaGimnasioSP
                 {
                     if (lector.Read())
                     {
-                        // Llenado de datos originales
+                        // Llenado de datos
                         lblNombreResultado.Text = $"Nombre: {lector["nombre"]}";
                         lblMunicipioResultado.Text = $"Municipio: {lector["municipio"]}";
-
-                        // Llenado de datos nuevos
-                       // lblDireccionResultado.Text = $"Dirección: {lector["direccion"]}";
-                      //  lblColoniaResultado.Text = $"Colonia: {lector["colonia"]}";
-                       lblTelefonoResultado.Text = $"Teléfono: {lector["telefono"]}";
-                       // lblContactoResultado.Text = $"Emergencia: {lector["contacto_emergencia"]}";
-                       // lblCurpResultado.Text = $"CURP: {lector["curp"]}";
-                      //  lblRfcResultado.Text = $"RFC: {lector["rfc"]}";
-                      //  lblGeneroResultado.Text = $"Género: {lector["genero"]}";
-                      //  lblEmailResultado.Text = $"Correo: {lector["email"]}";
-                      //  lblPesoResultado.Text = $"Peso: {lector["peso"]}";
+                        label10.Text = $"Dirección: {lector["direccion"]}";
+                        label9.Text = $"Colonia: {lector["colonia"]}";
+                        lblTelefonoResultado.Text = $"Teléfono: {lector["telefono"]}";
+                        label7.Text = $"Emergencia: {lector["contacto_emergencia"]}";
+                        label6.Text = $"CURP: {lector["curp"]}";
+                        label5.Text = $"RFC: {lector["rfc"]}";
+                        label4.Text = $"Género: {lector["genero"]}";
+                        label8.Text = $"Correo: {lector["email"]}";
                         lblSangreResultado.Text = $"Sangre: {lector["tipo_sangre"]}";
                         lblAlergiasResultado.Text = $"Alergias: {lector["alergias"]}";
-                      //  lblPadecimientoResultado.Text = $"Padecimiento: {lector["padecimiento"]}";
 
-                        // Lógica de Estatus (Se mantiene igual)
+                        // Lógica de Estatus
                         string estatusSocio = lector["estatus_calculado"].ToString();
                         lblEstatusResultado.Text = $"Estatus: {estatusSocio}";
 
@@ -112,7 +105,7 @@ namespace SistemaGimnasioSP
                         else
                             lblEstatusResultado.ForeColor = System.Drawing.Color.DarkOrange;
 
-                        // Lógica de Edad (Se mantiene igual)
+                        // Lógica de Edad
                         DateTime fechaNac = Convert.ToDateTime(lector["fecha_nacimiento"]);
                         int edad = DateTime.Today.Year - fechaNac.Year;
                         if (fechaNac.Date > DateTime.Today.AddYears(-edad)) edad--;
@@ -133,9 +126,6 @@ namespace SistemaGimnasioSP
 
         private void GenerarGafetePDF()
         {
-            // Esta sección se mantiene EXACTAMENTE igual como pediste. 
-            // El gafete seguirá mostrando solo el Nombre, Municipio, Edad y QR.
-
             string id = txtBuscar.Text.Trim();
             string ruta = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Gafete_{id}.pdf");
 
@@ -144,10 +134,12 @@ namespace SistemaGimnasioSP
 
             try
             {
+                PageSize tamanoGafete = new PageSize(260, 380);
+
                 using (PdfWriter writer = new PdfWriter(ruta))
                 using (PdfDocument pdf = new PdfDocument(writer))
                 {
-                    Document doc = new Document(pdf, new PageSize(260, 380));
+                    Document doc = new Document(pdf, tamanoGafete);
                     doc.SetMargins(20, 20, 20, 20);
 
                     PdfFont fBold = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
@@ -158,11 +150,15 @@ namespace SistemaGimnasioSP
                     iText.Kernel.Colors.Color grisTexto = new iText.Kernel.Colors.DeviceRgb(127, 140, 141);
                     iText.Kernel.Colors.Color azulOscuro = new iText.Kernel.Colors.DeviceRgb(39, 60, 117);
 
+                    // ==========================================
+                    // --- PÁGINA 1: GAFETE FRONTAL ---
+                    // ==========================================
+
                     if (File.Exists(rutaImagen))
                     {
                         ImageData data = ImageDataFactory.Create(rutaImagen);
                         iText.Layout.Element.Image imgFondo = new iText.Layout.Element.Image(data);
-                        imgFondo.SetOpacity(0.30f).SetWidth(420).SetFixedPosition(-80, -105);
+                        imgFondo.SetOpacity(0.30f).SetWidth(420).SetFixedPosition(1, -80, -105);
                         doc.Add(imgFondo);
                     }
 
@@ -172,6 +168,7 @@ namespace SistemaGimnasioSP
                         .SetBackgroundColor(azulOscuro).SetTextAlignment(TextAlignment.CENTER).SetPadding(8).SetBorder(iText.Layout.Borders.Border.NO_BORDER));
                     doc.Add(header);
 
+                    // --- CORRECCIÓN 1 AQUÍ ---
                     Table photoFrame = new Table(1).SetWidth(90).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
                     photoFrame.SetMarginTop(15);
                     photoFrame.AddCell(new Cell().Add(new Paragraph("FOTO\nPERFIL").SetFont(fNormal).SetFontColor(grisTexto).SetFontSize(10))
@@ -201,6 +198,7 @@ namespace SistemaGimnasioSP
                             iText.Layout.Element.Image imgQR = new iText.Layout.Element.Image(qrImageData);
 
                             imgQR.SetWidth(75);
+                            // --- CORRECCIÓN 2 AQUÍ ---
                             imgQR.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
                             imgQR.SetMarginTop(10);
                             doc.Add(imgQR);
@@ -212,6 +210,52 @@ namespace SistemaGimnasioSP
                         .SetFixedPosition(1, 0, 15, 260)
                         .SetTextAlignment(TextAlignment.CENTER);
                     doc.Add(pId);
+
+                    // ==========================================
+                    // --- PÁGINA 2: FICHA TRASERA SIMPLIFICADA ---
+                    // ==========================================
+
+                    doc.Add(new AreaBreak()); // Mantiene el tamaño exacto del gafete
+
+                    doc.Add(new Paragraph("FICHA DE EMERGENCIAS")
+                        .SetFont(fBold).SetFontSize(14).SetFontColor(azulOscuro)
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetMarginBottom(10)
+                        .SetMarginTop(10));
+
+                    // Datos seleccionados para mostrar en la parte trasera
+                    string[] info = {
+                        lblNombreResultado.Text,
+                        lblEdadResultado.Text,
+                        label4.Text,  // Género
+                        lblSangreResultado.Text,
+                        label10.Text, // Dirección
+                        label9.Text,  // Colonia
+                        lblTelefonoResultado.Text,
+                        label7.Text,  // Emergencia
+                        
+                    };
+
+                    foreach (string item in info)
+                    {
+                        int separador = item.IndexOf(':');
+                        if (separador > 0)
+                        {
+                            // Separa la palabra clave del valor para poner la clave en negritas
+                            string clave = item.Substring(0, separador + 1);
+                            string valor = item.Substring(separador + 1);
+
+                            Paragraph p = new Paragraph()
+                                .Add(new Text(clave).SetFont(fBold).SetFontSize(9).SetFontColor(grisOscuro))
+                                .Add(new Text(valor).SetFont(fNormal).SetFontSize(9).SetFontColor(grisOscuro))
+                                .SetMarginBottom(3); // Espacio pequeño entre lineas
+                            doc.Add(p);
+                        }
+                        else
+                        {
+                            doc.Add(new Paragraph(item).SetFont(fNormal).SetFontSize(9).SetFontColor(grisOscuro).SetMarginBottom(3));
+                        }
+                    }
 
                     doc.Close();
                 }
@@ -235,6 +279,10 @@ namespace SistemaGimnasioSP
                 return;
             }
             GenerarGafetePDF();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
         }
     }
 }
