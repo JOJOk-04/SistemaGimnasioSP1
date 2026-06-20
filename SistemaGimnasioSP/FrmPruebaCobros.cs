@@ -541,15 +541,20 @@ namespace SistemaGimnasioSP
                     // ✨ PREPARACIÓN PARA LOS CORTES: Si es gratis, guardamos el motivo exacto, si no, 'Efectivo'
                     string metodoPagoReal = esGratisAutorizado ? ventanaCaja.TipoAutorizacion : "Efectivo";
 
-                    // REGISTRAR EL FOLIO MAESTRO (Cambiamos el 'Efectivo' fijo por la variable @metodo)
+                    // ✨ REGISTRAR EL FOLIO MAESTRO (YA SIN EL '1' FIJO)
                     string queryPagoMaestro = @"INSERT INTO pagos (id_cliente, monto_cobrado, fecha_pago, metodo_pago, id_usuario) 
-                                                VALUES (@idC, @monto, NOW(), @metodo, 1);
-                                                SELECT LAST_INSERT_ID();";
+                            VALUES (@idC, @monto, NOW(), @metodo, @idUsuario);
+                            SELECT LAST_INSERT_ID();";
 
                     MySqlCommand cmdPago = new MySqlCommand(queryPagoMaestro, conexion, transaccion);
                     cmdPago.Parameters.AddWithValue("@idC", idClientePrincipal);
                     cmdPago.Parameters.AddWithValue("@monto", totalLimpioTransaccion);
-                    cmdPago.Parameters.AddWithValue("@metodo", metodoPagoReal); // En BD dirá 'Becado' o 'Colaborador'
+                    cmdPago.Parameters.AddWithValue("@metodo", metodoPagoReal);
+
+                    // 🚨 AQUÍ ESTÁ LA MAGIA: Le pasamos el ID real
+                    // Reemplaza "VariableDeTuSesion" por la variable global donde guardas quién hizo login
+                    cmdPago.Parameters.AddWithValue("@idUsuario", UsuarioSesion.IdUsuario);
+
                     int idPagoGenerado = Convert.ToInt32(cmdPago.ExecuteScalar());
 
                     // Variables de descuentos

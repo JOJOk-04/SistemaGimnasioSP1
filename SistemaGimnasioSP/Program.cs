@@ -21,7 +21,7 @@ namespace SistemaGimnasioSP
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmPruebaMenu()); // Asegúrate que este sea tu form de inicio
+            Application.Run(new FrmLogin()); // Asegúrate que este sea tu form de inicio
             /// <summary>
             /// Punto de entrada principal para la aplicación.
             /// </summary>

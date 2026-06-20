@@ -42,42 +42,30 @@ namespace SistemaGimnasioSP
 
             try
             {
-                // SQL Optimizado: Une inscripciones y servicios leyendo el dinero exacto cobrado
+                // 🚀 SQL SIMPLIFICADO: Solo dinero, clientes y cajeros.
                 string query = @"
             SELECT 
-                CONCAT('1-', LPAD(i.id_pago, 5, '0')) AS Folio,
-                i.fecha_pago AS Fecha,
+                CONCAT('1-', LPAD(p.id_pago, 5, '0')) AS Folio,
+                p.fecha_pago AS Fecha,
                 c.nombre AS Cliente,
+                
+                -- ✨ Lógica directa: Si no hay dinero, es beca. Si hay, es normal.
                 CASE 
-                    WHEN i.monto_cobrado = 0 THEN CONCAT(d.nombre_deporte, ' (Beca / Adulto Mayor)')
-                    WHEN i.monto_cobrado IN (100, 200) AND d.id_deporte != 1 THEN CONCAT(d.nombre_deporte, ' (Segundo Deporte)')
-                    ELSE d.nombre_deporte 
-                END AS Concepto,
-                IF(c.municipio = 'San Pedro Garza García', 'Local', 'Foráneo') AS Tipo,
-                i.monto_cobrado AS Monto_Cobrado
-            FROM inscripciones i
-            INNER JOIN clientes c ON i.id_cliente = c.id_cliente
-            INNER JOIN deportes d ON i.id_deporte = d.id_deporte
-            WHERE DATE(i.fecha_pago) >= @inicio AND DATE(i.fecha_pago) <= @fin
-
-            UNION ALL
-
-            SELECT 
-                CONCAT('1-', LPAD(iserv.id_pago, 5, '0')) AS Folio,
-                iserv.fecha_pago AS Fecha,
-                c.nombre AS Cliente,
-                s.nombre_servicio AS Concepto,
-                IF(c.municipio = 'San Pedro Garza García', 'Local', 'Foráneo') AS Tipo,
-                iserv.monto_cobrado AS Monto_Cobrado
-            FROM inscripciones_servicios iserv
-            INNER JOIN clientes c ON iserv.id_cliente = c.id_cliente
-            INNER JOIN servicios s ON iserv.id_servicio = s.id_servicio
-            WHERE DATE(iserv.fecha_pago) >= @inicio AND DATE(iserv.fecha_pago) <= @fin
-
-            ORDER BY Folio DESC, Concepto ASC";
+                    WHEN p.monto_cobrado = 0 THEN 'CORTESÍA / BECA'
+                    ELSE 'PAGO NORMAL' 
+                END AS Concepto_Pagado,
+                
+                COALESCE(u.nombre_completo, 'Usuario Desconocido') AS Cobrado_Por,
+                p.monto_cobrado AS Monto_Total
+                
+            FROM pagos p
+            LEFT JOIN clientes c ON p.id_cliente = c.id_cliente
+            LEFT JOIN usuarios u ON p.id_usuario = u.id_usuario
+            
+            WHERE DATE(p.fecha_pago) >= @inicio AND DATE(p.fecha_pago) <= @fin
+            ORDER BY p.fecha_pago DESC";
 
                 MySqlCommand cmd = new MySqlCommand(query, conexion);
-                // Usamos tus DateTimPickers originales
                 cmd.Parameters.AddWithValue("@inicio", dtpDesde.Value.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@fin", dtpHasta.Value.ToString("yyyy-MM-dd"));
 
@@ -85,24 +73,30 @@ namespace SistemaGimnasioSP
                 DataTable tablaCortes = new DataTable();
                 adaptador.Fill(tablaCortes);
 
-                // Sumamos el Gran Total directo de la columna calculada por SQL
+                // Sumamos la lana
                 decimal granTotal = 0;
                 foreach (DataRow fila in tablaCortes.Rows)
                 {
-                    granTotal += Convert.ToDecimal(fila["Monto_Cobrado"]);
+                    if (fila["Monto_Total"] != DBNull.Value)
+                    {
+                        granTotal += Convert.ToDecimal(fila["Monto_Total"]);
+                    }
                 }
 
-                // Llenamos el DataGridView
+                // Llenamos tu tabla visual
                 dgvCortes.DataSource = tablaCortes;
 
-                // Formato visual para que se vea más profesional la tabla
-                if (dgvCortes.Columns.Contains("Monto_Cobrado"))
+                // Le damos formato de billetes ($)
+                if (dgvCortes.Columns.Contains("Monto_Total"))
                 {
-                    dgvCortes.Columns["Monto_Cobrado"].HeaderText = "Monto Total";
-                    dgvCortes.Columns["Monto_Cobrado"].DefaultCellStyle.Format = "C2"; // Formato de moneda ($)
+                    dgvCortes.Columns["Monto_Total"].HeaderText = "Monto Total";
+                    dgvCortes.Columns["Monto_Total"].DefaultCellStyle.Format = "C2";
                 }
 
-                // Actualizamos tu Label original
+                // Ajustamos los anchos
+                if (dgvCortes.Columns.Contains("Concepto_Pagado")) dgvCortes.Columns["Concepto_Pagado"].Width = 180;
+                if (dgvCortes.Columns.Contains("Cobrado_Por")) dgvCortes.Columns["Cobrado_Por"].Width = 180;
+
                 lblGranTotal.Text = $"GRAN TOTAL: {granTotal:C}";
             }
             catch (Exception ex)
@@ -114,7 +108,6 @@ namespace SistemaGimnasioSP
                 bd.CerrarConexion();
             }
         }
-
         private void CargarProximoFolio()
         {
             ConexionDB bd = new ConexionDB();
