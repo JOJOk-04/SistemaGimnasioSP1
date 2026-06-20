@@ -128,6 +128,9 @@ namespace SistemaGimnasioSP
         // =========================================================
         // MÉTODO CENTRAL DE AUTORIZACIÓN
         // =========================================================
+        // =========================================================
+        // MÉTODO CENTRAL DE AUTORIZACIÓN (CORREGIDO Y ENCRIPTADO 🔒)
+        // =========================================================
         private void AutorizarDescuento(string tipoDescuento)
         {
             string passwordIngresada = PedirContrasenaConAsteriscos();
@@ -141,17 +144,32 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // ✨ TRAEMOS EL NOMBRE: Buscamos el nombre del empleado dueño de esa clave
-                    string query = "SELECT nombre_completo FROM usuarios WHERE contrasena = @pass LIMIT 1";
+                    // ✨ 1. En lugar de buscar la contraseña exacta, traemos a los usuarios activos y sus hashes
+                    string query = "SELECT nombre_completo, contrasena FROM usuarios WHERE estatus = 'Activo'";
                     MySqlCommand cmd = new MySqlCommand(query, conexion);
-                    cmd.Parameters.AddWithValue("@pass", passwordIngresada);
 
-                    object resultado = cmd.ExecuteScalar();
+                    string nombreEmpleado = "";
+                    bool passwordCorrecta = false;
 
-                    if (resultado != null && resultado != DBNull.Value)
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        string nombreEmpleado = resultado.ToString();
+                        while (reader.Read())
+                        {
+                            string hashGuardado = reader["contrasena"].ToString();
 
+                            // ✨ 2. LA MAGIA: Comparamos lo que escribiste con el hash de la base de datos
+                            if (BCrypt.Net.BCrypt.Verify(passwordIngresada, hashGuardado))
+                            {
+                                nombreEmpleado = reader["nombre_completo"].ToString();
+                                passwordCorrecta = true;
+                                break; // ¡Bingo! Encontramos de quién es la contraseña, nos salimos del ciclo
+                            }
+                        }
+                    }
+
+                    // ✨ 3. Validamos si la contraseña coincidió con alguien
+                    if (passwordCorrecta)
+                    {
                         MessageBox.Show($"{tipoDescuento} autorizado por {nombreEmpleado}. El cobro será de $0.00", "Autorización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         TipoAutorizacion = tipoDescuento;
@@ -165,8 +183,14 @@ namespace SistemaGimnasioSP
                         MessageBox.Show("Contraseña incorrecta o usuario no encontrado. Se denegó la operación.", "🚨 Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex) { MessageBox.Show("Error de seguridad: " + ex.Message); }
-                finally { bd.CerrarConexion(); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error de seguridad: " + ex.Message);
+                }
+                finally
+                {
+                    bd.CerrarConexion();
+                }
             }
         }
 

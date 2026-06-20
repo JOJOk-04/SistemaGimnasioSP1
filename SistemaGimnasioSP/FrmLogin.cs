@@ -30,7 +30,7 @@ namespace SistemaGimnasioSP
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-                   // 1. Atrapamos lo que escribieron
+            // 1. Atrapamos lo que escribieron
             string usuario = txtUsuario.Text.Trim();
             string passwordIngresada = txtPassword.Text.Trim();
 
@@ -48,7 +48,6 @@ namespace SistemaGimnasioSP
             {
                 try
                 {
-                    // 3. CAMBIO CLAVE: Ya no buscamos el password en el WHERE. 
                     // Buscamos solo por usuario para traer su hash y verificarlo aquí en C#.
                     string query = "SELECT id_usuario, nombre_completo, rol, contrasena, estatus FROM Usuarios WHERE usuario_login = @user";
                     MySqlCommand comando = new MySqlCommand(query, conexion);
@@ -73,6 +72,14 @@ namespace SistemaGimnasioSP
 
                             if (esValida)
                             {
+                                // =================================================================
+                                // ✨ AQUÍ LE PONEMOS EL GAFETE VIRTUAL AL USUARIO ✨
+                                // =================================================================
+                                UsuarioSesion.IdUsuario = Convert.ToInt32(lector["id_usuario"]);
+                                UsuarioSesion.NombreCompleto = lector["nombre_completo"].ToString();
+                                UsuarioSesion.Rol = lector["rol"].ToString();
+                                // =================================================================
+
                                 string nombre = lector["nombre_completo"].ToString();
                                 string rol = lector["rol"].ToString();
 
