@@ -213,7 +213,54 @@ namespace SistemaGimnasioSP
                 catch (Exception ex) { MessageBox.Show("Error al exportar PDF: " + ex.Message); }
             }
         }
+        private void btnRespaldo_Click(object sender, EventArgs e)
+        {
+            // 1. Preparamos la ruta y el nombre del archivo (Ej. Respaldo_2026-06-19_15-30-00.sql)
+            string fechaHora = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string rutaCarpeta = @"C:\Respaldos_Gimnasio";
+            string rutaArchivo = $@"{rutaCarpeta}\Respaldo_{fechaHora}.sql";
 
+            // 2. Si la carpeta "Respaldos_Gimnasio" no existe en el Disco C, la creamos
+            if (!Directory.Exists(rutaCarpeta))
+            {
+                Directory.CreateDirectory(rutaCarpeta);
+            }
+
+            // 3. Traemos tu cadena de conexión (Asegúrate de que aquí vaya la de tu clase ConexionDB que apunta a Aiven)
+            // Ejemplo: string cadena = "Server=mysql-blabla.aivencloud.com;Port=11306;Database=GimnasioSP1;Uid=avnadmin;Pwd=tu_pass;";
+            string cadenaConexion = "AQUI_PON_TU_CADENA_DE_CONEXION_DE_AIVEN";
+
+            try
+            {
+                // 4. Hacemos la magia de descargar la base de datos
+                using (MySqlConnection conn = new MySqlConnection(cadenaConexion))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = conn;
+                            conn.Open();
+                            mb.ExportToFile(rutaArchivo); // ¡Esta línea descarga y crea el archivo físico!
+                            conn.Close();
+                        }
+                    }
+                }
+
+                // 5. Le avisamos al gerente que todo salió perfecto
+                MessageBox.Show($"¡Respaldo generado con éxito!\n\nSe guardó una copia de la nube en la computadora local:\n{rutaArchivo}",
+                                "Copia de Seguridad Exitosa",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hubo un error al intentar hacer el respaldo: " + ex.Message,
+                                "Error de Conexión",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
         private void btnGenerarCorte_Click(object sender, EventArgs e)
         {
             ExportarCortePDF();
